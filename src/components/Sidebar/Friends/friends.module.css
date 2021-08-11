@@ -1,0 +1,21 @@
+.mainBlock {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.icon {
+    width: 70px;
+    height: 70px;
+
+}
+
+
+.name{
+    width: 100px;
+
+}
