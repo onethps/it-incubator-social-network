@@ -27,11 +27,9 @@ export const renderTree = () => {
 
 }
 
-
 renderTree()
 
 subscribe(renderTree)
-
 
 
 
