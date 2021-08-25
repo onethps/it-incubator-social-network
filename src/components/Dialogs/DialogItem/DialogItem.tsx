@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from '../dialogs.module.css'
-import {dialogsData} from "../dialogs";
+import {dialogsData} from "../Dialogs";
 
 
 

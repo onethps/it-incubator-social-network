@@ -1,15 +1,13 @@
 import React, {FC} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Header} from "./components/Header/header";
-import {Navigation} from "./components/Sidebar/Navigation/navigation";
 import {MainPage} from "./components/Content/mainPage";
-import {Dialogs} from "./components/Dialogs/dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/news";
 import {Music} from "./components/Music/music";
 import Sidebar from "./components/Sidebar/sidebar";
 import store, {StateType} from "./redux/state";
+import {Dialogs} from "./components/Dialogs/Dialogs";
 
 
 
@@ -29,14 +27,16 @@ const state = props.store.getState()
                     <Route path='/dialogs/' render={() =>
                         <Dialogs
                             messagesPage={state.messagePage}
-                            addMesssageTextCallBack={props.store.addMesssageText.bind(store)}
-                            updateMessageText={props.store.updateMessageText.bind(store)}
+                            dispatch={props.store.dispatch}
+                            // addMessageTextCallBack={props.store.addMessageText.bind(store)}
+                            // updateMessageText={props.store.updateMessageText.bind(store)}
                         />}/>
                     <Route path='/mainpage/' render={() =>
                         <MainPage
                             profilePage={state.profilePage}
-                            addNewPostCallback={props.store.addNewPost.bind(store)}
-                            updatePostText={props.store.updatePostText.bind(store)}
+                            // addNewPostCallback={props.store.addNewPost.bind(store)}
+                            // updatePostText={props.store.updatePostText.bind(store)}
+                            dispatch={props.store.dispatch}
                         />}/>
 
                     <Route path='/news/' component={News}/>

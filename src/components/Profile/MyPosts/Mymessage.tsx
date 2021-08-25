@@ -1,12 +1,12 @@
 import s from './Mymessage.module.css';
 import {Profile} from "../Profile";
 import React, {ChangeEvent, LegacyRef, RefObject} from "react";
+import {AddPostCreator, UpdatePostCreator} from "../../../redux/state";
 
 
 type MyMessagePropsType = {
-    addNewPostCallback: () => void
     profilePage: MyMessagePageType
-    updatePostText: (newText: string) => void
+    dispatch: (action:any) => void
 }
 
 export type MyMessagePageType = {
@@ -32,16 +32,16 @@ export const Mymessage: React.FC<MyMessagePropsType> = (props) => {
 
 
     let addPost = () => {
-        props.addNewPostCallback()
+        // props.addNewPostCallback()
+        props.dispatch(AddPostCreator())
+
     }
 
     let changePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updatePostText(e.currentTarget.value)
+        // props.updatePostText(e.currentTarget.value)
+        props.dispatch(UpdatePostCreator(e.currentTarget.value))
 
     }
-
-
-    console.log(props.profilePage.newPostText)
 
     return (
         <div>

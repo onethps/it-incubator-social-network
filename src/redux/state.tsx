@@ -1,16 +1,13 @@
-import {DialogsArrayType, messagesData} from "../components/Dialogs/dialogs";
 import {SideBarArrayType} from "../components/Sidebar/sidebar";
 import {MyMessagePageType, newPostType} from "../components/Profile/MyPosts/Mymessage";
+import {DialogsArrayType, messagesData} from "../components/Dialogs/Dialogs";
 
 export type StoreType = {
     _state: RootStateType
-    updatePostText: (newText: string) => void
-    addNewPost: () => void
     subscribe: (callback: () => void) => void
     _onChange: () => void
-    addMesssageText: () => void
-    updateMessageText: (newMessage: string) => void
     getState: () => RootStateType
+    dispatch: (action: ActionType) => void
 }
 
 
@@ -55,52 +52,105 @@ const store: StoreType = {
             ]
         }
     },
-    updatePostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._onChange()
-    },
-    addNewPost() {
-        const newPost: newPostType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likes: 0
-        }
-        this._state.profilePage.postData.push(newPost)
-        this.updatePostText('')
-        this._onChange()
-    },
 
-    addMesssageText() {
-        const newMessage: messagesData = {
-            id: 5,
-            message: this._state.messagePage.newMessageText
-        }
-        this._state.messagePage.messagesData.push(newMessage)
-        this._onChange()
-    },
-
-    updateMessageText(newMessage: string) {
-        this._state.messagePage.newMessageText = newMessage
-        this._onChange()
-    },
     _onChange() {
         console.log('State changed')
     },
-
     subscribe(callback: () => void) {
         this._onChange = callback
     },
-
-
     getState() {
         return this._state
+    },
+
+    dispatch(action) {
+        switch (action.type) {
+            case 'ADD-POST':
+                const newPost: newPostType = {
+                    id: 5,
+                    message: this._state.profilePage.newPostText,
+                    likes: 0
+                }
+                this._state.profilePage.postData.push(newPost)
+                this._state.profilePage.newPostText = ''
+                this._onChange()
+                return this._state
+            case 'UPDATE-POST':
+                this._state.profilePage.newPostText = action.newText
+                this._onChange()
+                return this._state
+            case 'ADD-MESSAGE':
+                const newMessage: messagesData = {
+                    id: 5,
+                    message: this._state.messagePage.newMessageText
+                }
+                this._state.messagePage.messagesData.push(newMessage)
+                this._onChange()
+                return this._state
+
+            case 'UPDATE-MESSAGE':
+                this._state.messagePage.newMessageText = action.newMessage
+                this._onChange()
+
+        }
     }
+}
 
 
+export const AddPostCreator = () => {
+    return {
+        type: 'ADD-POST',
+    }
+}
+
+
+export const AddNewMessage = () => {
+    return {
+        type: 'ADD-MESSAGE'
+    }
+}
+
+export const UpdatePostCreator = (newText:string): updatePostType => {
+    return {
+        type: 'UPDATE-POST',
+        newText: newText
+    }
+}
+
+export const updateMessage = (newMessage:string): updateMessageType => {
+    return {
+        type: 'UPDATE-MESSAGE',
+        newMessage: newMessage
+    }
+}
+
+
+
+export type ActionType = updateMessageType |
+    updatePostType | AddNewMessageType | addPostType
+
+
+export type updateMessageType = {
+    type: 'UPDATE-MESSAGE',
+    newMessage: string
+}
+
+export type updatePostType = {
+    type: 'UPDATE-POST',
+    newText: string
+}
+
+export type AddNewMessageType = {
+    type: 'ADD-MESSAGE'
+}
+
+export type addPostType = {
+    type: 'ADD-POST'
 }
 
 export type StateType = {
     store: StoreType
+    dispatch: (action: any) => void
 }
 export type RootStateType = {
     profilePage: MyMessagePageType
@@ -108,6 +158,5 @@ export type RootStateType = {
     sidebar: SideBarArrayType
 
 }
-
 
 export default store;
