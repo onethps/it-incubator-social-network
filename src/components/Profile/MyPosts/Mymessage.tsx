@@ -1,12 +1,12 @@
 import s from './Mymessage.module.css';
 import {Profile} from "../Profile";
 import React, {ChangeEvent, LegacyRef, RefObject} from "react";
-import {AddPostCreator, UpdatePostCreator} from "../../../redux/state";
+import {ActionType, AddPostCreator, UpdatePostCreator} from "../../../redux/state";
 
 
 type MyMessagePropsType = {
     profilePage: MyMessagePageType
-    dispatch: (action:any) => void
+    dispatch: (action:ActionType) => void
 }
 
 export type MyMessagePageType = {
@@ -47,7 +47,7 @@ export const Mymessage: React.FC<MyMessagePropsType> = (props) => {
         <div>
             My Messages
             <div className={s.Mymessage}>
-                <textarea value={props.profilePage.newPostText}
+                <textarea value={props.profilePage.newPostText}  placeholder='Write New Post'
                           onChange={changePostText}>
 
                 </textarea>

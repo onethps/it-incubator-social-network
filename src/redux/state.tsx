@@ -1,6 +1,8 @@
 import {SideBarArrayType} from "../components/Sidebar/sidebar";
 import {MyMessagePageType, newPostType} from "../components/Profile/MyPosts/Mymessage";
 import {DialogsArrayType, messagesData} from "../components/Dialogs/Dialogs";
+import {profilePageReducer} from "./profile-page-reducer";
+import {messagePageReducer} from "./message-page-reducer";
 
 export type StoreType = {
     _state: RootStateType
@@ -19,8 +21,7 @@ const store: StoreType = {
                 {id: 2, message: 'Hey, are u fine?', likes: 11},
                 {id: 3, message: 'Bye bye', likes: 8},
             ],
-            newPostText: 'it-JOra'
-
+            newPostText: ''
         },
         messagePage: {
             dialogsData: [
@@ -36,7 +37,7 @@ const store: StoreType = {
                 {id: 2, message: 'osfgsag'},
                 {id: 3, message: 'VSVQWfqwfqwf'},
             ],
-            newMessageText: '23124124'
+            newMessageText: ''
 
         },
         sidebar: {
@@ -51,6 +52,7 @@ const store: StoreType = {
                 {id: 3, name: 'Semen', avatarLink: 'https://icons.iconarchive.com/icons/sonya/swarm/256/Cat-icon.png'},
             ]
         }
+
     },
 
     _onChange() {
@@ -64,67 +66,75 @@ const store: StoreType = {
     },
 
     dispatch(action) {
-        switch (action.type) {
-            case 'ADD-POST':
-                const newPost: newPostType = {
-                    id: 5,
-                    message: this._state.profilePage.newPostText,
-                    likes: 0
-                }
-                this._state.profilePage.postData.push(newPost)
-                this._state.profilePage.newPostText = ''
-                this._onChange()
-                return this._state
-            case 'UPDATE-POST':
-                this._state.profilePage.newPostText = action.newText
-                this._onChange()
-                return this._state
-            case 'ADD-MESSAGE':
-                const newMessage: messagesData = {
-                    id: 5,
-                    message: this._state.messagePage.newMessageText
-                }
-                this._state.messagePage.messagesData.push(newMessage)
-                this._onChange()
-                return this._state
+        store._state.profilePage = profilePageReducer(store._state.profilePage, action)
+        store._state.messagePage = messagePageReducer(store._state.messagePage, action)
 
-            case 'UPDATE-MESSAGE':
-                this._state.messagePage.newMessageText = action.newMessage
-                this._onChange()
+        store._onChange()
 
-        }
+        // switch (action.type) {
+        //
+        //     case 'ADD-POST':
+        //         const newPost: newPostType = {
+        //             id: 5,
+        //             message: this._state.profilePage.newPostText,
+        //             likes: 0
+        //         }
+        //         this._state.profilePage.postData.push(newPost)
+        //         this._state.profilePage.newPostText = ''
+        //         this._onChange()
+        //         return this._state
+        //     case 'UPDATE-POST':
+        //
+        //         this._state.profilePage.newPostText = action.newText
+        //         this._onChange()
+        //         return this._state
+        //     case 'ADD-MESSAGE':
+        //         const newMessage: messagesData = {
+        //             id: 5,
+        //             message: this._state.messagePage.newMessageText
+        //         }
+        //         this._state.messagePage.messagesData.push(newMessage)
+        //         this._onChange()
+        //         return this._state
+        //
+        //     case 'UPDATE-MESSAGE':
+        //         this._state.messagePage.newMessageText = action.newMessage
+        //         this._onChange()
+        //         return this._state
+        //
+        //     default:
+        //         return this._state
+
     }
+
 }
 
-
-export const AddPostCreator = () => {
+export const AddPostCreator = (): addPostType => {
     return {
         type: 'ADD-POST',
     }
 }
 
 
-export const AddNewMessage = () => {
+export const AddNewMessage = (): AddNewMessageType => {
     return {
         type: 'ADD-MESSAGE'
     }
 }
 
-export const UpdatePostCreator = (newText:string): updatePostType => {
+export const UpdatePostCreator = (newText: string): updatePostType => {
     return {
         type: 'UPDATE-POST',
         newText: newText
     }
 }
 
-export const updateMessage = (newMessage:string): updateMessageType => {
+export const updateMessage = (newMessage: string): updateMessageType => {
     return {
         type: 'UPDATE-MESSAGE',
         newMessage: newMessage
     }
 }
-
-
 
 export type ActionType = updateMessageType |
     updatePostType | AddNewMessageType | addPostType
@@ -150,8 +160,10 @@ export type addPostType = {
 
 export type StateType = {
     store: StoreType
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
+
+
 export type RootStateType = {
     profilePage: MyMessagePageType
     messagePage: DialogsArrayType

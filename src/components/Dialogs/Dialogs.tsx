@@ -2,11 +2,11 @@ import React, {ChangeEvent, FC} from "react";
 import s from './dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
-import {AddNewMessage, updateMessage} from "../../redux/state";
+import {ActionType, AddNewMessage, updateMessage} from "../../redux/state";
 
-type DialogsPagePropsType = {
+export type DialogsPagePropsType = {
     messagesPage: DialogsArrayType
-    dispatch: (action:any) => void
+    dispatch: (action:ActionType) => void
 }
 
 
@@ -67,7 +67,7 @@ export const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
                         {messageElems}
                     </div>
                     <div className={s.newMessageBlock}>
-                        <textarea className={s.textArea} value={props.messagesPage.newMessageText}
+                        <textarea className={s.textArea} value={props.messagesPage.newMessageText} placeholder='Write New Message'
                                   onChange={updateNewMessage}/>
                         <button className={s.sendButton} onClick={sendNewMessage}> Add Message</button>
                     </div>
