@@ -34,8 +34,8 @@ const store: StoreType = {
             ],
             messagesData: [
                 {id: 1, message: 'Yo'},
-                {id: 2, message: 'osfgsag'},
-                {id: 3, message: 'VSVQWfqwfqwf'},
+                {id: 2, message: 'Hello'},
+                {id: 3, message: 'How is Going?'},
             ],
             newMessageText: ''
 

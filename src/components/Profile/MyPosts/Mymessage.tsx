@@ -1,12 +1,12 @@
 import s from './Mymessage.module.css';
 import {Profile} from "../Profile";
-import React, {ChangeEvent, LegacyRef, RefObject} from "react";
-import {ActionType, AddPostCreator, UpdatePostCreator} from "../../../redux/state";
+import React, {ChangeEvent} from "react";
 
 
 type MyMessagePropsType = {
     profilePage: MyMessagePageType
-    dispatch: (action:ActionType) => void
+    addNewPostFunc: () => void
+    updatePostTextFunc: (body: string) => void
 }
 
 export type MyMessagePageType = {
@@ -30,24 +30,22 @@ export const Mymessage: React.FC<MyMessagePropsType> = (props) => {
             <Profile message={p.message} likesCount={p.likes}/>
         </div>)
 
-
     let addPost = () => {
-        // props.addNewPostCallback()
-        props.dispatch(AddPostCreator())
+        props.addNewPostFunc()
 
     }
 
     let changePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // props.updatePostText(e.currentTarget.value)
-        props.dispatch(UpdatePostCreator(e.currentTarget.value))
-
+        // props.dispatch(UpdatePostCreator(e.currentTarget.value))
+        props.updatePostTextFunc(e.currentTarget.value)
     }
 
     return (
         <div>
             My Messages
             <div className={s.Mymessage}>
-                <textarea value={props.profilePage.newPostText}  placeholder='Write New Post'
+                <textarea value={props.profilePage.newPostText} placeholder='Write New Post'
                           onChange={changePostText}>
 
                 </textarea>
@@ -58,5 +56,3 @@ export const Mymessage: React.FC<MyMessagePropsType> = (props) => {
         </div>
     )
 }
-
-

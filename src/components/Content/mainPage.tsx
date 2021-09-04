@@ -2,24 +2,22 @@ import React from "react";
 import style from './content.module.css';
 import {Mymessage, MyMessagePageType} from "../Profile/MyPosts/Mymessage";
 import {ProfileInfo} from "../Profile/ProfileInfo/ProfileInfo";
-import {ActionType} from "../../redux/state";
+import {ActionType, StoreType} from "../../redux/state";
+import {ProfilePageContainer} from "../../redux/ProfiePageContainer";
 
 type MainPagePropsType = {
-    profilePage: MyMessagePageType
-    dispatch: (action:ActionType) => void
+    store: StoreType
+
 }
 
 
-
-export function MainPage(props:MainPagePropsType ) {
+export function MainPage(props: MainPagePropsType) {
 
 
     return <main className={style.content}>
 
         <ProfileInfo/>
-        <Mymessage dispatch={props.dispatch}
-                   profilePage={props.profilePage}
-        />
+        <ProfilePageContainer store={props.store}/>
 
 
     </main>

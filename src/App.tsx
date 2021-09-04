@@ -2,19 +2,19 @@ import React, {FC} from 'react';
 import './App.css';
 import {Header} from "./components/Header/header";
 import {MainPage} from "./components/Content/mainPage";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/news";
 import {Music} from "./components/Music/music";
 import Sidebar from "./components/Sidebar/sidebar";
 import store, {StateType} from "./redux/state";
 import {Dialogs} from "./components/Dialogs/Dialogs";
+import * as PATH from "path";
 
 
 
 
 const App: React.FC<StateType> = (props) => {
 const state = props.store.getState()
-
     return (
         <BrowserRouter>
             <div className='app__wrapper'>
@@ -24,6 +24,7 @@ const state = props.store.getState()
                     friendsList={state.sidebar.friendsList}/>
 
                 <div className='app-wrapper-content'>
+                    <Route path={'/'} exact render={() => <Redirect to={'/mainpage'}/>}/>
                     <Route path='/dialogs/' render={() =>
                         <Dialogs
                             messagesPage={state.messagePage}
@@ -33,10 +34,10 @@ const state = props.store.getState()
                         />}/>
                     <Route path='/mainpage/' render={() =>
                         <MainPage
-                            profilePage={state.profilePage}
+                            store={props.store}
                             // addNewPostCallback={props.store.addNewPost.bind(store)}
                             // updatePostText={props.store.updatePostText.bind(store)}
-                            dispatch={props.store.dispatch}
+
                         />}/>
 
                     <Route path='/news/' component={News}/>
