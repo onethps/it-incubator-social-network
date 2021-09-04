@@ -6,9 +6,8 @@ import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/news";
 import {Music} from "./components/Music/music";
 import Sidebar from "./components/Sidebar/sidebar";
-import store, {StateType} from "./redux/state";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import * as PATH from "path";
+import {StateType} from "./redux/state";
+import {DialogsPageContainer} from "./redux/DialogsPageContainer";
 
 
 
@@ -26,9 +25,8 @@ const state = props.store.getState()
                 <div className='app-wrapper-content'>
                     <Route path={'/'} exact render={() => <Redirect to={'/mainpage'}/>}/>
                     <Route path='/dialogs/' render={() =>
-                        <Dialogs
-                            messagesPage={state.messagePage}
-                            dispatch={props.store.dispatch}
+                        <DialogsPageContainer
+                            store={props.store}
                             // addMessageTextCallBack={props.store.addMessageText.bind(store)}
                             // updateMessageText={props.store.updateMessageText.bind(store)}
                         />}/>

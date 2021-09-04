@@ -1,6 +1,6 @@
 import {SideBarArrayType} from "../components/Sidebar/sidebar";
-import {MyMessagePageType, newPostType} from "../components/Profile/MyPosts/Mymessage";
-import {DialogsArrayType, messagesData} from "../components/Dialogs/Dialogs";
+import {MyMessagePageType} from "../components/Profile/MyPosts/Mymessage";
+import {DialogsArrayType} from "../components/Dialogs/Dialogs";
 import {profilePageReducer} from "./profile-page-reducer";
 import {messagePageReducer} from "./message-page-reducer";
 

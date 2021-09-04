@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import store, {
-    RootStateType, StoreType
+    RootStateType
 } from "./redux/state";
 import ReactDOM from "react-dom";
 import App from "./App";

@@ -1,6 +1,5 @@
-import s from './Mymessage.module.css';
-import React, {ChangeEvent, LegacyRef, RefObject} from "react";
-import {ActionType, AddPostCreator, StoreType, UpdatePostCreator} from "../redux/state";
+import React from "react";
+import {AddPostCreator, StoreType, UpdatePostCreator} from "../redux/state";
 import {Mymessage} from "../components/Profile/MyPosts/Mymessage";
 
 
