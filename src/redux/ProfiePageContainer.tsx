@@ -8,8 +8,6 @@ type ProfilePageContainerType = {
 }
 
 
-
-
 export const ProfilePageContainer = (props:ProfilePageContainerType) => {
     let state = props.store.getState()
 

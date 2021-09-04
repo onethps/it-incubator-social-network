@@ -10,8 +10,6 @@ import {StateType} from "./redux/state";
 import {DialogsPageContainer} from "./redux/DialogsPageContainer";
 
 
-
-
 const App: React.FC<StateType> = (props) => {
 const state = props.store.getState()
     return (
