@@ -1,14 +1,23 @@
 import {combineReducers, createStore} from "redux";
 import {messagePageReducer} from "./message-page-reducer";
 import {profilePageReducer} from "./profile-page-reducer";
+import SidebarReducer from "./sidebar-reducer";
 
 
-let reducers = combineReducers({
+let RootReducer = combineReducers({
     messagePage: messagePageReducer,
-    profilePage: profilePageReducer
+    profilePage: profilePageReducer,
+    sidebar: SidebarReducer
 })
 
-export const store = createStore(reducers);
+
+type RootReducerType = typeof RootReducer
+
+export type AppStateType = ReturnType<RootReducerType>
+
+
+
+export const store = createStore(RootReducer);
 
 
 export default  store

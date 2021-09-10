@@ -2,12 +2,13 @@ import React, {ChangeEvent, FC} from "react";
 import s from './dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
+import {DialogPropsContainerType} from "../../redux/DialogsPageContainer";
 
-export type DialogsPagePropsType = {
-    messagesPage: DialogsArrayType
-    addMessageTextCallAction: () => void
-    updateMessageTextAction: (body:string) => void
-}
+// export type DialogsPagePropsType = {
+//     messagesPage: DialogsArrayType
+//     addMessageTextCallAction: () => void
+//     updateMessageTextAction: (body:string) => void
+// }
 
 
 export type DialogsArrayType = {
@@ -29,7 +30,7 @@ export type messagesData = {
 
 
 
-export const Dialogs: React.FC<DialogsPagePropsType> = (props) => {
+export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {
 
 
     let friendsElems =

@@ -158,10 +158,10 @@ export type addPostType = {
     type: 'ADD-POST'
 }
 
-export type StateType = {
-    store: StoreType
-    dispatch: (action: ActionType) => void
-}
+// export type StateType = {
+//     store: StoreType
+//     dispatch: (action: ActionType) => void
+// }
 
 
 export type RootStateType = {

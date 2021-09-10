@@ -1,5 +1,5 @@
-import {DialogsArrayType, messagesData} from "../components/Dialogs/Dialogs";
-import {ActionType, RootStateType} from "./state";
+import {messagesData} from "../components/Dialogs/Dialogs";
+import {ActionType} from "./state";
 
 let initialState = {
     dialogsData: [
@@ -10,31 +10,40 @@ let initialState = {
         {id: 2, name: 'Slavik'},
         {id: 3, name: 'Valera'}
     ],
-        messagesData: [
-    {id: 1, message: 'Yo'},
-    {id: 2, message: 'Hello'},
-    {id: 3, message: 'How is Going?'},
-],
+    messagesData: [
+        {id: 1, message: 'Yo'},
+        {id: 2, message: 'Hello'},
+        {id: 3, message: 'How is Going?'},
+    ],
     newMessageText: ''
 
 }
 
 
+export type inicialStateMessageType = typeof initialState
 
-export const messagePageReducer = (state:DialogsArrayType = initialState, action:ActionType) => {
+
+export const messagePageReducer = (state: inicialStateMessageType = initialState, action: ActionType): inicialStateMessageType => {
+    let stateCopy;
+
     switch (action.type) {
-        case 'ADD-MESSAGE':
-            const newMessage: messagesData = {
-                id: 5,
-                message: state.newMessageText
-            }
-            state.messagesData.push(newMessage)
-            state.newMessageText = ''
-            return state
-
         case 'UPDATE-MESSAGE':
-            state.newMessageText = action.newMessage
-            return state
+            stateCopy = {
+                ...state,
+                newMessageText: action.newMessage
+            }
+            return stateCopy
+
+        case 'ADD-MESSAGE':
+            let body = state.newMessageText
+            stateCopy = {
+                ...state,
+                messagesData: [...state.messagesData, {id: 5, message: body}]
+            }
+            stateCopy.newMessageText = ''
+            return stateCopy
+
+
     }
     return state
 }

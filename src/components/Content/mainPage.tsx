@@ -4,16 +4,13 @@ import {ProfileInfo} from "../Profile/ProfileInfo/ProfileInfo";
 import {StoreType} from "../../redux/state";
 import {ProfilePageContainer} from "../../redux/ProfiePageContainer";
 
-type MainPagePropsType = {
-    store: StoreType
-}
 
-export function MainPage(props: MainPagePropsType) {
+export function MainPage() {
 
     return <main className={style.content}>
 
         <ProfileInfo/>
-        <ProfilePageContainer store={props.store}/>
+        <ProfilePageContainer/>
 
 
     </main>

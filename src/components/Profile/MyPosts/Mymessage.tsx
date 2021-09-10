@@ -1,9 +1,10 @@
 import s from './Mymessage.module.css';
 import {Profile} from "../Profile";
 import React, {ChangeEvent} from "react";
+import {ProfilePropsContainerType} from "../../../redux/ProfiePageContainer";
 
 
-type MyMessagePropsType = {
+export type MyMessagePropsType = {
     profilePage: MyMessagePageType
     addNewPostFunc: () => void
     updatePostTextFunc: (body: string) => void
@@ -23,7 +24,7 @@ export type newPostType = {
 }
 
 
-export const Mymessage: React.FC<MyMessagePropsType> = (props) => {
+export const Mymessage: React.FC<ProfilePropsContainerType> = (props) => {
 
     let postsElems = props.profilePage.postData.map(p =>
         <div>
@@ -31,14 +32,14 @@ export const Mymessage: React.FC<MyMessagePropsType> = (props) => {
         </div>)
 
     let addPost = () => {
-        props.addNewPostFunc()
+        props.addPostCallAction()
 
     }
 
     let changePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // props.updatePostText(e.currentTarget.value)
         // props.dispatch(UpdatePostCreator(e.currentTarget.value))
-        props.updatePostTextFunc(e.currentTarget.value)
+        props.updatePostCallAction(e.currentTarget.value)
     }
 
     return (

@@ -1,5 +1,5 @@
-import {MyMessagePageType, newPostType} from "../components/Profile/MyPosts/Mymessage";
 import {ActionType} from "./state";
+import {newPostType} from "../components/Profile/MyPosts/Mymessage";
 
 let initialState = {
     postData: [
@@ -11,20 +11,27 @@ let initialState = {
 }
 
 
-export const profilePageReducer = (state: MyMessagePageType = initialState, action: ActionType) => {
+
+
+export type initialProfileStateType = typeof initialState
+
+
+export const profilePageReducer = (state: initialProfileStateType = initialState, action: ActionType):initialProfileStateType => {
+    let stateCopy = {...state}
+
     switch (action.type) {
         case 'ADD-POST':
             const newPost: newPostType = {
                 id: 5,
-                message: state.newPostText,
+                message: stateCopy.newPostText,
                 likes: 0
             }
-            state.postData.push(newPost)
-            state.newPostText = ''
-            return state
+            stateCopy.postData.push(newPost)
+            stateCopy.newPostText = ''
+            return stateCopy
         case 'UPDATE-POST':
-            state.newPostText = action.newText
-            return state
+            stateCopy.newPostText = action.newText
+            return stateCopy
         default:
             return state
     }

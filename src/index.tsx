@@ -1,18 +1,19 @@
 import React from 'react';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import store, {
-    RootStateType
-} from "./redux/state";
+
 import ReactDOM from "react-dom";
 import App from "./App";
+import {Provider} from "react-redux";
+import store, {AppStateType} from "./redux/redux-store";
 
 
-export const renderTree = (state:RootStateType) => {
+export const renderTree = (state:AppStateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store} dispatch={store.dispatch.bind(store)}
-            />
+            <Provider store={store}>
+                <App />
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );

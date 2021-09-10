@@ -2,18 +2,21 @@ import React from 'react';
 import {Navigation} from "./Navigation/navigation";
 import {Friends} from "./Friends/friends";
 import s from "./sidebar.module.css"
+import {SideBarType} from "../../redux/SideBarContainter";
+
 
 export type SideBarArrayType = {
     menuLinks: Array<menuLinks>
     friendsList: Array<friendsList>
 }
 
-export type menuLinks = {
+
+ export type menuLinks = {
     id: number
     name: string
     link: string
 }
-export type friendsList = {
+ export type friendsList = {
     id: number
     name: string
     avatarLink: string
@@ -22,13 +25,13 @@ export type friendsList = {
 
 
 
-const Sidebar: React.FC<SideBarArrayType> = (props) => {
+export const Sidebar: React.FC<SideBarType> = (props) => {
 
     let navElemes =
-        props.menuLinks.map(m => <Navigation id={m.id} name={m.name} link={m.link}/>)
+        props.sidebar.menuLinks.map(m => <Navigation id={m.id} name={m.name} link={m.link}/>)
 
     let friendsElems =
-        props.friendsList.map(f => <Friends id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
+        props.sidebar.friendsList.map(f => <Friends id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
 
 
     return <div className={s.mainBlock}>

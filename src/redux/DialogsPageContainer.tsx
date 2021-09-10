@@ -1,26 +1,62 @@
 import React from "react";
-import { AddNewMessage, StoreType, updateMessage} from "../redux/state";
+import {AddNewMessage, RootStateType, StoreType, updateMessage} from "../redux/state";
 import {Dialogs} from "../components/Dialogs/Dialogs";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {AppStateType} from "./redux-store";
+import {inicialStateMessageType} from "./message-page-reducer";
 
-export type DialogsPageContainerType = {
-    store: StoreType
+// export type DialogsPageContainerType = {
+//
+// }
+// //
+// // export const DialogsPageContainer: React.FC<DialogsPageContainerType> = (props) => {
+// //
+// //     let state = props.store.getState()
+// //
+// //     const addMessageTextCallAction = () => {
+// //         props.store.dispatch(AddNewMessage())
+// //     }
+// //
+// //     let updateMessageTextAction = (body: string) => {
+// //         props.store.dispatch(updateMessage(body))
+// //     }
+// //     return (
+// //         <Dialogs messagesPage={state.messagePage} addMessageTextCallAction={addMessageTextCallAction}
+// //                  updateMessageTextAction={updateMessageTextAction}/>
+// //     )
+// // }
+
+
+type mapStatePropsType = {
+    messagesPage:inicialStateMessageType
 }
 
-export const DialogsPageContainer: React.FC<DialogsPageContainerType> = (props) => {
-
-    let state = props.store.getState()
-
-    const addMessageTextCallAction = () => {
-        props.store.dispatch(AddNewMessage())
-    }
-
-    let updateMessageTextAction = (body:string) => {
-        props.store.dispatch(updateMessage(body))
-    }
-
-
-    return (
-       <Dialogs messagesPage={state.messagePage} addMessageTextCallAction={addMessageTextCallAction} updateMessageTextAction={updateMessageTextAction}/>
-
-    )
+type MapDispatchPropsType = {
+    addMessageTextCallAction: () => void
+    updateMessageTextAction: (body: string) => void
 }
+
+
+let mapStateToProps = (state: AppStateType):mapStatePropsType => {
+    return {
+        messagesPage: state.messagePage
+    }
+}
+
+export type DialogPropsContainerType = mapStatePropsType & MapDispatchPropsType
+
+
+let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType  => {
+    return {
+        addMessageTextCallAction: () => {
+            dispatch(AddNewMessage())
+        },
+
+        updateMessageTextAction: (body: string) => {
+            dispatch(updateMessage(body))
+        }
+    }
+}
+
+export const DialogsPageContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
