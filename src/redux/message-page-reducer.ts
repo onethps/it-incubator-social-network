@@ -1,4 +1,3 @@
-import {messagesData} from "../components/Dialogs/Dialogs";
 import {ActionType} from "./state";
 
 let initialState = {

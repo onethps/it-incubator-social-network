@@ -6,14 +6,17 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import {Provider} from "react-redux";
 import store, {AppStateType} from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
 
 
-export const renderTree = (state:AppStateType) => {
+export const renderTree = (state: AppStateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <Provider store={store}>
-                <App />
-            </Provider>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
+            </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
