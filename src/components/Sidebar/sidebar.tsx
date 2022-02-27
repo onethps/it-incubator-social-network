@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigation} from "./Navigation/navigation";
+import {Links} from "./Navigation/Links";
 import {Friends} from "./Friends/friends";
 import s from "./sidebar.module.css"
 import {SideBarType} from "../../redux/SideBarContainter";
@@ -28,7 +28,7 @@ export type SideBarArrayType = {
 export const Sidebar: React.FC<SideBarType> = (props) => {
 
     let navElemes =
-        props.sidebar.menuLinks.map(m => <Navigation id={m.id} name={m.name} link={m.link}/>)
+        props.sidebar.menuLinks.map(m => <Links id={m.id} name={m.name} link={m.link}/>)
 
     let friendsElems =
         props.sidebar.friendsList.map(f => <Friends id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
@@ -43,7 +43,6 @@ export const Sidebar: React.FC<SideBarType> = (props) => {
             {friendsElems}
 
         </div>
-
     </div>
 
 }

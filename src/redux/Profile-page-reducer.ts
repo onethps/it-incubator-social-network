@@ -1,5 +1,5 @@
-import {ActionType} from "./state";
 import {newPostType} from "../components/Profile/MyPosts/Mymessage";
+import {GlobalPostType} from "./ProfiePageContainer";
 
 let initialState = {
     postData: [
@@ -9,14 +9,13 @@ let initialState = {
     ],
     newPostText: ''
 }
-
-
-
-
 export type initialProfileStateType = typeof initialState
 
 
-export const profilePageReducer = (state: initialProfileStateType = initialState, action: ActionType):initialProfileStateType => {
+
+
+
+export const profilePageReducer = (state: initialProfileStateType = initialState, action: GlobalPostType):initialProfileStateType => {
     let stateCopy = {...state}
 
     switch (action.type) {

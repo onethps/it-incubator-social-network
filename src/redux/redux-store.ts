@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from "redux";
-import {messagePageReducer} from "./message-page-reducer";
-import {profilePageReducer} from "./profile-page-reducer";
+import {messagePageReducer} from "./Message-page-reducer";
 import SidebarReducer from "./sidebar-reducer";
+import {profilePageReducer} from './Profile-page-reducer';
 
 
 let RootReducer = combineReducers({

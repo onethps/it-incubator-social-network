@@ -4,23 +4,11 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
 import {DialogPropsContainerType} from "../../redux/DialogsPageContainer";
 
-export type DialogsArrayType = {
-    dialogsData: Array<dialogsData>
-    messagesData: Array<messagesData>
-    newMessageText: string
-}
 
 export type dialogsData = {
     id: number
     name: string
 }
-export type messagesData = {
-    id: number
-    message: string
-
-}
-
-
 
 
 export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {

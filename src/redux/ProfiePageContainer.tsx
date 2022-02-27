@@ -1,10 +1,37 @@
 import React from "react";
-import {AddPostCreator, UpdatePostCreator} from "../redux/state";
 import {Mymessage} from "../components/Profile/MyPosts/Mymessage";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
-import {initialProfileStateType} from "./profile-page-reducer";
+import {initialProfileStateType} from "./Profile-page-reducer";
+
+
+type addPostType = {
+    type: 'ADD-POST'
+}
+
+type updatePostType = {
+    type:'UPDATE-POST',
+    newText:string
+}
+
+export type GlobalPostType = addPostType | updatePostType
+
+
+export const AddPostCreator = (): addPostType => {
+    return {
+        type: 'ADD-POST',
+    } as const
+}
+
+
+
+export let UpdatePostCreator = (newText:string):updatePostType => {
+    return {
+        type:'UPDATE-POST',
+        newText
+    } as const
+}
 
 
 type MapDispatchPropsType = {
@@ -18,6 +45,7 @@ type mapStatePropsType = {
 
 
 export type ProfilePropsContainerType = MapDispatchPropsType & mapStatePropsType
+
 
 
 

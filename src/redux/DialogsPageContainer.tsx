@@ -1,10 +1,9 @@
 import React from "react";
-import {AddNewMessage, RootStateType, StoreType, updateMessage} from "../redux/state";
 import {Dialogs} from "../components/Dialogs/Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "./redux-store";
-import {inicialStateMessageType} from "./message-page-reducer";
+import {AddNewMessage, inicialStateMessageType, updateMessage} from "./Message-page-reducer";
 
 // export type DialogsPageContainerType = {
 //

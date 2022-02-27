@@ -1,4 +1,5 @@
-import {ActionType} from "./state";
+
+export type inicialStateMessageType = typeof initialState
 
 let initialState = {
     dialogsData: [
@@ -18,11 +19,35 @@ let initialState = {
 
 }
 
+type updateMessageType = {
+    type: 'UPDATE-MESSAGE'
+    newMessage:string
+}
 
-export type inicialStateMessageType = typeof initialState
+export type AddNewMessageType = {
+    type: 'ADD-MESSAGE'
+}
+
+type GlobalMessagePageType = updateMessageType | AddNewMessageType
 
 
-export const messagePageReducer = (state: inicialStateMessageType = initialState, action: ActionType): inicialStateMessageType => {
+export const updateMessage = (newMessage: string): updateMessageType => {
+    return {
+        type: 'UPDATE-MESSAGE',
+        newMessage: newMessage
+    } as const
+}
+
+
+export const AddNewMessage = (): AddNewMessageType => {
+    return {
+        type: 'ADD-MESSAGE'
+    } as const
+}
+
+
+
+export const messagePageReducer = (state: inicialStateMessageType = initialState, action: GlobalMessagePageType): inicialStateMessageType => {
     let stateCopy;
 
     switch (action.type) {

@@ -9,26 +9,25 @@ import store, {AppStateType} from "./redux/redux-store";
 import {BrowserRouter} from "react-router-dom";
 
 
-export const renderTree = (state: AppStateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <BrowserRouter>
-                <Provider store={store}>
-                    <App/>
-                </Provider>
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter>
+                <App />
+                </BrowserRouter>
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );
 
-}
 
-renderTree(store.getState())
 
-store.subscribe(() => {
-    renderTree(store.getState())
-
-})
+// renderTree(store.getState())
+//
+// store.subscribe(() => {
+//     renderTree(store.getState())
+//
+// })
 
 
 // If you want to start measuring performance in your app, pass a function
