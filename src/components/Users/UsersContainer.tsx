@@ -24,7 +24,6 @@ export const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
-
 const setDataAC = (newArray:any[]) => {
     return {
         type: 'SET-DATA',

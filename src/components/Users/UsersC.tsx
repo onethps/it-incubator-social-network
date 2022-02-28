@@ -11,16 +11,10 @@ type UserPropsType = {
 
 class Users extends React.Component<UserPropsType>{
 
-    constructor(props:UserPropsType) {
-        super(props);
-        if(props.userData.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setDataAC([...response.data.items])})
-        }
-
-    }
-
-
+  componentDidMount() {
+      axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+          this.props.setDataAC([...response.data.items])})
+  }
 
     renderUsrs = this.props.userData.users.map(m => {
         return (
