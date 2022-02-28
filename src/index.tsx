@@ -5,11 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import App from "./App";
 import {Provider} from "react-redux";
-import store, {AppStateType} from "./redux/redux-store";
+import store from "./redux/redux-store";
 import {BrowserRouter} from "react-router-dom";
 
 
-    ReactDOM.render(
+ReactDOM.render(
         <React.StrictMode>
             <Provider store={store}>
                 <BrowserRouter>

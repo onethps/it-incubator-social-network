@@ -4,7 +4,7 @@ let initialState = {
     menuLinks: [
         {id: 1, name: 'MainPage', link: '/mainpage'},
         {id: 2, name: 'Dialogs', link: '/dialogs'},
-        {id: 3, name: 'News', link: '/news'}
+        {id: 3, name: 'Users', link: '/users'}
     ],
     friendsList: [
         {id: 1, name: 'Igor', avatarLink: 'https://icons.iconarchive.com/icons/sonya/swarm/256/Cat-icon.png'},

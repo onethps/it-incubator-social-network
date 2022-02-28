@@ -1,8 +1,8 @@
 import React from 'react';
-import {Links} from "./Navigation/Links";
-import {Friends} from "./Friends/friends";
+import {LeftFriendList} from "./LeftFriendList/LeftFriendList";
 import s from "./sidebar.module.css"
 import {SideBarType} from "../../redux/SideBarContainter";
+import {Link} from "react-router-dom";
 
 
 export type SideBarArrayType = {
@@ -28,16 +28,19 @@ export type SideBarArrayType = {
 export const Sidebar: React.FC<SideBarType> = (props) => {
 
     let navElemes =
-        props.sidebar.menuLinks.map(m => <Links id={m.id} name={m.name} link={m.link}/>)
+        props.sidebar.menuLinks.map(m => <Link to={m.link} className={s.NavItem}>{m.name}</Link>)
+
 
     let friendsElems =
-        props.sidebar.friendsList.map(f => <Friends id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
+        props.sidebar.friendsList.map(f => <LeftFriendList id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
 
 
     return <div className={s.mainBlock}>
 
-        <div className={s.navBlock}>
+        <div className={s.navCardBox}>
+            <div className={s.NavBlock}>
             {navElemes}
+            </div>
         </div>
         <div className={s.friendsBlock}>
             {friendsElems}

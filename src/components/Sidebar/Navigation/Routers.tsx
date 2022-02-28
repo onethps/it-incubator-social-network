@@ -1,9 +1,9 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {DialogsPageContainer} from "../../../redux/DialogsPageContainer";
-import {MainPage} from "../../Content/mainPage";
-import {News} from "../../News/news";
-import {Music} from "../../Music/music";
+import {DialogsPageContainer} from "../../Dialogs/DialogsPageContainer";
+import {ProfilePageContainer} from "../../Profile/ProfiePageContainer";
+import {UsersContainer} from "../../Users/UsersContainer";
+
 
 export const Routers = () => {
     return (
@@ -11,9 +11,8 @@ export const Routers = () => {
             <Routes>
                 <Route path="*"  element={ <Navigate to={'/mainpage'}/>}/>
                 <Route path='/dialogs/' element={<DialogsPageContainer/>}/>
-                <Route path='/mainpage/' element={<MainPage/>}/>
-                <Route path='/news/' element={News}/>
-                <Route path='/music/' element={Music}/>
+                <Route path='/mainpage/' element={  <ProfilePageContainer/>}/>
+                <Route path='/users/' element={<UsersContainer/>}/>
             </Routes>
         </div>
     );

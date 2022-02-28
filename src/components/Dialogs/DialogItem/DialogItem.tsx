@@ -12,3 +12,5 @@ export const DialogItem: React.FC<dialogsData> = (props) => {
         <NavLink to={path}>{props.name}</NavLink>
     </div>
 }
+
+

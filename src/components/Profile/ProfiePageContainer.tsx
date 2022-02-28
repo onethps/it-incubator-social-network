@@ -1,10 +1,11 @@
 import React from "react";
-import {Mymessage} from "../components/Profile/MyPosts/Mymessage";
+import {PostMessage} from "./MyPosts/PostMessage";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
-import {initialProfileStateType} from "./Profile-page-reducer";
+import {AppStateType} from "../../redux/redux-store";
+import {initialProfileStateType} from "../../redux/Profile-page-reducer";
 
+export type GlobalPostType = addPostType | updatePostType
 
 type addPostType = {
     type: 'ADD-POST'
@@ -15,16 +16,11 @@ type updatePostType = {
     newText:string
 }
 
-export type GlobalPostType = addPostType | updatePostType
-
-
 export const AddPostCreator = (): addPostType => {
     return {
         type: 'ADD-POST',
     } as const
 }
-
-
 
 export let UpdatePostCreator = (newText:string):updatePostType => {
     return {
@@ -67,9 +63,6 @@ let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType  => {
     }
 }
 
-
-
-
-export const ProfilePageContainer = connect(mapStateToProps,mapDispatchToProps)(Mymessage)
+export const ProfilePageContainer = connect(mapStateToProps,mapDispatchToProps)(PostMessage)
 
 

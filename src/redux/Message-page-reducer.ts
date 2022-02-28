@@ -24,7 +24,7 @@ type updateMessageType = {
     newMessage:string
 }
 
-export type AddNewMessageType = {
+type AddNewMessageType = {
     type: 'ADD-MESSAGE'
 }
 

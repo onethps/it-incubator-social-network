@@ -1,7 +1,8 @@
-import {newPostType} from "../components/Profile/MyPosts/Mymessage";
-import {GlobalPostType} from "./ProfiePageContainer";
+import {newPostType} from "../components/Profile/MyPosts/PostMessage";
+import {GlobalPostType} from "../components/Profile/ProfiePageContainer";
+import axios from "axios";
 
-let initialState = {
+let initialState:initialProfileStateType = {
     postData: [
         {id: 1, message: 'Hi how are u', likes: 10},
         {id: 2, message: 'Hey, are u fine?', likes: 11},
@@ -9,10 +10,19 @@ let initialState = {
     ],
     newPostText: ''
 }
-export type initialProfileStateType = typeof initialState
 
 
 
+type postDataType = {
+    id:number,
+    message: string,
+    likes: number
+}
+
+export type initialProfileStateType = {
+    postData: Array<postDataType>
+    newPostText:string
+}
 
 
 export const profilePageReducer = (state: initialProfileStateType = initialState, action: GlobalPostType):initialProfileStateType => {

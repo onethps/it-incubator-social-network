@@ -1,9 +1,9 @@
 import React from "react";
-import {Dialogs} from "../components/Dialogs/Dialogs";
+import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {AppStateType} from "./redux-store";
-import {AddNewMessage, inicialStateMessageType, updateMessage} from "./Message-page-reducer";
+import {AppStateType} from "../../redux/redux-store";
+import {AddNewMessage, inicialStateMessageType, updateMessage} from "../../redux/Message-page-reducer";
 
 // export type DialogsPageContainerType = {
 //
@@ -45,7 +45,6 @@ let mapStateToProps = (state: AppStateType):mapStatePropsType => {
 
 export type DialogPropsContainerType = mapStatePropsType & MapDispatchPropsType
 
-
 let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType  => {
     return {
         addMessageTextCallAction: () => {
@@ -54,7 +53,7 @@ let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType  => {
 
         updateMessageTextAction: (body: string) => {
             dispatch(updateMessage(body))
-        }
+        },
     }
 }
 

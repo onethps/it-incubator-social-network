@@ -1,20 +1,7 @@
-import s from './Mymessage.module.css';
-import {Profile} from "../Profile";
+import s from './PostMessage.module.css';
 import React, {ChangeEvent} from "react";
-import {ProfilePropsContainerType} from "../../../redux/ProfiePageContainer";
-
-
-export type MyMessagePropsType = {
-    profilePage: MyMessagePageType
-    addNewPostFunc: () => void
-    updatePostTextFunc: (body: string) => void
-}
-
-export type MyMessagePageType = {
-    postData: Array<newPostType>
-    newPostText: string
-}
-
+import {ProfilePropsContainerType} from "../ProfiePageContainer";
+import axios from "axios";
 
 export type newPostType = {
     id: number
@@ -24,11 +11,14 @@ export type newPostType = {
 }
 
 
-export const Mymessage: React.FC<ProfilePropsContainerType> = (props) => {
+
+
+export const PostMessage: React.FC<ProfilePropsContainerType> = (props) => {
 
     let postsElems = props.profilePage.postData.map(p =>
         <div>
-            <Profile message={p.message} likesCount={p.likes}/>
+          <div>{p.message}</div>
+          <div>{p.likes}</div>
         </div>)
 
     let addPost = () => {
@@ -37,14 +27,19 @@ export const Mymessage: React.FC<ProfilePropsContainerType> = (props) => {
     }
 
     let changePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // props.updatePostText(e.currentTarget.value)
-        // props.dispatch(UpdatePostCreator(e.currentTarget.value))
         props.updatePostCallAction(e.currentTarget.value)
     }
 
     return (
         <div>
-            My Messages
+                <div>
+                    <img className={s.imgStyle}
+                        src='https://pickydigest.com/wp-content/uploads/2017/05/fb-fanpage-cover-photo-strategies-and-tips_image11-1422x200.png'>
+                    </img>
+                </div>
+                <div>
+                    ava + text
+                </div>
             <div className={s.Mymessage}>
                 <textarea value={props.profilePage.newPostText} placeholder='Write New Post'
                           onChange={changePostText}>

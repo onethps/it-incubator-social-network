@@ -1,5 +1,5 @@
 import {SideBarArrayType} from "../components/Sidebar/sidebar";
-// import {MyMessagePageType} from "../components/Profile/MyPosts/Mymessage";
+// import {MyMessagePageType} from "../components/Profile/MyPosts/PostMessage";
 // import {DialogsArrayType} from "../components/Dialogs/Dialogs";
 // import {profilePageReducer} from "./Profile-page-reducer";
 // import {messagePageReducer} from "./Message-page-reducer";
