@@ -12,7 +12,7 @@ export const Routers = () => {
                 <Route path="*"  element={ <Navigate to={'/mainpage'}/>}/>
                 <Route path='/dialogs/' element={<DialogsPageContainer/>}/>
                 <Route path='/mainpage/' element={  <ProfilePageContainer/>}/>
-                <Route path='/users/' element={<UsersContainer/>}/>
+                <Route path='/users/' element={<UsersContainer />}/>
             </Routes>
         </div>
     );
