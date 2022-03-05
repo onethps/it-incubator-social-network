@@ -3,7 +3,7 @@ let initState: userType = {
     pageSize:4,
     totalUserCount:20,
     currentPage:1,
-    isFetching:false
+    isFetching:false,
 }
 
 export type userType = {
@@ -13,7 +13,6 @@ export type userType = {
     currentPage:number
     isFetching:boolean
 }
-
 export type arrayUsers = {
     id: number,
     name: string
@@ -41,20 +40,22 @@ export default usersReducer
 
 
 
-type ActionTypes = setUserCountType | setDataACType | setCurrentPageACType | isFetchinACType
+type ActionTypes = setUserCountType | setDataACType |
+    setCurrentPageACType | isFetchinACType
 
-type setUserCountType = ReturnType<typeof SetUserCountAC>
-type setDataACType = ReturnType<typeof setDataAC>
+type setUserCountType = ReturnType<typeof setTotalCountAC>
+type setDataACType = ReturnType<typeof setUserData>
 type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 type isFetchinACType = ReturnType<typeof isFetchinAC>
 
-export const SetUserCountAC = (count:number) => {
+
+export const setTotalCountAC = (count:number) => {
     return {
         type:'SET-TOTAL-USER-COUNT',
         count
     } as const
 }
-export const setDataAC = (newArray:any[]) => {
+export const setUserData = (newArray:any[]) => {
     return {
         type: 'SET-DATA',
         newArray
@@ -72,3 +73,4 @@ export const isFetchinAC = (load:boolean) => {
         load
     } as const
 }
+

@@ -1,5 +1,5 @@
 import React from 'react';
-import {arrayUsers} from "../../redux/usersReducer";
+import {arrayUsers, setUserData} from "../../redux/usersReducer";
 import axios from "axios";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
@@ -24,13 +24,12 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
 
     componentDidMount() {
         this.props.isFetchinAC(false)
-        if (this.props.userData.length === 0) {
+
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
                 this.props.isFetchinAC(true)
                 this.props.setUserData([...response.data.items])
                 // this.props.setTotalCountAC(response.data.totalCount)
             })
-        }
 
     }
 

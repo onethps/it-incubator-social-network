@@ -1,21 +1,19 @@
 import s from './PostMessage.module.css';
 import React, {ChangeEvent} from "react";
 import {ProfilePropsContainerType} from "../ProfiePageContainer";
-import axios from "axios";
+import {postDataType} from "../../../redux/Profile-page-reducer";
 
-export type newPostType = {
-    id: number
-    message: string
-    likes: number
-
+type PostMessageType = {
+    profilePage:Array<postDataType>
+    newPostText:string
+    addPostCallAction: () => void
+    updatePostCallAction: (body:string) => void
 }
 
 
+export const PostMessage: React.FC<PostMessageType> = (props) => {
 
-
-export const PostMessage: React.FC<ProfilePropsContainerType> = (props) => {
-
-    let postsElems = props.profilePage.postData.map(p =>
+    let postsElems = props.profilePage.map(p =>
         <div>
           <div>{p.message}</div>
           <div>{p.likes}</div>
@@ -23,7 +21,6 @@ export const PostMessage: React.FC<ProfilePropsContainerType> = (props) => {
 
     let addPost = () => {
         props.addPostCallAction()
-
     }
 
     let changePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -41,7 +38,7 @@ export const PostMessage: React.FC<ProfilePropsContainerType> = (props) => {
                     ava + text
                 </div>
             <div className={s.Mymessage}>
-                <textarea value={props.profilePage.newPostText} placeholder='Write New Post'
+                <textarea value={props.newPostText} placeholder='Write New Post'
                           onChange={changePostText}>
 
                 </textarea>

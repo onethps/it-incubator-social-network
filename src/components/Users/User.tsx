@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./Users.module.css";
 import catAva from "../../assets/cat_ava.jpeg";
 import {arrayUsers} from "../../redux/usersReducer";
+import {NavLink} from "react-router-dom";
 
 
 type UserPropsType = {
@@ -25,7 +26,7 @@ export const User = (props:UserPropsType) => {
     let   renderUsers = props.userData.map(m => {
         return (
             <>
-                <img className={s.avaStyle} src={catAva}/>
+             <NavLink to={'/mainpage/' + m.id}><img className={s.avaStyle} src={catAva}/></NavLink>
                 <div key={m.id}>{m.name}</div>
             </>
         )
@@ -42,7 +43,7 @@ export const User = (props:UserPropsType) => {
                      className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
                 })}
             </div>
-
+         
             {renderUsers}
         </div>
 
