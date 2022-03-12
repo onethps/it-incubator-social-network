@@ -4,6 +4,8 @@ import {DialogsPageContainer} from "../../Dialogs/DialogsPageContainer";
 import {ProfilePageContainer} from "../../Profile/ProfiePageContainer";
 import {UsersContainer} from "../../Users/UsersContainer";
 import PostContainer from "../../Profile/PeopleProfiles/PostContainer";
+import HeaderContainer from "../../Header/HeaderContainer";
+import App from "../../../App";
 
 
 export const Routers = () => {
@@ -15,6 +17,7 @@ export const Routers = () => {
                 <Route path='/mainpage/' element={  <ProfilePageContainer/>}/>
                 <Route path='/mainpage/:userID' element={  <PostContainer/>}/>
                 <Route path='/users/' element={<UsersContainer />}/>
+                <Route path='/login/' element={<App />}/>
             </Routes>
         </div>
     );

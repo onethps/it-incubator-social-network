@@ -3,13 +3,15 @@ import {messagePageReducer} from "./Message-page-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import {profilePageReducer} from './Profile-page-reducer';
 import usersReducer from "./usersReducer";
+import authReducer from "./auth-reducer";
 
 
 let RootReducer = combineReducers({
     messagePage: messagePageReducer,
     profilePage: profilePageReducer,
     usersPage:usersReducer,
-    sidebar: SidebarReducer
+    sidebar: SidebarReducer,
+    loginData: authReducer
 })
 
 type RootReducerType = typeof RootReducer

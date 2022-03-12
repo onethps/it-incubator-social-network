@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/header";
 import SideBarContainter from "./redux/SideBarContainter";
 import Routers from "./components/Sidebar/Navigation/Routers";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     return (
 
         <div className='app__wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <SideBarContainter/>
             <Routers/>
         </div>

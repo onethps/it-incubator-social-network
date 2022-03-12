@@ -16,34 +16,44 @@ type PostContainerType = {
     setProfile: (arr:userProfileType) => void
     profileInfo: any
 }
-//
-// type mapStateToPropsType = {
-//     profileData: userProfileType
-// }
+
+export interface RoutedProps<Params = any> {
+    params: Params;
+}
 
 
+export function withRouter<P extends RoutedProps>( Child: React.ComponentClass<P> ) {
+    return ( props: Omit<P, keyof RoutedProps> ) => {
+        return <Child { ...props as P }  params={ useParams() }/>;
+    }
+}
 
-function PostContainer(props:PostContainerType) {
-    let {userID} = useParams()
 
+class PostContainer extends React.Component<PostContainerType & RoutedProps> {
 
-    useEffect( () => {
+    componentDidMount() {
+        const {userID} = this.props.params
+
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`).then(response => {
-            props.setProfile({...response.data})})
-    }, [ props.setProfile]
-)
+            this.props.setProfile({...response.data})})
+    }
 
+
+    render() {
         return(
 
             <div>
-                <Post profileInfo={props.profileInfo} />
+                <Post profileInfo={this.props.profileInfo} />
 
             </div>
 
         )
+    }
+
 
 }
 
+
 export default connect(mapStateToProps, {
-  setProfile
-})(PostContainer);
+  setProfile,
+})(withRouter(PostContainer));

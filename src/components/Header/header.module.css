@@ -1,18 +1,42 @@
 
 .header {
     grid-area: h;
+    padding: 0 50px;
+    align-items: center;
     background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.img {
-    width: 40px;
-    height: 40px;
+
+/*.headerBox {*/
+/*    width: 100%;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+.logoHeaderStyle {
+    display: flex;
+    align-items: center;
     margin: 10px 0 0 20px;
-    background-color: transparent;
+    width: 100px;
 }
 
+.logoHeaderStyle img {
+    width: 40px;
+    height: 40px;
 
+}
+
+.LoginStyle {
+    align-items: center;
+    display: flex;
+    width: 100px;
+    height: 40px;
+
+}
 
 
 
