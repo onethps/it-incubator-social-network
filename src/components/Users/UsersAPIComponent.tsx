@@ -1,8 +1,8 @@
 import React from 'react';
-import {arrayUsers, isFollowAC, isUnFollowAC, setUserData} from "../../redux/usersReducer";
-import axios from "axios";
+import {arrayUsers} from "../../redux/usersReducer";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
+import {getCurrentPage, getUsers} from "../../api/api";
 
 
 type UserAPIPropsType = {
@@ -17,22 +17,20 @@ type UserAPIPropsType = {
     isFetching:boolean
     isFollowAC: (userID:number) => void
     isUnFollowAC: (userID:number) => void
-
-
-
 }
 
 class UsersAPIComponent extends React.Component<UserAPIPropsType>{
 
     componentDidMount() {
-        this.props.isFetchinAC(false)
 
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-                withCredentials:true
-            }).then(response => {
+        this.props.isFetchinAC(false)
+        getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.isFetchinAC(true)
-                this.props.setUserData([...response.data.items])
-                // this.props.setTotalCountAC(response.data.totalCount)
+                this.props.setUserData([...data.items])
+                // commented, cuz aloft of pages shows, first time we get only 5 pages
+                // if needed to show all pages - uncomment second string
+                // this.props.setTotalCountAC(data.totalCount)
             })
 
     }
@@ -40,16 +38,11 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
     onClickHandler = (pageNumber:number) => {
         this.props.isFetchinAC(false)
         this.props.setCurrentPageAC(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-            withCredentials:true
-        }).then(response => {
+        getCurrentPage(pageNumber,this.props.pageSize).then(data => {
             this.props.isFetchinAC(true)
-            this.props.setUserData([...response.data.items])})
+            this.props.setUserData([...data.items])})
 
     }
-
-
-
 
     render() {
         return <div>

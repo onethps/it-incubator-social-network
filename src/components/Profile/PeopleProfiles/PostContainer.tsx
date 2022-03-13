@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {setProfile, userProfileType} from "../../../redux/Profile-page-reducer";
 import {useParams} from "react-router-dom";
 import {Post} from "./Post";
+import {getUserProfile} from "../../../api/api";
 
 const mapStateToProps = (props:AppStateType) => {
     return {
@@ -34,16 +35,14 @@ class PostContainer extends React.Component<PostContainerType & RoutedProps> {
     componentDidMount() {
         const {userID} = this.props.params
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`, {
-            withCredentials:true
-        }).then(response => {
+        getUserProfile(userID)
+            .then(response => {
             this.props.setProfile({...response.data})})
     }
 
 
     render() {
         return(
-
             <div>
                 <Post profileInfo={this.props.profileInfo} />
 

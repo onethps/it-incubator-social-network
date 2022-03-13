@@ -4,6 +4,7 @@ import catAva from "../../assets/cat_ava.jpeg";
 import {arrayUsers} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {deleteFollow, postFollow} from "../../api/api";
 
 
 type UserPropsType = {
@@ -29,13 +30,10 @@ export const User = (props: UserPropsType) => {
 
     let onFollowClickHandler = (userID: number) => {
         props.isFollowAC(userID)
-
     }
 
     let onUnFollowClickHandler = (userID: number) => {
         props.isUnFollowAC(userID)
-
-
     }
 
     let renderUsers = props.userData.map(m => {
@@ -45,13 +43,7 @@ export const User = (props: UserPropsType) => {
                 {m.followed ?
 
                     <button onClick={() =>
-                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`,
-                            {withCredentials: true,
-                                headers: {
-                                    'API-KEY': '53743326-f61f-4a39-ac8a-be7cd4a5c568'
-                                }
-                            }
-                        ).then(response => {
+                        deleteFollow(m.id).then(response => {
                             if (response.data.resultCode == 0) {
                                 onUnFollowClickHandler(m.id)
                             }
@@ -59,14 +51,7 @@ export const User = (props: UserPropsType) => {
                     }>unfollow</button> :
 
                     <button onClick={() => {
-                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${m.id}`,
-                            {}, {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY': '53743326-f61f-4a39-ac8a-be7cd4a5c568'
-                                }
-                            }
-                        ).then(response => {
+                        postFollow(m.id).then(response => {
                             if (response.data.resultCode == 0) {
                                 onFollowClickHandler(m.id)
                             }
