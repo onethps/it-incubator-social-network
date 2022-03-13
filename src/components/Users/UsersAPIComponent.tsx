@@ -1,5 +1,5 @@
 import React from 'react';
-import {arrayUsers, setUserData} from "../../redux/usersReducer";
+import {arrayUsers, isFollowAC, isUnFollowAC, setUserData} from "../../redux/usersReducer";
 import axios from "axios";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
@@ -15,6 +15,8 @@ type UserAPIPropsType = {
     pageSize:number,
     isFetchinAC:(load:boolean) =>void
     isFetching:boolean
+    isFollowAC: (userID:number) => void
+    isUnFollowAC: (userID:number) => void
 
 
 
@@ -25,7 +27,9 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
     componentDidMount() {
         this.props.isFetchinAC(false)
 
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials:true
+            }).then(response => {
                 this.props.isFetchinAC(true)
                 this.props.setUserData([...response.data.items])
                 // this.props.setTotalCountAC(response.data.totalCount)
@@ -36,7 +40,9 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
     onClickHandler = (pageNumber:number) => {
         this.props.isFetchinAC(false)
         this.props.setCurrentPageAC(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+            withCredentials:true
+        }).then(response => {
             this.props.isFetchinAC(true)
             this.props.setUserData([...response.data.items])})
 
@@ -52,6 +58,8 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
                                              pageSize={this.props.pageSize}
                                              userData={this.props.userData}
                                              onClickHandler={this.onClickHandler}
+                                             isFollowAC={this.props.isFollowAC}
+                                             isUnFollowAC={this.props.isUnFollowAC}
                                              currentPage={this.props.currentPage}/> :
                 <img src={isFetchingLoader}/>
 

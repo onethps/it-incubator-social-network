@@ -16,6 +16,7 @@ export type userType = {
 export type arrayUsers = {
     id: number,
     name: string
+    followed:boolean
 }
 
 export const usersReducer = (state: userType = initState, action: ActionTypes): userType => {
@@ -29,6 +30,12 @@ export const usersReducer = (state: userType = initState, action: ActionTypes): 
             return {...state, users:action.newArray}
         case 'SET-ISFETCHING-LOADER':
             return {...state, isFetching:action.load}
+        case 'SET-FOLLOW' : {
+            return {...state, users: state.users.map((m => m.id === action.userID ? {...m, followed:true}: m))}
+        }
+        case 'SET-UNFOLLOW': {
+            return {...state, users: state.users.map((m => m.id === action.userID ? {...m, followed:false}: m))}
+        }
         default:
             return state
     }
@@ -41,12 +48,14 @@ export default usersReducer
 
 
 type ActionTypes = setUserCountType | setDataACType |
-    setCurrentPageACType | isFetchinACType
+    setCurrentPageACType | isFetchinACType | isFollowType | isUnFollowType
 
 type setUserCountType = ReturnType<typeof setTotalCountAC>
 type setDataACType = ReturnType<typeof setUserData>
 type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 type isFetchinACType = ReturnType<typeof isFetchinAC>
+type isFollowType = ReturnType<typeof isFollowAC>
+type isUnFollowType = ReturnType<typeof isUnFollowAC>
 
 
 export const setTotalCountAC = (count:number) => {
@@ -74,3 +83,15 @@ export const isFetchinAC = (load:boolean) => {
     } as const
 }
 
+export const isFollowAC = (userID:number) => {
+    return {
+        type: 'SET-FOLLOW',
+        userID
+    } as const
+}
+export const isUnFollowAC = (userID:number) => {
+    return {
+        type: 'SET-UNFOLLOW',
+        userID
+    } as const
+}

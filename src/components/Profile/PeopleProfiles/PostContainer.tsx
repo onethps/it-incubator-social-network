@@ -34,7 +34,9 @@ class PostContainer extends React.Component<PostContainerType & RoutedProps> {
     componentDidMount() {
         const {userID} = this.props.params
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`).then(response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`, {
+            withCredentials:true
+        }).then(response => {
             this.props.setProfile({...response.data})})
     }
 
