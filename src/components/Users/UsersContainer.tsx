@@ -4,7 +4,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {
     arrayUsers,
     isFetchinAC,
-    isFollowAC, isUnFollowAC,
+    isFollowAC, isToggleDisableAC, isUnFollowAC,
     setCurrentPageAC,
     setTotalCountAC,
     setUserData
@@ -18,6 +18,7 @@ type mapStateType = {
     currentPage:number
     pageSize:number
     isFetching:boolean
+    isDisableArray:  Array<number>
 
 }
 
@@ -27,14 +28,15 @@ export const mapStateToProps = (props: AppStateType):mapStateType => {
         totalUserCount: props.usersPage.totalUserCount,
         currentPage: props.usersPage.currentPage,
         pageSize: props.usersPage.pageSize,
-        isFetching: props.usersPage.isFetching
+        isFetching: props.usersPage.isFetching,
+        isDisableArray:  props.usersPage.isDisableArray
 
     }
 }
 
 
 export const UsersContainer = connect(mapStateToProps, {
-    setUserData, setTotalCountAC, setCurrentPageAC, isFetchinAC, isFollowAC, isUnFollowAC
+    setUserData, setTotalCountAC, setCurrentPageAC, isFetchinAC, isFollowAC, isUnFollowAC, isToggleDisableAC
 
 })(UsersAPIComponent)
 

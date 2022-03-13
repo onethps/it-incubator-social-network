@@ -4,6 +4,7 @@ let initState: userType = {
     totalUserCount:20,
     currentPage:1,
     isFetching:false,
+    isDisableArray: [22814]
 }
 
 export type userType = {
@@ -12,6 +13,7 @@ export type userType = {
     totalUserCount:number,
     currentPage:number
     isFetching:boolean
+    isDisableArray:  Array<number>
 }
 export type arrayUsers = {
     id: number,
@@ -36,6 +38,12 @@ export const usersReducer = (state: userType = initState, action: ActionTypes): 
         case 'SET-UNFOLLOW': {
             return {...state, users: state.users.map((m => m.id === action.userID ? {...m, followed:false}: m))}
         }
+        case 'TOGGLE-DISABLE-BUTTON': {
+            return {...state,
+              isDisableArray: action.isFetching ? [...state.isDisableArray, action.userID] :
+                  state.isDisableArray.filter(f => f !== action.userID)
+            }
+        }
         default:
             return state
     }
@@ -48,7 +56,7 @@ export default usersReducer
 
 
 type ActionTypes = setUserCountType | setDataACType |
-    setCurrentPageACType | isFetchinACType | isFollowType | isUnFollowType
+    setCurrentPageACType | isFetchinACType | isFollowType | isUnFollowType | isToggleDisableType
 
 type setUserCountType = ReturnType<typeof setTotalCountAC>
 type setDataACType = ReturnType<typeof setUserData>
@@ -56,6 +64,7 @@ type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 type isFetchinACType = ReturnType<typeof isFetchinAC>
 type isFollowType = ReturnType<typeof isFollowAC>
 type isUnFollowType = ReturnType<typeof isUnFollowAC>
+type isToggleDisableType = ReturnType<typeof isToggleDisableAC>
 
 
 export const setTotalCountAC = (count:number) => {
@@ -93,5 +102,13 @@ export const isUnFollowAC = (userID:number) => {
     return {
         type: 'SET-UNFOLLOW',
         userID
+    } as const
+}
+
+export const isToggleDisableAC = (userID:number, isFetching:boolean) => {
+    return {
+        type: 'TOGGLE-DISABLE-BUTTON',
+        userID,
+        isFetching
     } as const
 }

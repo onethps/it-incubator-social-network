@@ -1,5 +1,5 @@
 import React from 'react';
-import {arrayUsers} from "../../redux/usersReducer";
+import {arrayUsers, isToggleDisableAC} from "../../redux/usersReducer";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
 import {getCurrentPage, getUsers} from "../../api/api";
@@ -17,6 +17,8 @@ type UserAPIPropsType = {
     isFetching:boolean
     isFollowAC: (userID:number) => void
     isUnFollowAC: (userID:number) => void
+    isDisableArray:  Array<number>
+    isToggleDisableAC: (userID:number, isFetching:boolean) => void
 }
 
 class UsersAPIComponent extends React.Component<UserAPIPropsType>{
@@ -53,6 +55,8 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
                                              onClickHandler={this.onClickHandler}
                                              isFollowAC={this.props.isFollowAC}
                                              isUnFollowAC={this.props.isUnFollowAC}
+                                             isDisableArray={this.props.isDisableArray}
+                                             isToggleDisableAC={this.props.isToggleDisableAC}
                                              currentPage={this.props.currentPage}/> :
                 <img src={isFetchingLoader}/>
 

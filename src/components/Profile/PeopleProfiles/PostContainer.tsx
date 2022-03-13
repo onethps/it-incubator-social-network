@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {setProfile, userProfileType} from "../../../redux/Profile-page-reducer";
 import {useParams} from "react-router-dom";
 import {Post} from "./Post";
-import {getUserProfile} from "../../../api/api";
 
 const mapStateToProps = (props:AppStateType) => {
     return {
@@ -17,44 +16,34 @@ type PostContainerType = {
     setProfile: (arr:userProfileType) => void
     profileInfo: any
 }
-
-export interface RoutedProps<Params = any> {
-    params: Params;
-}
-
-
-export function withRouter<P extends RoutedProps>( Child: React.ComponentClass<P> ) {
-    return ( props: Omit<P, keyof RoutedProps> ) => {
-        return <Child { ...props as P }  params={ useParams() }/>;
-    }
-}
+//
+// type mapStateToPropsType = {
+//     profileData: userProfileType
+// }
 
 
-class PostContainer extends React.Component<PostContainerType & RoutedProps> {
 
-    componentDidMount() {
-        const {userID} = this.props.params
-
-        getUserProfile(userID)
-            .then(response => {
-            this.props.setProfile({...response.data})})
-    }
+function PostContainer(props:PostContainerType) {
+    let {userID} = useParams()
 
 
-    render() {
+    useEffect( () => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`).then(response => {
+            props.setProfile({...response.data})})
+    }, [ props.setProfile]
+)
+
         return(
+
             <div>
-                <Post profileInfo={this.props.profileInfo} />
+                <Post profileInfo={props.profileInfo} />
 
             </div>
 
         )
-    }
-
 
 }
 
-
 export default connect(mapStateToProps, {
-  setProfile,
-})(withRouter(PostContainer));
+  setProfile
+})(PostContainer);
