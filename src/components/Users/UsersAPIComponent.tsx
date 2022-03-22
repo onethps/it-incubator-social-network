@@ -1,8 +1,8 @@
 import React from 'react';
-import {arrayUsers, isToggleDisableAC} from "../../redux/usersReducer";
+import {arrayUsers} from "../../redux/usersReducer";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
-import {getCurrentPage, getUsers} from "../../api/api";
+import {UserAPI} from "../../api/api";
 
 
 type UserAPIPropsType = {
@@ -17,8 +17,6 @@ type UserAPIPropsType = {
     isFetching:boolean
     isFollowAC: (userID:number) => void
     isUnFollowAC: (userID:number) => void
-    isDisableArray:  Array<number>
-    isToggleDisableAC: (userID:number, isFetching:boolean) => void
 }
 
 class UsersAPIComponent extends React.Component<UserAPIPropsType>{
@@ -26,7 +24,7 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
     componentDidMount() {
 
         this.props.isFetchinAC(false)
-        getUsers(this.props.currentPage, this.props.pageSize)
+        UserAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then(data => {
                 this.props.isFetchinAC(true)
                 this.props.setUserData([...data.items])
@@ -37,10 +35,10 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
 
     }
 
-    onClickHandler = (pageNumber:number) => {
+    onClickPageChangeHandler = (pageNumber:number) => {
         this.props.isFetchinAC(false)
         this.props.setCurrentPageAC(pageNumber)
-        getCurrentPage(pageNumber,this.props.pageSize).then(data => {
+        UserAPI.getCurrentPage(pageNumber,this.props.pageSize).then(data => {
             this.props.isFetchinAC(true)
             this.props.setUserData([...data.items])})
 
@@ -52,11 +50,9 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
             { this.props.isFetching ?  <User totalUserCount={this.props.totalUserCount}
                                              pageSize={this.props.pageSize}
                                              userData={this.props.userData}
-                                             onClickHandler={this.onClickHandler}
+                                             onClickPageChangeHandler={this.onClickPageChangeHandler}
                                              isFollowAC={this.props.isFollowAC}
                                              isUnFollowAC={this.props.isUnFollowAC}
-                                             isDisableArray={this.props.isDisableArray}
-                                             isToggleDisableAC={this.props.isToggleDisableAC}
                                              currentPage={this.props.currentPage}/> :
                 <img src={isFetchingLoader}/>
 

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from "./Users.module.css";
 import catAva from "../../assets/cat_ava.jpeg";
-import {arrayUsers, isToggleDisableAC} from "../../redux/usersReducer";
+import {arrayUsers} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {deleteFollow, postFollow} from "../../api/api";
+import {followAPI} from "../../api/api";
 
 
 type UserPropsType = {
@@ -12,11 +11,9 @@ type UserPropsType = {
     totalUserCount: number
     pageSize: number
     currentPage: number
-    onClickHandler: (pageNumber: number) => void
+    onClickPageChangeHandler: (pageNumber: number) => void
     isFollowAC: (userID: number) => void
     isUnFollowAC: (userID: number) => void
-    isDisableArray:  Array<number>
-    isToggleDisableAC: (userID:number, isFetching:boolean) =>void
 
 }
 
@@ -35,37 +32,40 @@ export const User = (props: UserPropsType) => {
     }
 
     let onUnFollowClickHandler = (userID: number) => {
+
         props.isUnFollowAC(userID)
     }
+
+    let [status, setStatus] = useState('idle')
 
     let renderUsers = props.userData.map(m => {
         return (
             <>
-                <NavLink to={'/mainpage/' + m.id}><img className={s.avaStyle} src={catAva}/></NavLink>
+                <NavLink to={'/mainpage/' + m.id}>
+                    <img className={s.avaStyle} src={catAva}/>
+                </NavLink>
                 {m.followed ?
 
-                    <button onClick={() => {
-                        props.isToggleDisableAC(m.id,true)
-                        deleteFollow(m.id).then(response => {
+                    <button disabled={status === 'loading'} onClick={() => {
+                        setStatus('loading')
+                        followAPI.deleteFollow(m.id).then(response => {
+                            setStatus('idle')
                             if (response.data.resultCode == 0) {
                                 onUnFollowClickHandler(m.id)
                             }
-                            props.isToggleDisableAC(m.id,false)
                         })
                     }
+                    }>unfollow</button> :
 
-                    } disabled={props.isDisableArray.some(f => f === m.id)}>unfollow</button> :
-
-                    <button  onClick={() => {
-                        props.isToggleDisableAC(m.id,true)
-                        postFollow(m.id).then(response => {
+                    <button disabled={status === 'loading'} onClick={() => {
+                        setStatus('loading')
+                        followAPI.postFollow(m.id).then(response => {
+                            setStatus('idle')
                             if (response.data.resultCode == 0) {
                                 onFollowClickHandler(m.id)
-
                             }
-                            props.isToggleDisableAC(m.id,false)
                         })
-                    }} disabled={props.isDisableArray.some(f => f === m.id)}>follow</button>
+                    }}>follow</button>
 
                 }
                 <div key={m.id}>ID {m.id} NAME {m.name}</div>
@@ -79,10 +79,7 @@ export const User = (props: UserPropsType) => {
         <div>
             <div>
                 {page.map(m => {
-                    return <span onClick={() => {
-                        props.onClickHandler(m)
-                    }}
-                                 className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
+                    return <span onClick={() => {props.onClickPageChangeHandler(m)}} className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
                 })}
             </div>
 

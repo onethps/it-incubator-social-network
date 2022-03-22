@@ -3,9 +3,7 @@ import React from "react";
 import {AppStateType} from "../../redux/redux-store";
 import {dataType, getDataAC} from "../../redux/auth-reducer";
 import {Header} from "./Header";
-import axios from "axios";
-import App from "../../App";
-import {getLoginData} from "../../api/api";
+import {UserAPI} from "../../api/api";
 
 type propstHeaderContainerType = {
     getDataAC: (data:dataType) => void
@@ -15,18 +13,18 @@ type propstHeaderContainerType = {
 class HeaderContainer extends React.Component<propstHeaderContainerType> {
 
     componentDidMount() {
-        getLoginData()
-       .then(data => {
+        UserAPI.getLoginData()
+            .then(data => {
                 if (data.resultCode === 0) {
-                this.props.getDataAC(data.data)
+                    this.props.getDataAC(data.data)
                 }
-        })
-        }
+            })
+    }
 
 
     render() {
-    return <Header {...this.props}/>;
-}
+        return <Header {...this.props}/>;
+    }
 
 }
 

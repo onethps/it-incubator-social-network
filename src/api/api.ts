@@ -13,48 +13,63 @@ const instance = axios.create({
 
 //User API'S
 
-export const getUsers = (currentPage:number, pageSize:number) => {
-    return   instance.get(`users?page=${currentPage}&count=${pageSize}`)
-        .then(response=> {
-            return response.data
-        })
+export const UserAPI = {
 
-}
-
-export const getCurrentPage = (pageNumber:number, pageSize:number) => {
-    return  instance.get(`users?page=${pageNumber}&count=${pageSize}`)
-        .then(response=> {
-            return response.data
-        })
-
-}
+    getUsers(currentPage: number, pageSize: number) {
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+            .then(response => {
+                return response.data
+            })
+    },
 
 
-///PostContainer API'S
+    getCurrentPage (pageNumber:number, pageSize:number){
+        return  instance.get(`users?page=${pageNumber}&count=${pageSize}`)
+            .then(response=> {
+                return response.data
+            })
 
-export const getUserProfile = (userID:number) => {
-    return     instance.get(`profile/${userID}`)
+    },
 
-}
+    ///PostContainer API'S
+
+   getUserProfile (userID:number) {
+        return instance.get(`profile/${userID}`)
+
+    },
 
 ///header API'S
 
-export const getLoginData = () => {
-    return    instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
-        .then(response=> {
-            return response.data
-        })
+  getLoginData () {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+            .then(response=> {
+                return response.data
+            })
+
+    }
+
+
 
 }
 
 
-export const deleteFollow = (userID:number) => {
-    return    instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+
+
+
+
+export const followAPI = {
+
+  deleteFollow (userID:number) {
+        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+
+    },
+
+    postFollow (userID:number) {
+        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+
+    }
 
 }
 
 
-export const postFollow = (userID:number) => {
-    return      instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
 
-}
