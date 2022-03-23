@@ -36,7 +36,9 @@ export const User = (props: UserPropsType) => {
         props.isUnFollowAC(userID)
     }
 
-    let [status, setStatus] = useState('idle')
+
+let [followStatusArr, setfollowStatusArr] = useState<Array<number>>([])
+
 
     let renderUsers = props.userData.map(m => {
         return (
@@ -46,10 +48,12 @@ export const User = (props: UserPropsType) => {
                 </NavLink>
                 {m.followed ?
 
-                    <button disabled={status === 'loading'} onClick={() => {
-                        setStatus('loading')
+                    <button disabled={followStatusArr.includes(m.id)}
+                            onClick={() => {
+                                setfollowStatusArr([...followStatusArr, m.id])
                         followAPI.deleteFollow(m.id).then(response => {
-                            setStatus('idle')
+                            // setStatus('idle')
+                            setfollowStatusArr(followStatusArr.filter(f => m.id !== f))
                             if (response.data.resultCode == 0) {
                                 onUnFollowClickHandler(m.id)
                             }
@@ -57,10 +61,12 @@ export const User = (props: UserPropsType) => {
                     }
                     }>unfollow</button> :
 
-                    <button disabled={status === 'loading'} onClick={() => {
-                        setStatus('loading')
+                    <button disabled={followStatusArr.some((elem) => elem === m.id)} onClick={() => {
+                        // setStatus('loading')
+                        setfollowStatusArr([...followStatusArr, m.id])
                         followAPI.postFollow(m.id).then(response => {
-                            setStatus('idle')
+                            // setStatus('idle')
+                            setfollowStatusArr(followStatusArr.filter(f => m.id !== f))
                             if (response.data.resultCode == 0) {
                                 onFollowClickHandler(m.id)
                             }
