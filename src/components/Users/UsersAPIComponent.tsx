@@ -2,46 +2,31 @@ import React from 'react';
 import {arrayUsers} from "../../redux/usersReducer";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
-import {UserAPI} from "../../api/api";
+import user from "./User";
 
 
 type UserAPIPropsType = {
     userData: Array<arrayUsers>
-    setUserData: (newArray: any[]) => void
-    setTotalCountAC: (count:number) => void
-    setCurrentPageAC: (page:number) => void
     totalUserCount:number,
     currentPage:number,
     pageSize:number,
-    isFetchinAC:(load:boolean) =>void
     isFetching:boolean
-    isFollowAC: (userID:number) => void
-    isUnFollowAC: (userID:number) => void
+    onLoadArray:any[]
+    getUserThunk: (currentPage:number, pageSize:number) => void
+    setCurrentPageThunk: (pageNumber:number, pageSize:number) => void
+    UnfollowThunk:(userID:number) => void
+    FollowThunk:(userID:number) => void
+
 }
 
 class UsersAPIComponent extends React.Component<UserAPIPropsType>{
 
     componentDidMount() {
-
-        this.props.isFetchinAC(false)
-        UserAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.isFetchinAC(true)
-                this.props.setUserData([...data.items])
-                // commented, cuz aloft of pages shows, first time we get only 5 pages
-                // if needed to show all pages - uncomment second string
-                // this.props.setTotalCountAC(data.totalCount)
-            })
-
+        this.props.getUserThunk(this.props.currentPage, this.props.pageSize)
     }
 
     onClickPageChangeHandler = (pageNumber:number) => {
-        this.props.isFetchinAC(false)
-        this.props.setCurrentPageAC(pageNumber)
-        UserAPI.getCurrentPage(pageNumber,this.props.pageSize).then(data => {
-            this.props.isFetchinAC(true)
-            this.props.setUserData([...data.items])})
-
+        this.props.setCurrentPageThunk(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -51,8 +36,9 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType>{
                                              pageSize={this.props.pageSize}
                                              userData={this.props.userData}
                                              onClickPageChangeHandler={this.onClickPageChangeHandler}
-                                             isFollowAC={this.props.isFollowAC}
-                                             isUnFollowAC={this.props.isUnFollowAC}
+                                             onLoadArray={this.props.onLoadArray}
+                                             UnfollowThunk={this.props.UnfollowThunk}
+                                             FollowThunk={this.props.FollowThunk}
                                              currentPage={this.props.currentPage}/> :
                 <img src={isFetchingLoader}/>
 

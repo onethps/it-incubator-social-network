@@ -1,24 +1,18 @@
 import {connect} from "react-redux";
 import React from "react";
 import {AppStateType} from "../../redux/redux-store";
-import {dataType, getDataAC} from "../../redux/auth-reducer";
+import {dataType, getDataAC, getLoginDataThunk} from "../../redux/auth-reducer";
 import {Header} from "./Header";
-import {UserAPI} from "../../api/api";
 
 type propstHeaderContainerType = {
-    getDataAC: (data:dataType) => void
     LoginData:dataType
+    getLoginDataThunk: () => void
 }
 
 class HeaderContainer extends React.Component<propstHeaderContainerType> {
 
     componentDidMount() {
-        UserAPI.getLoginData()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    this.props.getDataAC(data.data)
-                }
-            })
+        this.props.getLoginDataThunk()
     }
 
 
@@ -37,7 +31,6 @@ const mapStateToProps = (props:AppStateType) => {
     }
 }
 
-export default connect(mapStateToProps, {
-    getDataAC
+export default connect(mapStateToProps, {getLoginDataThunk
 })(HeaderContainer)
 

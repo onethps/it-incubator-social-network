@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {UserAPI} from "../api/api";
+
 let initState: dataType = {
     id:null,
     email:null,
@@ -40,4 +43,17 @@ export const getDataAC = (data:dataType) => {
     } as const
 }
 
+
+export const getLoginDataThunk = () => {
+    return (dispatch: Dispatch) => {
+        UserAPI.getLoginData()
+            .then(data => {
+
+                if (data.resultCode === 0) {
+                    dispatch(getDataAC(data.data))
+                }
+            })
+
+    }
+}
 

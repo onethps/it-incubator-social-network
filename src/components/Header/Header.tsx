@@ -4,7 +4,6 @@ import {NavLink} from "react-router-dom";
 import {dataType} from "../../redux/auth-reducer";
 
 type HeaderType = {
-    getDataAC: (data: dataType) => void
     LoginData: dataType
 
 }

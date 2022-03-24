@@ -4,8 +4,9 @@ import {DialogsPageContainer} from "../../Dialogs/DialogsPageContainer";
 import {ProfilePageContainer} from "../../Profile/ProfiePageContainer";
 import {UsersContainer} from "../../Users/UsersContainer";
 import PostContainer from "../../Profile/PeopleProfiles/PostContainer";
-import HeaderContainer from "../../Header/HeaderContainer";
 import App from "../../../App";
+import WrappedComponent from "../../Profile/PeopleProfiles/PostContainer";
+import PostContainer1 from "../../Profile/PeopleProfiles/PostContainer";
 
 
 export const Routers = () => {
@@ -15,7 +16,7 @@ export const Routers = () => {
                 <Route path="*"  element={ <Navigate to={'/mainpage'}/>}/>
                 <Route path='/dialogs/' element={<DialogsPageContainer/>}/>
                 <Route path='/mainpage/' element={  <ProfilePageContainer/>}/>
-                <Route path='/mainpage/:userID' element={  <PostContainer/>}/>
+                <Route path='/mainpage/:userID' element={  <PostContainer1/>}/>
                 <Route path='/users/' element={<UsersContainer />}/>
                 <Route path='/login/' element={<App />}/>
             </Routes>

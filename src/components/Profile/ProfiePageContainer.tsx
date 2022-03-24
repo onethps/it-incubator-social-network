@@ -19,25 +19,17 @@ type mapStatePropsType = {
 export type ProfilePropsContainerType = MapDispatchPropsType & mapStatePropsType
 
 
-let mapStateToProps = (state: AppStateType):mapStatePropsType => {
+let mapStateToProps = (props: AppStateType):mapStatePropsType => {
     return {
-        profilePage: state.profilePage.postData,
-        newPostText:state.profilePage.newPostText
+        profilePage: props.profilePage.postData,
+        newPostText:props.profilePage.newPostText,
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType  => {
-    return {
-        addPostCallAction: () => {
-            dispatch(AddPostCreator())
-        },
 
-        updatePostCallAction: (body: string) => {
-            dispatch(UpdatePostCreator(body))
-        }
-    }
-}
 
-export const ProfilePageContainer = connect(mapStateToProps,mapDispatchToProps)(PostMessage)
+export const ProfilePageContainer = connect(mapStateToProps,{
+    AddPostCreator, UpdatePostCreator
+})(PostMessage)
 
 

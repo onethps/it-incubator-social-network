@@ -5,6 +5,9 @@ import {MessageItem} from "./MessageItem/MessageItem";
 import {DialogPropsContainerType} from "./DialogsPageContainer";
 
 
+
+
+
 export type dialogsData = {
     id: number
     name: string

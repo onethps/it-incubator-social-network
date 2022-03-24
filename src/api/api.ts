@@ -41,7 +41,7 @@ export const UserAPI = {
 ///header API'S
 
   getLoginData () {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+        return instance.get(`auth/me`)
             .then(response=> {
                 return response.data
             })

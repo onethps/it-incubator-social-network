@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "./Users.module.css";
 import catAva from "../../assets/cat_ava.jpeg";
 import {arrayUsers} from "../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../api/api";
 
 
 type UserPropsType = {
@@ -12,8 +11,9 @@ type UserPropsType = {
     pageSize: number
     currentPage: number
     onClickPageChangeHandler: (pageNumber: number) => void
-    isFollowAC: (userID: number) => void
-    isUnFollowAC: (userID: number) => void
+    onLoadArray: any[]
+    UnfollowThunk: (userID:number) => void
+    FollowThunk: (userID:number) => void
 
 }
 
@@ -27,18 +27,6 @@ export const User = (props: UserPropsType) => {
         page.push(i)
     }
 
-    let onFollowClickHandler = (userID: number) => {
-        props.isFollowAC(userID)
-    }
-
-    let onUnFollowClickHandler = (userID: number) => {
-
-        props.isUnFollowAC(userID)
-    }
-
-
-let [followStatusArr, setfollowStatusArr] = useState<Array<number>>([])
-
 
     let renderUsers = props.userData.map(m => {
         return (
@@ -48,30 +36,13 @@ let [followStatusArr, setfollowStatusArr] = useState<Array<number>>([])
                 </NavLink>
                 {m.followed ?
 
-                    <button disabled={followStatusArr.includes(m.id)}
-                            onClick={() => {
-                                setfollowStatusArr([...followStatusArr, m.id])
-                        followAPI.deleteFollow(m.id).then(response => {
-                            // setStatus('idle')
-                            setfollowStatusArr(followStatusArr.filter(f => m.id !== f))
-                            if (response.data.resultCode == 0) {
-                                onUnFollowClickHandler(m.id)
-                            }
-                        })
-                    }
-                    }>unfollow</button> :
+                    <button disabled={props.onLoadArray.includes(m.id)}
+                            onClick={() => { props.UnfollowThunk(m.id) }
+                            }>unfollow</button> :
 
-                    <button disabled={followStatusArr.some((elem) => elem === m.id)} onClick={() => {
-                        // setStatus('loading')
-                        setfollowStatusArr([...followStatusArr, m.id])
-                        followAPI.postFollow(m.id).then(response => {
-                            // setStatus('idle')
-                            setfollowStatusArr(followStatusArr.filter(f => m.id !== f))
-                            if (response.data.resultCode == 0) {
-                                onFollowClickHandler(m.id)
-                            }
-                        })
-                    }}>follow</button>
+                    <button disabled={props.onLoadArray.includes(m.id)}
+                            onClick={() => { props.FollowThunk(m.id) }
+                            }>follow</button>
 
                 }
                 <div key={m.id}>ID {m.id} NAME {m.name}</div>
