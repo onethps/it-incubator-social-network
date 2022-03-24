@@ -2,9 +2,11 @@ import React, {ComponentType, useEffect, useState} from 'react';
 import axios from "axios";
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {setProfile, userProfileType} from "../../../redux/Profile-page-reducer";
+import {getUserProfileThunk, setProfile, userProfileType} from "../../../redux/Profile-page-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Post} from "./Post";
+import {UserAPI} from "../../../api/api";
+import {type} from "os";
 
 const mapStateToProps = (props:AppStateType) => {
     return {
@@ -13,9 +15,9 @@ const mapStateToProps = (props:AppStateType) => {
 }
 
 type PostContainerType = {
-    setProfile: (arr:userProfileType) => void
     profileInfo: any
     userID?: string | undefined
+    getUserProfileThunk: (userID:number) => void
 }
 
 
@@ -66,20 +68,16 @@ export const withRouter = <P extends object>(Component: ComponentType<P>) => {
 type Props = WithRouterProps<PostContainerType> & PostContainerType
 
 
-class PostContainer1 extends React.Component<Props> {
+class PostContainer extends React.Component<Props> {
 
     componentDidMount() {
         const {match} = this.props
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${match.params.userID}`).then(response => {
-           return  this.props.setProfile({...response.data})})
-
-
+        this.props.getUserProfileThunk(Number(match.params.userID))
     }
 
     render() {
         return <div>
             <Post profileInfo={this.props.profileInfo} />
-
         </div>
     }
 
@@ -87,28 +85,5 @@ class PostContainer1 extends React.Component<Props> {
 
 
 
-
-// function PostContainer(props:PostContainerType) {
-//     let {userID} = useParams()
-//
-//
-//     useEffect( () => {
-//         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userID}`).then(response => {
-//             props.setProfile({...response.data})})
-//     }, [ props.setProfile]
-// )
-//
-//         return(
-//
-//             <div>
-//                 <Post profileInfo={props.profileInfo} />
-//
-//             </div>
-//
-//         )
-//
-// }
-
-export default connect(mapStateToProps, {
-  setProfile
-})(withRouter(PostContainer1));
+export default connect(mapStateToProps, { getUserProfileThunk }
+)(withRouter(PostContainer));

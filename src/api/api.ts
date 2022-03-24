@@ -60,12 +60,12 @@ export const UserAPI = {
 export const followAPI = {
 
   deleteFollow (userID:number) {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+        return instance.delete(`follow/${userID}`)
 
     },
 
     postFollow (userID:number) {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userID}`)
+        return instance.post(`follow/${userID}`)
 
     }
 

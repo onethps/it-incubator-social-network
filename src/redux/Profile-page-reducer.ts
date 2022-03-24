@@ -1,4 +1,6 @@
 import {stat} from "fs";
+import {Dispatch} from "redux";
+import {UserAPI} from "../api/api";
 
 let initialState:initialProfileStateType = {
     postData: [
@@ -82,5 +84,16 @@ export const setProfile = (profileData:any) => {
         type: 'SET-PROFILE',
         profile: profileData
     } as const
+}
+
+
+export const getUserProfileThunk = (userID:number) => {
+    return (dispatch:Dispatch) => {
+        UserAPI.getUserProfile(userID).then(response => {
+            debugger
+            return  dispatch(setProfile({...response.data}))
+
+        })
+    }
 }
 
