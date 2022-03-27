@@ -7,7 +7,7 @@ import {friendsList} from "../sidebar";
 export const LeftFriendList: React.FC<friendsList> = (props) => {
     return (
         <div className={style.mainBlock}>
-            <img className={style.icon} src={props.avatarLink}/>
+            <img alt={'iconIMG'} className={style.icon} src={props.avatarLink}/>
             <div className={style.name}>{props.name}</div>
         </div>
     )

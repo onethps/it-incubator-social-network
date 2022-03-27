@@ -1,12 +1,11 @@
 import React from 'react';
-import {Navigate, Route, Routes, useParams} from "react-router-dom";
-import {DialogsPageContainer} from "../../Dialogs/DialogsPageContainer";
+import {Navigate, Route, Routes} from "react-router-dom";
+
 import {ProfilePageContainer} from "../../Profile/ProfiePageContainer";
-import {UsersContainer} from "../../Users/UsersContainer";
 import PostContainer from "../../Profile/PeopleProfiles/PostContainer";
-import App from "../../../App";
-import WrappedComponent from "../../Profile/PeopleProfiles/PostContainer";
-import PostContainer1 from "../../Profile/PeopleProfiles/PostContainer";
+import LoginPage from "../../Profile/LoginPage";
+import UsersContainer from "../../Users/UsersContainer";
+import DialogsPageContainer from "../../Dialogs/DialogsPageContainer";
 
 
 export const Routers = () => {
@@ -16,9 +15,9 @@ export const Routers = () => {
                 <Route path="*"  element={ <Navigate to={'/mainpage'}/>}/>
                 <Route path='/dialogs/' element={<DialogsPageContainer/>}/>
                 <Route path='/mainpage/' element={  <ProfilePageContainer/>}/>
-                <Route path='/mainpage/:userID' element={  <PostContainer1/>}/>
+                <Route path='/mainpage/:userID' element={  <PostContainer/>}/>
                 <Route path='/users/' element={<UsersContainer />}/>
-                <Route path='/login/' element={<App />}/>
+                <Route path='/login/' element={<LoginPage />}/>
             </Routes>
         </div>
     );

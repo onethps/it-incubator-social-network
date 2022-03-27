@@ -6,9 +6,9 @@ let initialState = {
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Slavik'},
         {id: 3, name: 'Valera'},
-        {id: 1, name: 'Dimych'},
-        {id: 2, name: 'Slavik'},
-        {id: 3, name: 'Valera'}
+        {id: 4, name: 'Dimych'},
+        {id: 5, name: 'Slavik'},
+        {id: 6, name: 'Valera'}
     ],
     messagesData: [
         {id: 1, message: 'Yo'},

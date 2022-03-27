@@ -28,11 +28,11 @@ export type SideBarArrayType = {
 export const Sidebar: React.FC<SideBarType> = (props) => {
 
     let navElemes =
-        props.sidebar.menuLinks.map(m => <Link to={m.link} className={s.NavItem}>{m.name}</Link>)
+        props.sidebar.menuLinks.map((m, i) => <Link key={i} to={m.link} className={s.NavItem}>{m.name}</Link>)
 
 
     let friendsElems =
-        props.sidebar.friendsList.map(f => <LeftFriendList id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
+        props.sidebar.friendsList.map((f) => <LeftFriendList key={f.id} id={f.id} name={f.name} avatarLink={f.avatarLink}/>)
 
 
     return <div className={s.mainBlock}>

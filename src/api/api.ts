@@ -48,14 +48,7 @@ export const UserAPI = {
 
     }
 
-
-
 }
-
-
-
-
-
 
 export const followAPI = {
 

@@ -32,7 +32,7 @@ export const User = (props: UserPropsType) => {
         return (
             <>
                 <NavLink to={'/mainpage/' + m.id}>
-                    <img className={s.avaStyle} src={catAva}/>
+                    <img alt={'img'} className={s.avaStyle} src={catAva}/>
                 </NavLink>
                 {m.followed ?
 
@@ -55,8 +55,8 @@ export const User = (props: UserPropsType) => {
     return (
         <div>
             <div>
-                {page.map(m => {
-                    return <span onClick={() => {props.onClickPageChangeHandler(m)}} className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
+                {page.map((m,i) => {
+                    return <span key={i} onClick={() => {props.onClickPageChangeHandler(m)}} className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
                 })}
             </div>
 

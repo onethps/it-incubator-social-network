@@ -16,10 +16,10 @@ export type dialogsData = {
 export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {
 
     let friendsElems =
-        props.messagesPage.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
+        props.messagesPage.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
 
     let messageElems =
-        props.messagesPage.messagesData.map(m => <MessageItem message={m.message}/>)
+        props.messagesPage.messagesData.map(m => <MessageItem key={m.id} message={m.message}/>)
 
 
     const sendNewMessage = () => {

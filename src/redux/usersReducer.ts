@@ -156,7 +156,7 @@ export const UnfollowThunk = (userID:number) => {
 
         dispatch(onLoadFollowAC(false, userID))
         followAPI.deleteFollow(userID).then(response => {
-            if (response.data.resultCode == 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(isUnFollowAC(userID))
             }
             dispatch(onLoadFollowAC(true, userID))
@@ -170,7 +170,7 @@ export const FollowThunk = (userID:number) => {
 
         dispatch(onLoadFollowAC(false, userID))
         followAPI.postFollow(userID).then(response => {
-            if (response.data.resultCode == 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(isFollowAC(userID))
             }
             dispatch(onLoadFollowAC(true, userID))

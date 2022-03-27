@@ -14,7 +14,7 @@ const Post = (props:PostType) => {
         <div>
             <div>{props.profileInfo.aboutMe}</div>
             <div>{props.profileInfo.fullName}</div>
-            <img src={props.profileInfo.photos.small}/>
+            <img alt={'parsedIMG'} src={props.profileInfo.photos.small}/>
         </div>
     );
 };

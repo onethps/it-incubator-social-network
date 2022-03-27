@@ -1,4 +1,3 @@
-import {stat} from "fs";
 import {Dispatch} from "redux";
 import {UserAPI} from "../api/api";
 
@@ -90,7 +89,6 @@ export const setProfile = (profileData:any) => {
 export const getUserProfileThunk = (userID:number) => {
     return (dispatch:Dispatch) => {
         UserAPI.getUserProfile(userID).then(response => {
-            debugger
             return  dispatch(setProfile({...response.data}))
 
         })

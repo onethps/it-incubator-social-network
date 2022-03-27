@@ -1,12 +1,11 @@
-import React, {ComponentType, useEffect, useState} from 'react';
-import axios from "axios";
+import React, {ComponentType} from 'react';
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {getUserProfileThunk, setProfile, userProfileType} from "../../../redux/Profile-page-reducer";
+import {getUserProfileThunk} from "../../../redux/Profile-page-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Post} from "./Post";
-import {UserAPI} from "../../../api/api";
-import {type} from "os";
+import {compose} from "redux";
+import AuthRedirectHOC from "../../Sidebar/Navigation/AuthRedirectHOC";
 
 const mapStateToProps = (props:AppStateType) => {
     return {
@@ -83,7 +82,8 @@ class PostContainer extends React.Component<Props> {
 
 }
 
-
-
-export default connect(mapStateToProps, { getUserProfileThunk }
-)(withRouter(PostContainer));
+export default compose<ComponentType>(
+    connect(mapStateToProps, { getUserProfileThunk }),
+    AuthRedirectHOC,
+    withRouter,
+)(PostContainer)
