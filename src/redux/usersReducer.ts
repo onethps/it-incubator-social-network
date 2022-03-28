@@ -22,6 +22,12 @@ export type arrayUsers = {
     id: number,
     name: string
     followed:boolean
+    status:string
+    photos:photosType
+}
+
+export type photosType ={
+    small: string | null
 }
 
 export const usersReducer = (state: userType = initState, action: ActionTypes): userType => {
@@ -130,7 +136,7 @@ export const getUserThunk = (currentPage:number, pageSize:number) => {
                 dispatch(setUserData([...data.items]))
                 // commented, cuz aloft of pages shows, first time we get only 5 pages
                 // if needed to show all pages - uncomment second string
-                // dispatch(setTotalCountAC(data.totalCount))
+                dispatch(setTotalCountAC(data.totalCount))
             })
     }
 }

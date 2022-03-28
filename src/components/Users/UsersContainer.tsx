@@ -36,9 +36,3 @@ export default compose<ComponentType>(
     AuthRedirectHoc
 )(UsersAPIComponent)
 
-// export default connect(mapStateToProps, {
-//     getUserThunk,
-//     setCurrentPageThunk,UnfollowThunk, FollowThunk
-//
-// })(UsersAPIComponent)
-

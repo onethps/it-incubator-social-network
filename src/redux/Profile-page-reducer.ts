@@ -7,14 +7,16 @@ let initialState:initialProfileStateType = {
         {id: 2, message: 'Hey, are u fine?', likes: 11},
         {id: 3, message: 'Bye bye', likes: 8},
     ],
-    newPostText: '',
-    profile: null
+    newPostText: 'some text',
+    profile: null,
+    status: ''
 }
 
 export type initialProfileStateType = {
     postData: Array<postDataType>
     newPostText:string
     profile: any
+    status:string
 }
 export type GlobalPostType = addPostType | updatePostType | setProfileType
 
@@ -54,7 +56,7 @@ export const profilePageReducer = (state: initialProfileStateType = initialState
 
         case 'UPDATE-POST':
             return {...state, newPostText: action.newText}
-        case 'SET-PROFILE':
+        case 'SET-USER-PROFILE':
             return {...state, profile: action.profile}
         default:
             return {...state}
@@ -80,15 +82,26 @@ export const UpdatePostCreator = (newText:string) => {
 }
 export const setProfile = (profileData:any) => {
     return {
-        type: 'SET-PROFILE',
+        type: 'SET-USER-PROFILE',
         profile: profileData
     } as const
 }
 
 
+export const setStatus = (status:string) => {
+    return {
+        type: 'SET-STATUS',
+        status
+    } as const
+}
+
+
+
+
 export const getUserProfileThunk = (userID:number) => {
     return (dispatch:Dispatch) => {
         UserAPI.getUserProfile(userID).then(response => {
+
             return  dispatch(setProfile({...response.data}))
 
         })

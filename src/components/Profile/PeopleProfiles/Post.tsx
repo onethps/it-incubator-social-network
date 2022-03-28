@@ -7,14 +7,15 @@ type PostType = {
 
 const Post = (props:PostType) => {
     if (!props.profileInfo) {
-        return <div>jdi</div>
+        return <div>Loading....</div>
     }
     return (
 
         <div>
             <div>{props.profileInfo.aboutMe}</div>
             <div>{props.profileInfo.fullName}</div>
-            <img alt={'parsedIMG'} src={props.profileInfo.photos.small}/>
+            {props.profileInfo.photos.small &&
+                <img alt={'parsedIMG'} src={props.profileInfo.photos.small}/>}
         </div>
     );
 };

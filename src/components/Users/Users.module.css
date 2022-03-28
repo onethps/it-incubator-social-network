@@ -5,15 +5,32 @@
 
 .activeClass{
     font-weight: bold;
-    font-size: 50px;
+    font-size: 20px;
     cursor: pointer;
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f2f5;
+
 }
 
 .normalClass{
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .normalClass:hover{
     background-color: lightgrey;
+
+}
+
+.pagesBlock{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }

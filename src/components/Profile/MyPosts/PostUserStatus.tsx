@@ -11,15 +11,14 @@ class PostUserStatus extends React.Component<PostStatusType> {
     }
 
     activateMode = () => {
-        console.log(this.state.editMode)
         this.setState({
             ...this.state,
             editMode: true
         })
+        this.forceUpdate()
 
-        console.log(this.state.editMode)
     }
-    DeActivateMode = () => {
+    deActivateMode = () => {
         this.setState({
             ...this.state,
             editMode: false
@@ -28,18 +27,16 @@ class PostUserStatus extends React.Component<PostStatusType> {
 
 
 
-
-
-
     render()  {
         return   <div>
 
             { this.state.editMode &&<div>
-                <input value={this.props.status}/>
+                <input autoFocus onBlur={this.deActivateMode} value={this.props.status}/>
             </div>}
 
             { !this.state.editMode &&<div>
-                <span>{this.props.status}</span>
+                <span onDoubleClick={this.activateMode}>{this.props.status}</span>
+
             </div>}
 
         </div>

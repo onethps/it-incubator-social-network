@@ -23,7 +23,7 @@ export const User = (props: UserPropsType) => {
 
     let page = []
 
-    for (let i = 1; i <= pages; i++) {
+    for (let i = 4010; i <= 4020; i++) {
         page.push(i)
     }
 
@@ -32,7 +32,9 @@ export const User = (props: UserPropsType) => {
         return (
             <>
                 <NavLink to={'/mainpage/' + m.id}>
-                    <img alt={'img'} className={s.avaStyle} src={catAva}/>
+                    {m.photos.small ? <img alt={'img'} className={s.avaStyle} src={m.photos.small}/>:
+                        <img alt={'img'} className={s.avaStyle} src={catAva}/>
+                    }
                 </NavLink>
                 {m.followed ?
 
@@ -46,6 +48,7 @@ export const User = (props: UserPropsType) => {
 
                 }
                 <div key={m.id}>ID {m.id} NAME {m.name}</div>
+                <div>Status: {m.status}</div>
 
             </>
         )
@@ -54,9 +57,10 @@ export const User = (props: UserPropsType) => {
 
     return (
         <div>
-            <div>
+            <div className={s.pagesBlock}>
                 {page.map((m,i) => {
-                    return <span key={i} onClick={() => {props.onClickPageChangeHandler(m)}} className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
+                    return <span key={i} onClick={() => {props.onClickPageChangeHandler(m)}}
+                                 className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
                 })}
             </div>
 
