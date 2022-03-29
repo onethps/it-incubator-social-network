@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {ChangeEvent, ChangeEventHandler} from 'react';
 
 type PostStatusType = {
     status:string
+    updateStatusThunk: (status:string) => void
 }
 
 class PostUserStatus extends React.Component<PostStatusType> {
 
     state = {
-        editMode: false
+        editMode: false,
+        status: this.props.status
     }
 
     activateMode = () => {
@@ -15,7 +17,6 @@ class PostUserStatus extends React.Component<PostStatusType> {
             ...this.state,
             editMode: true
         })
-        this.forceUpdate()
 
     }
     deActivateMode = () => {
@@ -23,23 +24,51 @@ class PostUserStatus extends React.Component<PostStatusType> {
             ...this.state,
             editMode: false
         })
+        this.props.updateStatusThunk(this.state.status)
+
+    }
+
+    onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            ...this.state,
+            status: e.currentTarget.value
+        })
     }
 
 
+    componentDidUpdate(prevProps: Readonly<PostStatusType>, prevState: Readonly<{}>, snapshot?: any) {
+      if (prevProps.status !== this.props.status) {
+          this.setState({
+              ...this.state,
+              status: this.props.status
+          })
+      }
+
+    }
+
 
     render()  {
-        return   <div>
 
-            { this.state.editMode &&<div>
-                <input autoFocus onBlur={this.deActivateMode} value={this.props.status}/>
-            </div>}
+        let styleStatusBlock = {display:'inline-block'}
+        return   <>
+            <div>
+            {/*<img alt={'imgAVA'} src={'src'}/>*/}
+            </div>
+            <span >STATUS: </span>
+            { this.state.editMode &&
+                <div style={styleStatusBlock}>
+                    <input onChange={this.onStatusChange}
+                           autoFocus onBlur={this.deActivateMode} value={this.state.status}/>
+                </div>
+            }
 
-            { !this.state.editMode &&<div>
-                <span onDoubleClick={this.activateMode}>{this.props.status}</span>
+            { !this.state.editMode &&
+                <div style={styleStatusBlock}>
+                    <span onDoubleClick={this.activateMode}>{this.props.status || '----'}</span>
+                </div>
+            }
 
-            </div>}
-
-        </div>
+        </>
 
     }
 }

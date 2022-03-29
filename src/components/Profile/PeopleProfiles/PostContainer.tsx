@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import {getUserProfileThunk} from "../../../redux/Profile-page-reducer";
+import {getUserProfileThunk, getUserStatusThunk, updateStatusThunk} from "../../../redux/Profile-page-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Post} from "./Post";
 import {compose} from "redux";
@@ -17,6 +17,8 @@ type PostContainerType = {
     profileInfo: any
     userID?: string | undefined
     getUserProfileThunk: (userID:number) => void
+    getUserStatusThunk: (userID:number) => void
+
 }
 
 
@@ -71,7 +73,14 @@ class PostContainer extends React.Component<Props> {
 
     componentDidMount() {
         const {match} = this.props
-        this.props.getUserProfileThunk(Number(match.params.userID))
+        let userID = match.params.userID
+        if(!userID) {
+            userID = '19674'
+        }
+        this.props.getUserProfileThunk(Number(userID))
+        this.props.getUserStatusThunk(Number(userID))
+
+
     }
 
     render() {
@@ -83,7 +92,7 @@ class PostContainer extends React.Component<Props> {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, { getUserProfileThunk }),
+    connect(mapStateToProps, { getUserProfileThunk, getUserStatusThunk, updateStatusThunk }),
     AuthRedirectHOC,
     withRouter,
 )(PostContainer)

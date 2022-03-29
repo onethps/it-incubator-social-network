@@ -18,7 +18,7 @@ export type initialProfileStateType = {
     profile: any
     status:string
 }
-export type GlobalPostType = addPostType | updatePostType | setProfileType
+
 
 
 export type userProfileType ={
@@ -58,16 +58,21 @@ export const profilePageReducer = (state: initialProfileStateType = initialState
             return {...state, newPostText: action.newText}
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile}
+        case 'SET-STATUS':
+            return {...state, status: action.status}
         default:
             return {...state}
     }
 
 }
 
+export type GlobalPostType = addPostType | updatePostType | setProfileType | setStatusType
+
 
 export type addPostType = ReturnType<typeof AddPostCreator>
 export type updatePostType = ReturnType<typeof UpdatePostCreator>
 type setProfileType = ReturnType<typeof setProfile>
+type setStatusType = ReturnType<typeof setStatus>
 
 export const AddPostCreator = () => {
     return {
@@ -98,13 +103,35 @@ export const setStatus = (status:string) => {
 
 
 
+
+
+
 export const getUserProfileThunk = (userID:number) => {
     return (dispatch:Dispatch) => {
         UserAPI.getUserProfile(userID).then(response => {
-
             return  dispatch(setProfile({...response.data}))
 
         })
     }
 }
 
+
+export const getUserStatusThunk = (userID:number) => {
+    return (dispatch:Dispatch) => {
+        UserAPI.getUserStatus(userID).then(response => {
+            return  dispatch(setStatus(response.data))
+        })
+    }
+}
+
+
+///
+export const updateStatusThunk = (status:string) => {
+    return (dispatch:Dispatch) => {
+        UserAPI.updateStatus(status).then(response => {
+            if(response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
+    }
+}

@@ -38,6 +38,17 @@ export const UserAPI = {
 
     },
 
+    getUserStatus (userID:number) {
+        return instance.get(`profile/status/${userID}`)
+
+    },
+
+    updateStatus (status:string) {
+        debugger
+        return instance.put(`profile/status/`, {status})
+
+    },
+
 ///header API'S
 
   getLoginData () {

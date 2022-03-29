@@ -1,34 +1,39 @@
 import {PostMessage} from "./MyPosts/PostMessage";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {AddPostCreator, postDataType, UpdatePostCreator} from "../../redux/Profile-page-reducer";
+import {AddPostCreator, postDataType, UpdatePostCreator, updateStatusThunk} from "../../redux/Profile-page-reducer";
 import AuthRedirectHoc from "../Sidebar/Navigation/AuthRedirectHOC";
+import {compose} from "redux";
+import {ComponentType} from "react";
 
-type MapDispatchPropsType = {
-    addPostCallAction: () => void
-    updatePostCallAction: (body: string) => void
-}
+
 
 type mapStatePropsType = {
-    profilePage:Array<postDataType>
+    postData:Array<postDataType>
     newPostText:string
+    status:string
 }
 
-
-export type ProfilePropsContainerType = MapDispatchPropsType & mapStatePropsType
 
 
 let mapStateToProps = (props: AppStateType):mapStatePropsType => {
     return {
-        profilePage: props.profilePage.postData,
+        postData: props.profilePage.postData,
         newPostText:props.profilePage.newPostText,
+        status:props.profilePage.status,
     }
 }
 
 
+export  const ProfilePageContainer = compose<ComponentType>(
+    connect(mapStateToProps,{
+        AddPostCreator, UpdatePostCreator,
+        updateStatusThunk
+    }),
+AuthRedirectHoc
+)(PostMessage)
 
-export const ProfilePageContainer = AuthRedirectHoc(connect(mapStateToProps,{
-    AddPostCreator, UpdatePostCreator
-})(PostMessage))
+export  default ProfilePageContainer
+
 
 

@@ -5,7 +5,7 @@ let initState: userType = {
     users: [],
     pageSize:4,
     totalUserCount:20,
-    currentPage:1,
+    currentPage:4010,
     isFetching:true,
     onLoadFollowStatus:[22996]
 }
