@@ -20,13 +20,13 @@ const mapStateToProps = (state:AppStateType):mapStateToPropsType => {
 function AuthRedirectHoc<T>(Component:React.ComponentType<T>){
 
     const WrappedComponent = (props:mapStateToPropsType) => {
-        let {isAuth, ...jopa} = props
+        let {isAuth, ...rest} = props
 
         if (!props.isAuth) return <Navigate to={'/login'}/>
 
 
 
-        return <Component {...jopa as T}/>
+        return <Component {...rest as T}/>
     }
 
 

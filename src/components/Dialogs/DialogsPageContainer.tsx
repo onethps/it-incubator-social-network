@@ -2,7 +2,7 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
-import {AddNewMessage, inicialStateMessageType, updateMessage} from "../../redux/Message-page-reducer";
+import {AddNewMessage, inicialStateMessageType} from "../../redux/Message-page-reducer";
 import AuthRedirectHOC from "../Sidebar/Navigation/AuthRedirectHOC";
 import {ComponentType} from "react";
 
@@ -12,8 +12,7 @@ type mapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    addMessageTextCallAction: () => void
-    updateMessageTextAction: (body: string) => void
+    addMessageTextCallAction: (newMessage:string) => void
 }
 
 let mapStateToProps = (state: AppStateType):mapStatePropsType => {
@@ -26,12 +25,8 @@ export type DialogPropsContainerType = mapStatePropsType & MapDispatchPropsType
 
 let mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType  => {
     return {
-        addMessageTextCallAction: () => {
-            dispatch(AddNewMessage())
-        },
-
-        updateMessageTextAction: (body: string) => {
-            dispatch(updateMessage(body))
+        addMessageTextCallAction: (newMessage:string) => {
+            dispatch(AddNewMessage(newMessage))
         },
     }
 }

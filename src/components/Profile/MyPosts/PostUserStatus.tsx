@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler} from 'react';
+import React, {ChangeEvent} from 'react';
 
 type PostStatusType = {
     status:string
@@ -37,12 +37,12 @@ class PostUserStatus extends React.Component<PostStatusType> {
 
 
     componentDidUpdate(prevProps: Readonly<PostStatusType>, prevState: Readonly<{}>, snapshot?: any) {
-      if (prevProps.status !== this.props.status) {
-          this.setState({
-              ...this.state,
-              status: this.props.status
-          })
-      }
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                ...this.state,
+                status: this.props.status
+            })
+        }
 
     }
 
@@ -52,7 +52,6 @@ class PostUserStatus extends React.Component<PostStatusType> {
         let styleStatusBlock = {display:'inline-block'}
         return   <>
             <div>
-            {/*<img alt={'imgAVA'} src={'src'}/>*/}
             </div>
             <span >STATUS: </span>
             { this.state.editMode &&

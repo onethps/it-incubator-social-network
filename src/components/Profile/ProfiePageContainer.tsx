@@ -10,7 +10,6 @@ import {ComponentType} from "react";
 
 type mapStatePropsType = {
     postData:Array<postDataType>
-    newPostText:string
     status:string
 }
 
@@ -19,7 +18,6 @@ type mapStatePropsType = {
 let mapStateToProps = (props: AppStateType):mapStatePropsType => {
     return {
         postData: props.profilePage.postData,
-        newPostText:props.profilePage.newPostText,
         status:props.profilePage.status,
     }
 }

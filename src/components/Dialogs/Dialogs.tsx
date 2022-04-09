@@ -1,11 +1,11 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
 import {DialogPropsContainerType} from "./DialogsPageContainer";
-
-
-
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {TexArea} from "../../common/FormValid/FormValid";
+import {maxLength, requeredFiled} from "../../validators/validators";
 
 
 export type dialogsData = {
@@ -15,21 +15,16 @@ export type dialogsData = {
 
 export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {
 
-    let friendsElems =
-        props.messagesPage.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    let friendsElems = props.messagesPage.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
 
-    let messageElems =
-        props.messagesPage.messagesData.map(m => <MessageItem key={m.id} message={m.message}/>)
+    let messageElems = props.messagesPage.messagesData.map(m => <MessageItem key={m.id} message={m.message}/>)
 
 
-    const sendNewMessage = () => {
-        props.addMessageTextCallAction()
+    const onSubmit = (formData:FormDataType) => {
+
+        props.addMessageTextCallAction(formData.DialogMessageArea)
+
     }
-
-    let updateNewMessage = (e:ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateMessageTextAction(e.currentTarget.value)
-    }
-
 
     return (
         <div>
@@ -42,10 +37,7 @@ export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {
                         {messageElems}
                     </div>
                     <div className={s.newMessageBlock}>
-                        <textarea className={s.textArea} value={props.messagesPage.newMessageText}
-                                  placeholder='Write New Message'
-                                  onChange={updateNewMessage}/>
-                        <button className={s.sendButton} onClick={sendNewMessage}> Add Message</button>
+                        <DialogReduxForm  onSubmit={onSubmit}/>
                     </div>
                 </div>
             </div>
@@ -54,3 +46,27 @@ export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {
 
     )
 }
+
+type FormDataType = {
+    DialogMessageArea:string
+}
+
+const maxLength20 = maxLength(20)
+
+const DialogForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+
+
+    return  <form onSubmit={props.handleSubmit}>
+        <div>
+            <Field
+                validate={[requeredFiled, maxLength20]}
+                className={s.textArea} name={'DialogMessageArea'} component={TexArea}/>
+        </div>
+        <div>
+            <button>Add Message</button>
+        </div>
+
+    </form>
+}
+
+const DialogReduxForm = reduxForm<FormDataType>({form:'dialog'})(DialogForm)

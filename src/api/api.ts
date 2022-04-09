@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 const instance = axios.create({
@@ -33,7 +33,7 @@ export const UserAPI = {
 
     ///PostContainer API'S
 
-   getUserProfile (userID:number) {
+    getUserProfile (userID:number) {
         return instance.get(`profile/${userID}`)
 
     },
@@ -51,19 +51,12 @@ export const UserAPI = {
 
 ///header API'S
 
-  getLoginData () {
-        return instance.get(`auth/me`)
-            .then(response=> {
-                return response.data
-            })
-
-    }
 
 }
 
 export const followAPI = {
 
-  deleteFollow (userID:number) {
+    deleteFollow (userID:number) {
         return instance.delete(`follow/${userID}`)
 
     },
@@ -72,6 +65,37 @@ export const followAPI = {
         return instance.post(`follow/${userID}`)
 
     }
+
+}
+
+type LogoutType<D = {}> = {
+    data: D
+    fieldsErrors: D
+    messages: Array<any>
+    resultCode: number
+}
+
+
+export const authAPI ={
+
+
+    getLoginData () {
+        return instance.get(`auth/me`)
+            .then(response=> {
+                return response.data
+            })
+
+    },
+
+    login (email:string, password:string, rememberMe:boolean = false) {
+        return instance.post<LogoutType>(`auth/login`, {email, password, rememberMe})
+    },
+
+    logout () {
+        return instance.delete<LogoutType>(`auth/login`)
+    }
+
+
 
 }
 
