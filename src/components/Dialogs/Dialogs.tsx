@@ -15,9 +15,9 @@ export type dialogsData = {
 
 export const Dialogs: React.FC<DialogPropsContainerType> = (props) => {
 
-    let friendsElems = props.messagesPage.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    let friendsElems = props.messagesPage.dialogsData.map((d:dialogsData,i) => <DialogItem key={i} name={d.name} id={d.id}/>)
 
-    let messageElems = props.messagesPage.messagesData.map(m => <MessageItem key={m.id} message={m.message}/>)
+    let messageElems = props.messagesPage.messagesData.map((m,i) => <MessageItem key={i} message={m.message}/>)
 
 
     const onSubmit = (formData:FormDataType) => {

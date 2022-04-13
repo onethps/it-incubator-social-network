@@ -1,9 +1,10 @@
 
-export type inicialStateMessageType = typeof initialState
 
-type GlobalMessagePageType = AddNewMessageType
 
-let initialState = {
+export type messagePageReducerTypes = AddNewMessageACType
+export type initialStateMessageType = typeof initialState
+
+const initialState = {
     dialogsData: [
         {id: 1, name: 'Dimych'},
         {id: 2, name: 'Slavik'},
@@ -23,30 +24,26 @@ let initialState = {
 
 
 
-
-
-type AddNewMessageType = ReturnType<typeof AddNewMessage>
-export const AddNewMessage = (newMessage:string) => {
-    return {
-        type: 'ADD-MESSAGE', newMessage
-    } as const
-}
-
-
-
-export const messagePageReducer = (state: inicialStateMessageType = initialState, action: GlobalMessagePageType): inicialStateMessageType => {
-    let stateCopy;
+export const messagePageReducer =
+    (state: initialStateMessageType = initialState, action: messagePageReducerTypes): initialStateMessageType => {
 
     switch (action.type) {
         case 'ADD-MESSAGE':
-            stateCopy = {
+          return  {
                 ...state,
                 messagesData: [...state.messagesData, {id: 5, message: action.newMessage}]
             }
 
-            return stateCopy
-
+        default:
+            return state
 
     }
-    return state
+}
+
+
+type AddNewMessageACType = ReturnType<typeof AddNewMessageAC>
+export const AddNewMessageAC = (newMessage:string) => {
+    return {
+        type: 'ADD-MESSAGE', newMessage
+    } as const
 }

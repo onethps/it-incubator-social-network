@@ -1,5 +1,4 @@
-import axios, {AxiosResponse} from "axios";
-
+import axios from "axios";
 
 const instance = axios.create({
     withCredentials:true,
@@ -7,9 +6,7 @@ const instance = axios.create({
     headers: {
         "API-KEY": '53743326-f61f-4a39-ac8a-be7cd4a5c568'
     }
-
 })
-
 
 //User API'S
 
@@ -21,14 +18,11 @@ export const UserAPI = {
                 return response.data
             })
     },
-
-
     getCurrentPage (pageNumber:number, pageSize:number){
         return  instance.get(`users?page=${pageNumber}&count=${pageSize}`)
             .then(response=> {
                 return response.data
             })
-
     },
 
     ///PostContainer API'S
@@ -37,14 +31,11 @@ export const UserAPI = {
         return instance.get(`profile/${userID}`)
 
     },
-
     getUserStatus (userID:number) {
         return instance.get(`profile/status/${userID}`)
 
     },
-
     updateStatus (status:string) {
-        debugger
         return instance.put(`profile/status/`, {status})
 
     },
@@ -58,14 +49,10 @@ export const followAPI = {
 
     deleteFollow (userID:number) {
         return instance.delete(`follow/${userID}`)
-
     },
-
     postFollow (userID:number) {
         return instance.post(`follow/${userID}`)
-
     }
-
 }
 
 type LogoutType<D = {}> = {
@@ -75,9 +62,7 @@ type LogoutType<D = {}> = {
     resultCode: number
 }
 
-
 export const authAPI ={
-
 
     getLoginData () {
         return instance.get(`auth/me`)
@@ -94,8 +79,6 @@ export const authAPI ={
     logout () {
         return instance.delete<LogoutType>(`auth/login`)
     }
-
-
 
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {LeftFriendList} from "./LeftFriendList/LeftFriendList";
 import s from "./sidebar.module.css"
-import {SideBarType} from "../../redux/SideBarContainter";
+import {SideBarType} from "./SideBarContainter";
 import {Link} from "react-router-dom";
 
 

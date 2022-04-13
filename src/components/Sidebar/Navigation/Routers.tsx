@@ -1,11 +1,9 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import PostContainer from "../../Profile/PeopleProfiles/PostContainer";
 import LoginPage from "../../Login/LoginPage";
 import UsersContainer from "../../Users/UsersContainer";
 import DialogsPageContainer from "../../Dialogs/DialogsPageContainer";
 import ProfilePageContainer from "../../Profile/ProfiePageContainer";
-import {PostMessage} from "../../Profile/MyPosts/PostMessage";
 
 
 export const Routers = () => {

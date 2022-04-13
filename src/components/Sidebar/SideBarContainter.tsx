@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
-import Sidebar from "../components/Sidebar/sidebar";
-import {AppStateType} from "./redux-store";
-import {initialSidebarStateType} from "./sidebar-reducer";
+import Sidebar from "./sidebar";
+import {AppStateType} from "../../redux/redux-store";
+import {initialSidebarStateType} from "../../redux/sidebar-reducer";
 
 type mapStatePropsType = {
     sidebar:initialSidebarStateType

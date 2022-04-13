@@ -1,5 +1,10 @@
-import {Dispatch} from "redux";
 import {followAPI, UserAPI} from "../api/api";
+import {AppThunk} from "./redux-store";
+
+
+export type usersReducerTypes = setUserCountType | setDataACType |
+    setCurrentPageACType | isFetchinACType | isFollowType | isUnFollowType | onLoadFollowType
+
 
 let initState: userType = {
     users: [],
@@ -30,7 +35,7 @@ export type photosType ={
     small: string | null
 }
 
-export const usersReducer = (state: userType = initState, action: ActionTypes): userType => {
+export const usersReducer = (state: userType = initState, action: usersReducerTypes): userType => {
     switch (action.type) {
 
         case 'SET-TOTAL-USER-COUNT':
@@ -49,7 +54,9 @@ export const usersReducer = (state: userType = initState, action: ActionTypes): 
         }
 
         case 'SET-ONLOAD-FOLLOW-STATUS': {
-            return {...state, onLoadFollowStatus: action.isFetching ?  state.onLoadFollowStatus.filter(f => f !== action.userId) :
+            const filterStatus = state.onLoadFollowStatus.filter(f => f !== action.userId)
+
+            return {...state, onLoadFollowStatus: action.isFetching ?  filterStatus :
                     [...state.onLoadFollowStatus, action.userId]
 
             }
@@ -65,8 +72,6 @@ export default usersReducer
 
 
 
-type ActionTypes = setUserCountType | setDataACType |
-    setCurrentPageACType | isFetchinACType | isFollowType | isUnFollowType | onLoadFollowType
 
 type setUserCountType = ReturnType<typeof setTotalCountAC>
 type setDataACType = ReturnType<typeof setUserData>
@@ -126,39 +131,31 @@ export const onLoadFollowAC = (isFetching:boolean, userId:number) => {
 
 
 
-export const getUserThunk = (currentPage:number, pageSize:number) => {
-
-    return (dispatch: Dispatch) => {
-        dispatch(isFetchinAC(false))
-        UserAPI.getUsers(currentPage, pageSize)
-            .then(data => {
-                dispatch(isFetchinAC(true))
-                dispatch(setUserData([...data.items]))
-                // commented, cuz aloft of pages shows, first time we get only 5 pages
-                // if needed to show all pages - uncomment second string
-                dispatch(setTotalCountAC(data.totalCount))
-            })
-    }
-}
-
-export const setCurrentPageThunk = (pageNumber:number, pageSize:number) => {
-
-    return (dispatch: Dispatch) => {
-
-        dispatch(isFetchinAC(false))
-        dispatch(setCurrentPageAC(pageNumber))
-        UserAPI.getCurrentPage(pageNumber, pageSize).then(data => {
+export const getUserThunk = (currentPage:number, pageSize:number):AppThunk => dispatch => {
+    dispatch(isFetchinAC(false))
+    UserAPI.getUsers(currentPage, pageSize)
+        .then(data => {
             dispatch(isFetchinAC(true))
             dispatch(setUserData([...data.items]))
-
+            // commented, cuz aloft of pages shows, first time we get only 5 pages
+            // if needed to show all pages - uncomment second string
+            dispatch(setTotalCountAC(data.totalCount))
         })
+}
 
-    }
+export const setCurrentPageThunk = (pageNumber:number, pageSize:number):AppThunk => dispatch => {
+    dispatch(isFetchinAC(false))
+    dispatch(setCurrentPageAC(pageNumber))
+    UserAPI.getCurrentPage(pageNumber, pageSize).then(data => {
+        dispatch(isFetchinAC(true))
+        dispatch(setUserData([...data.items]))
+    })
 }
 
 
-export const UnfollowThunk = (userID:number) => {
-    return (dispatch: Dispatch) => {
+
+export const UnfollowThunk = (userID:number):AppThunk => {
+    return (dispatch) => {
 
         dispatch(onLoadFollowAC(false, userID))
         followAPI.deleteFollow(userID).then(response => {
@@ -171,8 +168,8 @@ export const UnfollowThunk = (userID:number) => {
     }
 }
 
-export const FollowThunk = (userID:number) => {
-    return (dispatch: Dispatch) => {
+export const FollowThunk = (userID:number):AppThunk => {
+    return (dispatch) => {
 
         dispatch(onLoadFollowAC(false, userID))
         followAPI.postFollow(userID).then(response => {

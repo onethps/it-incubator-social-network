@@ -10,6 +10,8 @@ import AuthRedirectHOC from "../../Sidebar/Navigation/AuthRedirectHOC";
 const mapStateToProps = (props:AppStateType) => {
     return {
         profileInfo: props.profilePage.profile,
+        loggedUserId: props.loginData.id,
+        isAuth: props.loginData.isAuth
     }
 }
 
@@ -18,6 +20,8 @@ type PostContainerType = {
     userID?: string | undefined
     getUserProfileThunk: (userID:number) => void
     getUserStatusThunk: (userID:number) => void
+    loggedUserId:string
+
 
 }
 
@@ -75,7 +79,7 @@ class PostContainer extends React.Component<Props> {
         const {match} = this.props
         let userID = match.params.userID
         if(!userID) {
-            userID = '19674'
+            userID = this.props.loggedUserId
         }
         this.props.getUserProfileThunk(Number(userID))
         this.props.getUserStatusThunk(Number(userID))
