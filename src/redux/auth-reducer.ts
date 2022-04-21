@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 import {AppThunk} from "./redux-store";
 import {stopSubmit} from "redux-form";
-import {inicilizecSuccerBoolType, inilizedSuccersAC} from "../components/Users/app-reducer";
+import {initializeAppACType, initializerSuccersAC} from "../components/Users/app-reducer";
 
 
 export type authReducerTypes = getDataACType | stopSubmitType
@@ -49,18 +49,13 @@ export const getDataAC = (payload:initStateAuthType) => {
 
 export const getLoginDataThunk = ():AppThunk  => {
     return (dispatch) => {
-          authAPI.getLoginData()
+     return    authAPI.getLoginData()
             .then(data => {
                 let {email, id, login } = data.data
                 if (data.resultCode === 0) {
                     dispatch(getDataAC({id, email, login, isAuth:true}))
                 }
-        }).then(
-            () =>{
-                 dispatch(inilizedSuccersAC())
-            }
-
-    )
+        })
 
     }
 }

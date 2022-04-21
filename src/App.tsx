@@ -7,17 +7,20 @@ import {AppStateType} from "./redux/redux-store";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {getLoginDataThunk} from "./redux/auth-reducer";
+import PreLoader from "./common/PreLoader";
+import {initializeAppAC} from "./components/Users/app-reducer";
 
 
 type AppType = {
     inicialize:boolean
-    getLoginDataThunk: () => void
+    inicializetApp: () => void
+
 }
 
 class App extends React.Component<AppType> {
 
     componentDidMount() {
-        this.props.getLoginDataThunk()
+        this.props.inicializetApp()
 
 
     }
@@ -25,7 +28,7 @@ class App extends React.Component<AppType> {
 
     render() {
 
-        if (!this.props.inicialize) return '....loading'
+        if (!this.props.inicialize) return <PreLoader/>
 
             return (
                 <div className='app__wrapper'>
@@ -45,9 +48,7 @@ const mapStateToProps = (state:AppStateType) => {
 }
 
 export default compose<ComponentType> (
-
     connect(
-        mapStateToProps,{getLoginDataThunk}),
-)(App)
+        mapStateToProps,{inicializetApp: initializeAppAC}))(App)
 
 

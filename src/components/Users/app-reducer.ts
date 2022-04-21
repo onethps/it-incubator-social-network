@@ -1,13 +1,16 @@
+import {AppThunk} from "../../redux/redux-store";
+import {getLoginDataThunk} from "../../redux/auth-reducer";
+
 let initState = {
     initializec:false
 }
 
 
-export const appReducer = (state = initState, action:inicilizecSuccerBoolType) => {
+export const appReducer = (state = initState, action:initializeAppACType) => {
 
 
     switch (action.type) {
-        case "INICIALIZED-SUCCERS":
+        case "APP/INITIALIZE-APP":
             return {
                 ...state,
                 initializec: true
@@ -21,23 +24,22 @@ export const appReducer = (state = initState, action:inicilizecSuccerBoolType) =
 }
 
 
-export const inilizedSuccersAC = ( )=> {
+export const initializerSuccersAC = ( )=> {
     return {
-        type: 'INICIALIZED-SUCCERS',
+        type: 'APP/INITIALIZE-APP',
     }
 }
 
 
 
-// export const inicializetApp = ():AppThunk => {
-//     return (dispatch:Dispatch) => {
-// let promise = dispatch(getLoginDataThunk())
-//
-//         promise.then(() => {
-//
-//         })
-//
-//     }
-// }
+export const initializeAppAC = ():AppThunk => dispatch => {
 
-export type inicilizecSuccerBoolType = ReturnType<typeof inilizedSuccersAC>
+        new Promise((res) => {
+            res(dispatch(getLoginDataThunk()))
+        }).then(() => {
+            dispatch(initializerSuccersAC())
+        })
+
+}
+
+export type initializeAppACType = ReturnType<typeof initializerSuccersAC>

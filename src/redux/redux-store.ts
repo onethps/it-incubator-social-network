@@ -6,7 +6,7 @@ import usersReducer, {usersReducerTypes} from "./usersReducer";
 import authReducer, {authReducerTypes} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
-import {appReducer, inicilizecSuccerBoolType} from "../components/Users/app-reducer";
+import {appReducer, initializeAppACType} from "../components/Users/app-reducer";
 
 
 let RootReducer = combineReducers({

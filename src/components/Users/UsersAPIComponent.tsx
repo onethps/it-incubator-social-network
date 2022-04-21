@@ -2,6 +2,7 @@ import {arrayUsers} from "../../redux/usersReducer";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
 import React from "react";
+import PreLoader from "../../common/PreLoader";
 
 type UserAPIPropsType = {
     userData: Array<arrayUsers>
@@ -38,7 +39,7 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType> {
                                            UnfollowThunk={this.props.UnfollowThunk}
                                            FollowThunk={this.props.FollowThunk}
                                            currentPage={this.props.currentPage}/> :
-                <img alt={'img'} src={isFetchingLoader}/>
+                <PreLoader/>
 
             }
         </div>
