@@ -1,7 +1,7 @@
 import {PostMessage} from "./MyPosts/PostMessage";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
-import {AddPostCreator, postDataType, UpdatePostCreator, updateStatusThunk} from "../../redux/Profile-page-reducer";
+import {AppStateType} from "../../store/ReduxStore";
+import {AddPostCreator, postDataType, updateStatusThunk} from "../../store/reducers/ProfileReducer";
 import AuthRedirectHoc from "../Sidebar/Navigation/AuthRedirectHOC";
 import {compose} from "redux";
 import {ComponentType} from "react";
@@ -25,7 +25,7 @@ let mapStateToProps = (props: AppStateType):mapStatePropsType => {
 
 export  const ProfilePageContainer = compose<ComponentType>(
     connect(mapStateToProps,{
-        AddPostCreator, UpdatePostCreator,
+        AddPostCreator,
         updateStatusThunk
     }),
 AuthRedirectHoc

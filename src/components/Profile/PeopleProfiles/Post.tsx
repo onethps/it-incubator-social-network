@@ -7,6 +7,7 @@ type PostType = {
 
 
 const Post = (props: PostType) => {
+
     if (!props.profileInfo) {
         return <div>Loading....</div>
     }

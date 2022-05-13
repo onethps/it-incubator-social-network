@@ -1,18 +1,24 @@
-import {authAPI} from "../api/api";
-import {AppThunk} from "./redux-store";
+import {authAPI, ResponseCodes} from "../../api/api";
+import {AppThunk} from "../ReduxStore";
 import {stopSubmit} from "redux-form";
-import {initializeAppACType, initializerSuccersAC} from "../components/Users/app-reducer";
+import {Dispatch} from "redux";
 
 
 export type authReducerTypes = getDataACType | stopSubmitType
 
 
 let initState: initStateAuthType = {
-    id:null, email:null, login:null, isAuth: false
+    id:null,
+    email:null,
+    login:null,
+    isAuth: false
 }
 
 export type initStateAuthType = {
-    id:number | null, email:string | null, login:string | null, isAuth: boolean
+    id:number | null,
+    email:string | null,
+    login:string | null,
+    isAuth: boolean
 }
 
 export const authReducer = (state: initStateAuthType = initState, action: authReducerTypes): initStateAuthType => {
@@ -47,24 +53,20 @@ export const getDataAC = (payload:initStateAuthType) => {
 
 
 
-export const getLoginDataThunk = ():AppThunk  => {
-    return (dispatch) => {
-     return    authAPI.getLoginData()
-            .then(data => {
-                let {email, id, login } = data.data
-                if (data.resultCode === 0) {
-                    dispatch(getDataAC({id, email, login, isAuth:true}))
-                }
-        })
-
+export const getLoginDataThunk = ():AppThunk  =>  async dispatch => {
+    let response =  await authAPI.getLoginData()
+    console.log(response)
+    let {email, login, id} = response.data.data
+    if (response.data.resultCode === ResponseCodes.SUCCESS) {
+        dispatch(getDataAC({id, email, login, isAuth:true}))
     }
+
 }
 
 
-export const loginization = (email:string, password:string, rememberMe:boolean)
-    :AppThunk => dispatch => {
+export const loginization = (email:string, password:string, rememberMe:boolean):AppThunk => async dispatch => {
     authAPI.login(email, password, rememberMe).then(response => {
-        if (response.data.resultCode === 0){
+        if (response.data.resultCode === ResponseCodes.SUCCESS){
             dispatch(getLoginDataThunk())
         } else  {
             let message = response.data.messages.length ? response.data.messages[0] : "Some error"

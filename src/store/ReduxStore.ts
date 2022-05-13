@@ -1,19 +1,19 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {messagePageReducer, messagePageReducerTypes} from "./Message-page-reducer";
-import SidebarReducer from "./sidebar-reducer";
-import {profilePageReducer, profileReducerTypes} from './Profile-page-reducer';
-import usersReducer, {usersReducerTypes} from "./usersReducer";
-import authReducer, {authReducerTypes} from "./auth-reducer";
+import {messagePageReducerTypes, messageReducer} from "./reducers/MessageReducer";
+import SiderbarReducer from "./reducers/SiderbarReducer";
+import {profileReducer, profileReducerTypes} from './reducers/ProfileReducer';
+import usersReducer, {usersReducerTypes} from "./reducers/UsersReducer";
+import authReducer, {authReducerTypes} from "./reducers/AuthReducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
-import {appReducer, initializeAppACType} from "../components/Users/app-reducer";
+import {appReducer} from "./reducers/AppReducer";
 
 
 let RootReducer = combineReducers({
-    messagePage: messagePageReducer,
-    profilePage: profilePageReducer,
+    messagePage: messageReducer,
+    profilePage: profileReducer,
     usersPage:usersReducer,
-    sidebar: SidebarReducer,
+    sidebar: SiderbarReducer,
     loginData: authReducer,
     appReducer: appReducer,
     form: formReducer

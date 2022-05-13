@@ -1,4 +1,4 @@
-import {AppReducersTypes} from "./redux-store";
+import {AppReducersTypes} from "../ReduxStore";
 
 let initialState = {
     menuLinks: [
@@ -18,7 +18,7 @@ let initialState = {
 export type initialSidebarStateType = typeof initialState
 
 
-export const SidebarReducer = (state: initialSidebarStateType = initialState, action: AppReducersTypes): initialSidebarStateType => {
+export const SiderbarReducer = (state: initialSidebarStateType = initialState, action: AppReducersTypes): initialSidebarStateType => {
 
     switch (action.type) {
         default:
@@ -26,4 +26,4 @@ export const SidebarReducer = (state: initialSidebarStateType = initialState, ac
     }
 };
 
-export default SidebarReducer;
+export default SiderbarReducer;

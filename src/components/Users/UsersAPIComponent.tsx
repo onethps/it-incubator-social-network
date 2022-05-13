@@ -1,4 +1,4 @@
-import {arrayUsers} from "../../redux/usersReducer";
+import {arrayUsers} from "../../store/reducers/UsersReducer";
 import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
 import React from "react";

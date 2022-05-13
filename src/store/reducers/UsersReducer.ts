@@ -1,5 +1,5 @@
-import {followAPI, UserAPI} from "../api/api";
-import {AppThunk} from "./redux-store";
+import {followAPI, ResponseCodes, UserAPI} from "../../api/api";
+import {AppThunk} from "../ReduxStore";
 
 
 export type usersReducerTypes = setUserCountType | setDataACType |
@@ -131,56 +131,73 @@ export const onLoadFollowAC = (isFetching:boolean, userId:number) => {
 
 
 
-export const getUserThunk = (currentPage:number, pageSize:number):AppThunk => dispatch => {
+export const getUserThunk = (currentPage:number, pageSize:number):AppThunk => async dispatch => {
     dispatch(isFetchinAC(false))
-    UserAPI.getUsers(currentPage, pageSize)
-        .then(data => {
-            dispatch(isFetchinAC(true))
-            dispatch(setUserData([...data.items]))
-            // commented, cuz aloft of pages shows, first time we get only 5 pages
-            // if needed to show all pages - uncomment second string
-            dispatch(setTotalCountAC(data.totalCount))
-        })
-}
 
-export const setCurrentPageThunk = (pageNumber:number, pageSize:number):AppThunk => dispatch => {
-    dispatch(isFetchinAC(false))
-    dispatch(setCurrentPageAC(pageNumber))
-    UserAPI.getCurrentPage(pageNumber, pageSize).then(data => {
+    try {
+        const response = await UserAPI.getUsers(currentPage, pageSize)
         dispatch(isFetchinAC(true))
-        dispatch(setUserData([...data.items]))
-    })
-}
-
-
-
-export const UnfollowThunk = (userID:number):AppThunk => {
-    return (dispatch) => {
-
-        dispatch(onLoadFollowAC(false, userID))
-        followAPI.deleteFollow(userID).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(isUnFollowAC(userID))
-            }
-            dispatch(onLoadFollowAC(true, userID))
-        })
-
+        dispatch(setUserData([...response.data.items]))
+        // commented, cuz aloft of pages shows, first time we get only 5 pages
+        // if needed to show all pages - uncomment second string
+        dispatch(setTotalCountAC(response.data.totalCount))
+    } catch (e) {
+        console.log(e)
     }
+
 }
+
+export const setCurrentPageThunk = (pageNumber:number, pageSize:number):AppThunk => async dispatch => {
+    dispatch(isFetchinAC(false))
+    try {
+        const response = await UserAPI.getCurrentPage(pageNumber, pageSize)
+        dispatch(setCurrentPageAC(pageNumber))
+        dispatch(isFetchinAC(true))
+        dispatch(setUserData([...response.data.items]))
+    } catch (e) {
+        console.log(e)
+    }
+
+}
+
+
+
+const followUnfollowFlow = async (dispatch:any, userID:number, apiMethod:any, action:any) => {
+    dispatch(onLoadFollowAC(false, userID))
+    let response = await apiMethod(userID)
+    if (response.data.resultCode === ResponseCodes.SUCCESS) {
+        dispatch(action(userID))
+    }
+    dispatch(onLoadFollowAC(true, userID))
+}
+
 
 export const FollowThunk = (userID:number):AppThunk => {
-    return (dispatch) => {
+    return async dispatch => {
+        let apiMethod = followAPI.postFollow.bind(userID)
+        let action = isFollowAC
+        followUnfollowFlow(dispatch, userID, apiMethod,action)
 
-        dispatch(onLoadFollowAC(false, userID))
-        followAPI.postFollow(userID).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(isFollowAC(userID))
-            }
-            dispatch(onLoadFollowAC(true, userID))
-        })
 
+        // dispatch(onLoadFollowAC(false, userID))
+        // let response = await followAPI.postFollow(userID)
+        // if (response.data.resultCode === 0) {
+        //     dispatch(isFollowAC(userID))
+        // }
+        // dispatch(onLoadFollowAC(true, userID))
+    }
+
+}
+
+export const UnfollowThunk = (userID:number):AppThunk => {
+    return async dispatch => {
+        let apiMethod = followAPI.deleteFollow.bind(userID)
+        let action = isUnFollowAC
+        followUnfollowFlow(dispatch, userID, apiMethod,action)
     }
 }
+
+
 
 
 

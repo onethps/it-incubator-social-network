@@ -1,14 +1,13 @@
 import React, {ComponentType} from 'react';
 import './App.css';
 import SideBarContainter from "./components/Sidebar/SideBarContainter";
-import Routers from "./components/Sidebar/Navigation/Routers";
+import AppRouters from "./components/AppRouters";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import {AppStateType} from "./redux/redux-store";
+import {AppStateType} from "./store/ReduxStore";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {getLoginDataThunk} from "./redux/auth-reducer";
 import PreLoader from "./common/PreLoader";
-import {initializeAppAC} from "./components/Users/app-reducer";
+import {initializeAppAC} from "./store/reducers/AppReducer";
 
 
 type AppType = {
@@ -21,23 +20,20 @@ class App extends React.Component<AppType> {
 
     componentDidMount() {
         this.props.inicializetApp()
-
-
     }
 
 
     render() {
-
         if (!this.props.inicialize) return <PreLoader/>
 
-            return (
-                <div className='app__wrapper'>
-                    <HeaderContainer/>
-                    <SideBarContainter/>
-                    <Routers/>
-                </div>
-            )
-        }
+        return (
+            <div className='app__wrapper'>
+                <HeaderContainer/>
+                <SideBarContainter/>
+                <AppRouters/>
+            </div>
+        )
+    }
 }
 
 const mapStateToProps = (state:AppStateType) => {

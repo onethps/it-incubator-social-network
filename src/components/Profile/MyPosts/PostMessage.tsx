@@ -1,6 +1,6 @@
 import s from './PostMessage.module.css';
 import React from "react";
-import {postDataType} from "../../../redux/Profile-page-reducer";
+import {postDataType} from "../../../store/reducers/ProfileReducer";
 import coverImage from '../../../assets/profile_cover_image.jpg'
 import PostUserStatus from "./PostUserStatus";
 import PostContainer from "../PeopleProfiles/PostContainer";
@@ -18,34 +18,35 @@ type PostMessageType = {
 }
 
 
-export const PostMessage: React.FC<PostMessageType> = (props) => {
+export const PostMessage = React.memo((props: PostMessageType) => {
     let postsElems = props.postData.map(p =>
         <div key={p.id}>
             <div>{p.message}</div>
 
-            <div> <span>👍</span>{p.likes}</div>
+            <div><span>👍</span>{p.likes}</div>
         </div>)
 
 
-    const handleSubmit = (formData:PostFormType) => {
+    const handleSubmit = (formData: PostFormType) => {
         props.AddPostCreator(formData.PostFormMessageArea)
     }
-
+    console.log('REDER POST')
     return (
+
         <div>
             <div>
-                <img  alt={'imgCover'} className={s.imgStyle}
-                      src={coverImage}>
+                <img alt={'imgCover'} className={s.imgStyle}
+                     src={coverImage}>
                 </img>
             </div>
-            <div style={{padding:'20px'}}>
+            <div style={{padding: '20px'}}>
 
                 <PostContainer/>
 
                 <PostUserStatus status={props.status} updateStatusThunk={props.updateStatusThunk}/>
 
-                <div style={{marginTop:'20px'}}>
-                    <div style={{fontWeight:'bold'}}>MY POSTS</div>
+                <div style={{marginTop: '20px'}}>
+                    <div style={{fontWeight: 'bold'}}>MY POSTS</div>
                     <div className={s.Mymessage}>
                         <PostFormRedux onSubmit={handleSubmit}/>
                         {postsElems}
@@ -54,7 +55,7 @@ export const PostMessage: React.FC<PostMessageType> = (props) => {
             </div>
         </div>
     )
-}
+})
 
 const maxLength15 = maxLength(15)
 

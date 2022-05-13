@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./Users.module.css";
 import catAva from "../../assets/cat_ava.jpeg";
-import {arrayUsers} from "../../redux/usersReducer";
+import {arrayUsers} from "../../store/reducers/UsersReducer";
 import {NavLink} from "react-router-dom";
 
 

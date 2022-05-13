@@ -1,8 +1,8 @@
 import {SideBarArrayType} from "../components/Sidebar/sidebar";
 // import {MyMessagePageType} from "../components/Profile/MyPosts/PostMessage";
 // import {DialogsArrayType} from "../components/Dialogs/Dialogs";
-// import {profilePageReducer} from "./Profile-page-reducer";
-// import {messagePageReducer} from "./Message-page-reducer";
+// import {profileReducer} from "./Profile-page-reducer";
+// import {messageReducer} from "./Message-page-reducer";
 //
 // export type StoreType = {
 //     _state: RootStateType
@@ -66,8 +66,8 @@ import {SideBarArrayType} from "../components/Sidebar/sidebar";
 //     },
 //
 //     dispatch(action) {
-//         store._state.profilePage = profilePageReducer(store._state.profilePage, action)
-//         store._state.messagePage = messagePageReducer(store._state.messagePage, action)
+//         store._state.profilePage = profileReducer(store._state.profilePage, action)
+//         store._state.messagePage = messageReducer(store._state.messagePage, action)
 //
 //         store._onChange()
 //

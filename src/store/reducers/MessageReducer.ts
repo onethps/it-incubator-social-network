@@ -24,7 +24,7 @@ const initialState = {
 
 
 
-export const messagePageReducer =
+export const messageReducer =
     (state: initialStateMessageType = initialState, action: messagePageReducerTypes): initialStateMessageType => {
 
     switch (action.type) {

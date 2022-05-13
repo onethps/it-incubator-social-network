@@ -1,9 +1,9 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {loginization} from "../../redux/auth-reducer";
+import {loginization} from "../../store/reducers/AuthReducer";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../store/ReduxStore";
 
 type FormDataType = {
     email:string

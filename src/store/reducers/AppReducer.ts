@@ -1,5 +1,5 @@
-import {AppThunk} from "../../redux/redux-store";
-import {getLoginDataThunk} from "../../redux/auth-reducer";
+import {AppThunk} from "../ReduxStore";
+import {getLoginDataThunk} from "./AuthReducer";
 
 let initState = {
     initializec:false
@@ -24,7 +24,7 @@ export const appReducer = (state = initState, action:initializeAppACType) => {
 }
 
 
-export const initializerSuccersAC = ( )=> {
+export const initializerSuccersAC = () => {
     return {
         type: 'APP/INITIALIZE-APP',
     }
@@ -33,12 +33,11 @@ export const initializerSuccersAC = ( )=> {
 
 
 export const initializeAppAC = ():AppThunk => dispatch => {
-
-        new Promise((res) => {
-            res(dispatch(getLoginDataThunk()))
-        }).then(() => {
-            dispatch(initializerSuccersAC())
-        })
+    new Promise((res) => {
+        res(dispatch(getLoginDataThunk()))
+    }).then(() => {
+        dispatch(initializerSuccersAC())
+    })
 
 }
 

@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
-import {arrayUsers, FollowThunk, getUserThunk, setCurrentPageThunk, UnfollowThunk} from "../../redux/usersReducer";
+import {AppStateType} from "../../store/ReduxStore";
+import {arrayUsers, FollowThunk, getUserThunk, setCurrentPageThunk, UnfollowThunk} from "../../store/reducers/UsersReducer";
 import UsersAPIComponent from "./UsersAPIComponent";
 import {compose} from "redux";
 import AuthRedirectHoc from "../Sidebar/Navigation/AuthRedirectHOC";

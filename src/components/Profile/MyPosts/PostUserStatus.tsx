@@ -6,7 +6,6 @@ type PostStatusType = {
 }
 
 class PostUserStatus extends React.Component<PostStatusType> {
-
     state = {
         editMode: false,
         status: this.props.status

@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
-import {AppStateType} from "../../../redux/redux-store";
+import {AppStateType} from "../../../store/ReduxStore";
 import {connect} from "react-redux";
-import {getUserProfileThunk, getUserStatusThunk, updateStatusThunk} from "../../../redux/Profile-page-reducer";
+import {getUserProfileThunk, getUserStatusThunk, updateStatusThunk} from "../../../store/reducers/ProfileReducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Post} from "./Post";
 import {compose} from "redux";
@@ -74,7 +74,6 @@ type Props = WithRouterProps<PostContainerType> & PostContainerType
 
 
 class PostContainer extends React.Component<Props> {
-
     componentDidMount() {
         const {match} = this.props
         let userID = match.params.userID
