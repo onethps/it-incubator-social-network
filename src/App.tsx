@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import './App.css';
 import SideBarContainter from "./components/Sidebar/SideBarContainter";
-import AppRouters from "./components/AppRouters";
+import AppRouters from "./components/routes/AppRouters";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {AppStateType} from "./store/ReduxStore";
 import {compose} from "redux";
@@ -43,8 +43,5 @@ const mapStateToProps = (state:AppStateType) => {
 
 }
 
-export default compose<ComponentType> (
-    connect(
+export default compose<ComponentType> (connect(
         mapStateToProps,{inicializetApp: initializeAppAC}))(App)
-
-

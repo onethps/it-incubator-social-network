@@ -3,9 +3,11 @@ import s from "./Users.module.css";
 import catAva from "../../assets/cat_ava.jpeg";
 import {arrayUsers} from "../../store/reducers/UsersReducer";
 import {NavLink} from "react-router-dom";
+import {RouteNames} from "../routes/AppRouters";
+import Paginator from "./Paginator";
 
 
-type UserPropsType = {
+export type UserPropsType = {
     userData: Array<arrayUsers>
     totalUserCount: number
     pageSize: number
@@ -18,32 +20,30 @@ type UserPropsType = {
 }
 
 
-export const User = (props: UserPropsType) => {
-    let pages = props.totalUserCount / props.pageSize
-
-    let page = []
-
-    for (let i = 4010; i <= 4020; i++) {
-        page.push(i)
-    }
+export const User = ({
+                         userData, onLoadArray, UnfollowThunk, FollowThunk,
+                         totalUserCount, pageSize, currentPage,
+                         onClickPageChangeHandler}:UserPropsType) => {
 
 
-    let renderUsers = props.userData.map(m => {
+
+    let renderUsers = userData.map(m => {
         return (
             <>
-                <NavLink to={'/mainpage/' + m.id}>
+                <NavLink to={RouteNames.MAINPAGE + m.id}>
                     {m.photos.small ? <img alt={'img'} className={s.avaStyle} src={m.photos.small}/>:
                         <img alt={'img'} className={s.avaStyle} src={catAva}/>
                     }
                 </NavLink>
+
                 {m.followed ?
 
-                    <button disabled={props.onLoadArray.includes(m.id)}
-                            onClick={() => { props.UnfollowThunk(m.id) }
+                    <button disabled={onLoadArray.includes(m.id)}
+                            onClick={() => {UnfollowThunk(m.id) }
                             }>unfollow</button> :
 
-                    <button disabled={props.onLoadArray.includes(m.id)}
-                            onClick={() => { props.FollowThunk(m.id) }
+                    <button disabled={onLoadArray.includes(m.id)}
+                            onClick={() => { FollowThunk(m.id) }
                             }>follow</button>
 
                 }
@@ -53,17 +53,12 @@ export const User = (props: UserPropsType) => {
             </>
         )
     })
-
-
     return (
         <div>
-            <div className={s.pagesBlock}>
-                {page.map((m,i) => {
-                    return <span key={i} onClick={() => {props.onClickPageChangeHandler(m)}}
-                                 className={props.currentPage === m ? s.activeClass : s.normalClass}>{m}</span>
-                })}
-            </div>
-
+            <Paginator totalUserCount={totalUserCount}
+                       onClickPageChangeHandler={onClickPageChangeHandler}
+                       pageSize={pageSize}
+                       currentPage={currentPage}/>
             {renderUsers}
         </div>
 

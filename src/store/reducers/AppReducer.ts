@@ -7,30 +7,23 @@ let initState = {
 
 
 export const appReducer = (state = initState, action:initializeAppACType) => {
-
-
     switch (action.type) {
         case "APP/INITIALIZE-APP":
             return {
                 ...state,
                 initializec: true
             }
-
         default:
-            return {...state}
+            return state
 
     }
-
 }
-
 
 export const initializerSuccersAC = () => {
     return {
         type: 'APP/INITIALIZE-APP',
     }
 }
-
-
 
 export const initializeAppAC = ():AppThunk => dispatch => {
     new Promise((res) => {

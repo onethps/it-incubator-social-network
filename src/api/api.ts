@@ -46,13 +46,9 @@ type authMeType = {
 
 }
 
-
 export enum ResponseCodes {
     SUCCESS = 0,
 }
-
-
-
 
 export const UserAPI = {
 
@@ -86,10 +82,10 @@ export const UserAPI = {
 export const followAPI = {
 
     deleteFollow (userID:number) {
-        return instance.delete(`follow/${userID}`)
+        return instance.delete<ResponseType>(`follow/${userID}`)
     },
     postFollow (userID:number) {
-        return instance.post(`follow/${userID}`)
+        return instance.post<ResponseType>(`follow/${userID}`)
     }
 }
 

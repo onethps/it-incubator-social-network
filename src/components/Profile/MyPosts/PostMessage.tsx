@@ -26,11 +26,10 @@ export const PostMessage = React.memo((props: PostMessageType) => {
             <div><span>👍</span>{p.likes}</div>
         </div>)
 
-
     const handleSubmit = (formData: PostFormType) => {
         props.AddPostCreator(formData.PostFormMessageArea)
     }
-    console.log('REDER POST')
+
     return (
 
         <div>
@@ -40,9 +39,7 @@ export const PostMessage = React.memo((props: PostMessageType) => {
                 </img>
             </div>
             <div style={{padding: '20px'}}>
-
                 <PostContainer/>
-
                 <PostUserStatus status={props.status} updateStatusThunk={props.updateStatusThunk}/>
 
                 <div style={{marginTop: '20px'}}>
