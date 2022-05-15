@@ -13,18 +13,19 @@ import {initializeAppAC} from "./store/reducers/AppReducer";
 type AppType = {
     inicialize:boolean
     inicializetApp: () => void
-
 }
 
 class App extends React.Component<AppType> {
-
     componentDidMount() {
         this.props.inicializetApp()
     }
 
 
     render() {
-        if (!this.props.inicialize) return <PreLoader/>
+
+        if (!this.props.inicialize) {
+            return <PreLoader/>
+        }
 
         return (
             <div className='app__wrapper'>
@@ -40,7 +41,6 @@ const mapStateToProps = (state:AppStateType) => {
     return {
         inicialize: state.appReducer.initializec
     }
-
 }
 
 export default compose<ComponentType> (connect(

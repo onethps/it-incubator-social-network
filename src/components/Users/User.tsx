@@ -18,12 +18,10 @@ export type UserPropsType = {
 
 export const User = ({userData, onLoadArray, UnfollowThunk, FollowThunk,}:UserPropsType) => {
 
-
-
     let renderUsers = userData.map(m => {
         return (
             <div key={m.id}>
-                <NavLink to={RouteNames.MAINPAGE + m.id}>
+                    <NavLink to={`/mainpage/ ${m.id}`}>
                     {m.photos.small ? <img alt={'img'} className={s.avaStyle} src={m.photos.small}/>:
                         <img alt={'img'} className={s.avaStyle} src={catAva}/>
                     }

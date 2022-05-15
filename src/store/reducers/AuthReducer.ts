@@ -6,6 +6,10 @@ import {Dispatch} from "redux";
 
 export type authReducerTypes = getDataACType | stopSubmitType
 
+enum AuthTypes {
+    SET_AUTH_STATUS = 'AUTH-STATUS'
+}
+
 
 let initState: initStateAuthType = {
     id:null,
@@ -23,12 +27,10 @@ export type initStateAuthType = {
 
 export const authReducer = (state: initStateAuthType = initState, action: authReducerTypes): initStateAuthType => {
     switch (action.type) {
-
-        case 'AUTH-STATUS':
+        case AuthTypes.SET_AUTH_STATUS:
             return {...state,
                 ...action.payload
             }
-
         default:
             return state
     }
@@ -43,14 +45,7 @@ export default authReducer
 type getDataACType = ReturnType<typeof getDataAC>
 type stopSubmitType = ReturnType<typeof stopSubmit>
 
-export const getDataAC = (payload:initStateAuthType) => {
-    return {
-        type: 'AUTH-STATUS',
-        payload
-    } as const
-}
-
-
+export const getDataAC = (payload:initStateAuthType) => ({type: AuthTypes.SET_AUTH_STATUS, payload} as const)
 
 
 export const getLoginDataThunk = ():AppThunk  =>  async dispatch => {

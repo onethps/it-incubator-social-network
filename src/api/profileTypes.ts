@@ -2,12 +2,13 @@ import {photosTypes} from "./api";
 
 
 export interface IProfile {
-    userId: number
+    aboutMe: string | null
+    contacts: contactsTypes
+    fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    fullName: string
-    contacts: contactsTypes
     photos: photosTypes
+    userId: number
 }
 
 
@@ -21,3 +22,5 @@ export type contactsTypes = {
     youtube: string
     mainLink: string
 }
+
+

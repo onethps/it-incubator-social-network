@@ -4,6 +4,7 @@ import {loginization} from "../../store/reducers/AuthReducer";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {AppStateType} from "../../store/ReduxStore";
+import {RouteNames} from "../routes/AppRouters";
 
 type FormDataType = {
     email:string
@@ -56,9 +57,7 @@ const LoginReduxForm = reduxForm<FormDataType>({form:'login'})(LoginForm)
 export const LoginPage: React.FC<LoginPageType> = (props) => {
 
 
-    // n59GsqYXu9!_U65
-
-    if (props.isAuth) return <Navigate to={'/mainpage'}/>
+    if (props.isAuth) return <Navigate to={RouteNames.MAINPAGE}/>
 
     const onSubmit = (formData:FormDataType) => {
         props.loginization(formData.email, formData.password, true)

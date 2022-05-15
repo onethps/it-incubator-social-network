@@ -9,9 +9,10 @@ const instance = axios.create({
     }
 })
 
+
+
+
 //User API'S
-
-
 interface IUser {
     name:string
     id:number
@@ -37,7 +38,6 @@ type ResponseType<D = {}> = {
     messages: Array<any>
     resultCode: number
 }
-
 
 type authMeType = {
     email:string,
@@ -73,6 +73,11 @@ export const UserAPI = {
         return instance.put<ResponseType>(`profile/status/`, {status})
 
     },
+    uploadPhoto (image:any) {
+        console.log(image)
+        return instance.post(`profile/photo`, image,
+            {headers: { 'Content-Type': 'multipart/form-data' }})
+    }
 
 ///header API'S
 

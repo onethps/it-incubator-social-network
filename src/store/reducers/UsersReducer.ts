@@ -12,7 +12,7 @@ let initState: userType = {
     totalUserCount:0,
     currentPage:1,
     isFetching:true,
-    onLoadFollowStatus:[22996],
+    onLoadFollowStatus:[],
     portionNumber: 1
 }
 
@@ -69,11 +69,7 @@ export const usersReducer = (state: userType = initState, action: usersReducerTy
 
 }
 
-
 export default usersReducer
-
-
-
 
 type setUserCountType = ReturnType<typeof setTotalCountAC>
 type setDataACType = ReturnType<typeof setUserData>
@@ -82,7 +78,6 @@ type isFetchinACType = ReturnType<typeof isFetchinAC>
 type isFollowType = ReturnType<typeof isFollowAC>
 type isUnFollowType = ReturnType<typeof isUnFollowAC>
 type onLoadFollowType = ReturnType<typeof onLoadFollowAC>
-
 
 export const setTotalCountAC = (count:number) => {
     return {
@@ -161,7 +156,6 @@ export const setCurrentPageThunk = (pageNumber:number, pageSize:number):AppThunk
     }
 
 }
-
 
 
 const followUnfollowFlow = async (dispatch:any, userID:number, apiMethod:any, action:any) => {

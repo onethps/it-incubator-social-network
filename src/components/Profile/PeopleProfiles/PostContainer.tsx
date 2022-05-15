@@ -6,21 +6,23 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Post} from "./Post";
 import {compose} from "redux";
 import AuthRedirectHOC from "../../Sidebar/Navigation/AuthRedirectHOC";
+import {IProfile} from "../../../api/profileTypes";
+import {RouteNames} from "../../routes/AppRouters";
 
 const mapStateToProps = (props:AppStateType) => {
     return {
         profileInfo: props.profilePage.profile,
-        loggedUserId: props.loginData.id,
+        authUserID: props.loginData.id,
         isAuth: props.loginData.isAuth
     }
 }
 
 type PostContainerType = {
-    profileInfo: any
+    profileInfo: IProfile
     userID?: string | undefined
     getUserProfileThunk: (userID:number) => void
     getUserStatusThunk: (userID:number) => void
-    loggedUserId:string
+    authUserID:string
 
 
 }
@@ -74,17 +76,30 @@ type Props = WithRouterProps<PostContainerType> & PostContainerType
 
 
 class PostContainer extends React.Component<Props> {
-    componentDidMount() {
-        const {match} = this.props
-        let userID = match.params.userID
+
+    methodComponentUpdate() {
+        let {userID} = this.props.match.params
         if(!userID) {
-            userID = this.props.loggedUserId
+            userID = this.props.authUserID
+            if(!userID) {
+                this.props.history.push(RouteNames.LOGIN)
+            }
         }
         this.props.getUserProfileThunk(Number(userID))
         this.props.getUserStatusThunk(Number(userID))
-
-
     }
+
+
+    componentDidMount() {
+        this.methodComponentUpdate()
+    }
+
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userID !== prevProps.match.params.userID){
+            this.methodComponentUpdate()
+        }
+    }
+
 
     render() {
         return <div>
@@ -95,7 +110,8 @@ class PostContainer extends React.Component<Props> {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, { getUserProfileThunk, getUserStatusThunk, updateStatusThunk }),
+    connect(mapStateToProps,
+        { getUserProfileThunk, getUserStatusThunk, updateStatusThunk }),
     AuthRedirectHOC,
     withRouter,
 )(PostContainer)
