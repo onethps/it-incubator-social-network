@@ -55,7 +55,6 @@ export const getDataAC = (payload:initStateAuthType) => {
 
 export const getLoginDataThunk = ():AppThunk  =>  async dispatch => {
     let response =  await authAPI.getLoginData()
-    console.log(response)
     let {email, login, id} = response.data.data
     if (response.data.resultCode === ResponseCodes.SUCCESS) {
         dispatch(getDataAC({id, email, login, isAuth:true}))

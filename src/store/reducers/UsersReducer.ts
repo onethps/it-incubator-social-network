@@ -8,11 +8,12 @@ export type usersReducerTypes = setUserCountType | setDataACType |
 
 let initState: userType = {
     users: [],
-    pageSize:4,
-    totalUserCount:20,
-    currentPage:4010,
+    pageSize:10,
+    totalUserCount:0,
+    currentPage:1,
     isFetching:true,
-    onLoadFollowStatus:[22996]
+    onLoadFollowStatus:[22996],
+    portionNumber: 1
 }
 
 export type userType = {
@@ -22,6 +23,7 @@ export type userType = {
     currentPage:number
     isFetching:boolean
     onLoadFollowStatus: any[]
+    portionNumber:number
 }
 export type arrayUsers = {
     id: number,

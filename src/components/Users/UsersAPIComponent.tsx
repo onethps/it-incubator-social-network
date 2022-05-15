@@ -3,6 +3,7 @@ import User from "./User";
 import isFetchingLoader from "../../assets/loader.gif";
 import React from "react";
 import PreLoader from "../../common/PreLoader";
+import Paginator from "./Paginator";
 
 type UserAPIPropsType = {
     userData: Array<arrayUsers>
@@ -30,15 +31,17 @@ class UsersAPIComponent extends React.Component<UserAPIPropsType> {
 
     render() {
         return <div>
+            <Paginator totalUserCount={this.props.totalUserCount}
+                       onClickPageChangeHandler={this.onClickPageChangeHandler}
+                       pageSize={this.props.pageSize}
+                       currentPage={this.props.currentPage}/>
+            {this.props.isFetching ? <User
 
-            {this.props.isFetching ? <User totalUserCount={this.props.totalUserCount}
-                                           pageSize={this.props.pageSize}
                                            userData={this.props.userData}
-                                           onClickPageChangeHandler={this.onClickPageChangeHandler}
                                            onLoadArray={this.props.onLoadArray}
                                            UnfollowThunk={this.props.UnfollowThunk}
                                            FollowThunk={this.props.FollowThunk}
-                                           currentPage={this.props.currentPage}/> :
+                                          /> :
                 <PreLoader/>
 
             }

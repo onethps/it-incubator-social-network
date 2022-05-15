@@ -9,10 +9,6 @@ import Paginator from "./Paginator";
 
 export type UserPropsType = {
     userData: Array<arrayUsers>
-    totalUserCount: number
-    pageSize: number
-    currentPage: number
-    onClickPageChangeHandler: (pageNumber: number) => void
     onLoadArray: any[]
     UnfollowThunk: (userID:number) => void
     FollowThunk: (userID:number) => void
@@ -20,16 +16,13 @@ export type UserPropsType = {
 }
 
 
-export const User = ({
-                         userData, onLoadArray, UnfollowThunk, FollowThunk,
-                         totalUserCount, pageSize, currentPage,
-                         onClickPageChangeHandler}:UserPropsType) => {
+export const User = ({userData, onLoadArray, UnfollowThunk, FollowThunk,}:UserPropsType) => {
 
 
 
     let renderUsers = userData.map(m => {
         return (
-            <>
+            <div key={m.id}>
                 <NavLink to={RouteNames.MAINPAGE + m.id}>
                     {m.photos.small ? <img alt={'img'} className={s.avaStyle} src={m.photos.small}/>:
                         <img alt={'img'} className={s.avaStyle} src={catAva}/>
@@ -50,15 +43,12 @@ export const User = ({
                 <div key={m.id}>ID {m.id} NAME {m.name}</div>
                 <div>Status: {m.status}</div>
 
-            </>
+            </div>
         )
     })
     return (
         <div>
-            <Paginator totalUserCount={totalUserCount}
-                       onClickPageChangeHandler={onClickPageChangeHandler}
-                       pageSize={pageSize}
-                       currentPage={currentPage}/>
+
             {renderUsers}
         </div>
 
