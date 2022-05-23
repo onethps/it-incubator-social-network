@@ -1,0 +1,46 @@
+@import "src/styles/variables";
+
+.followerBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .followUserInfo {
+    display: flex;
+    flex-direction: column;
+
+
+    .followUserName {
+      font-weight: 700;
+    }
+
+    .followUserId {
+      color: $textDescriptionColor;
+      font-size: 13px;
+    }
+
+  }
+
+  .followButton {
+    background: none;
+    border: 1px solid $blueButtonColor;
+    border-radius: 20px;
+    padding: 7px 20px;
+    color: $blueButtonColor;
+  }
+
+
+}
+
+.followListBorderLine {
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  opacity: 0.1;
+  margin: 20px 0;
+}
