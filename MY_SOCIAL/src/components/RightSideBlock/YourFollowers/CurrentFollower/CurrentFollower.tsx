@@ -2,19 +2,31 @@ import React from 'react';
 
 import s from './CurrentFollower.module.scss';
 
-import photoGirl from 'assets/girl1.svg';
+import noUserIcon from 'assets/no-user.svg';
 
-const CurrentFollower = () => (
+const CurrentFollower = ({
+  id,
+  name,
+  followed,
+}: {
+  id: number;
+  name: string;
+  followed: boolean;
+}) => (
   <div>
     <div className={s.followListBorderLine} />
     <div className={s.followerBlock}>
-      <img alt="photo" src={photoGirl} />
+      <img alt="photo" src={noUserIcon} />
 
       <div className={s.followUserInfo}>
-        <span className={s.followUserName}>Jassmine</span>
-        <span className={s.followUserId}>id 45498</span>
+        <span className={s.followUserName}>{name}</span>
+        <span className={s.followUserId}>id {id}</span>
       </div>
-      <button className={s.followButton}>+FOLLOW</button>
+      {followed ? (
+        <button className={`${s.followButton} ${s.active}`}>Unfollow</button>
+      ) : (
+        <button className={s.followButton}>+Follow</button>
+      )}
     </div>
   </div>
 );

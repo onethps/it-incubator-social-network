@@ -1,15 +1,17 @@
 import React from 'react';
 
-import style from './styles/Post.module.scss';
+import {
+  AiOutlineLike,
+  AiOutlineMessage,
+  BiRepost,
+  BsThreeDotsVertical,
+  RiShareForwardLine,
+} from 'react-icons/all';
 
 import imgPhoto from 'assets/cat_ava.jpeg';
-import commentsIcon from 'assets/icons/comments.svg';
-import likesICON from 'assets/icons/likes.svg';
-import postMenuIcon from 'assets/icons/post_menu_iconm.svg';
-import repostIcon from 'assets/icons/reposts.svg';
-import shareIcon from 'assets/icons/share.svg';
+import style from 'components/Home/Post/styles/Post.module.scss';
 
-const Post = () => (
+const Post = ({ post }: { post: string }) => (
   <>
     <div className={style.post}>
       <div className={style.postHeader}>
@@ -20,41 +22,36 @@ const Post = () => (
             <div className={style.postHeaderUserName}>Anastasia Kovel</div>
             <div className={style.postHeaderUserId}>id 14121</div>
           </div>
-          <img alt="postMenuIcon" src={postMenuIcon} />
+          <div className={style.postHeaderBgMenuIcon}>
+            <BsThreeDotsVertical size="25px" color="6C757D" />
+          </div>
         </div>
       </div>
 
       <div className={style.postMessage}>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-        Ipsum has been the industrys standard dummy text ever since the 1500s, when an
-        unknown printer took a galley of type and scrambled it to make a type specimen
-        book. It has survived not only five centuries, but also the leap into electronic
-        typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-        the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions of Lorem
-        Ipsum.
+        <p>{post}</p>
       </div>
 
       <div className={style.postSocialBlock}>
         <div className={style.postSocialBlockMain}>
           <div className={style.postLikes}>
-            <img alt="likesICON" src={likesICON} />
+            <AiOutlineLike />
             <span>15</span>
           </div>
 
           <div className={style.postReposts}>
-            <img alt="repostIcon" src={repostIcon} />
+            <BiRepost />
             <span>22</span>
           </div>
 
           <div className={style.postComments}>
-            <img alt="commentsIcon" src={commentsIcon} />
+            <AiOutlineMessage />
             <span>15 Comments</span>
           </div>
         </div>
 
         <div className={style.postShare}>
-          <img alt="shareIcon" src={shareIcon} />
+          <RiShareForwardLine />
           <span>Share</span>
         </div>
       </div>
