@@ -1,0 +1,161 @@
+@import "../../styles/variables";
+
+
+main {
+  grid-area: main;
+
+
+  .PostList {
+    height: 740px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: auto;
+    padding: 0 10px;
+
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #dedede;
+      border-radius: 100px;
+    }
+
+
+  }
+
+  .createPostModalBox {
+    margin: 20px 30px;
+
+    & textarea {
+      border: none;
+      width: 100%;
+      height: 200px;
+      resize: vertical;
+      padding: 20px;
+      overflow: hidden;
+      border-radius: 20px;
+
+      &:focus, {
+        outline: none;
+      }
+    }
+
+
+    .createPostSubmitBox {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px 10px;
+
+      & button {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border: none;
+        padding: 10px 40px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        background-color: #0e6dfd;
+        color: white;
+
+        & svg {
+          margin-right: 10px;
+        }
+
+      }
+
+    }
+
+
+  }
+
+
+  .searchUsers {
+    padding: 20px 0;
+    position: relative;
+
+    & svg {
+      bottom: 40%;
+      left: 15px;
+      position: absolute;
+      color: $blueButtonColor;
+    }
+
+    & input {
+      border: none;
+      background-color: white;
+      width: 100%;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 10px 35px;
+    }
+
+    & input:focus, textarea:focus, select:focus {
+      outline: none;
+    }
+  }
+
+
+  .createPostTitle {
+
+  }
+
+  .createPost {
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+
+    & svg {
+      color: $blueButtonColor;
+      cursor: pointer;
+    }
+
+
+    & img {
+      width: 50px;
+      border-radius: 100%;
+    }
+
+    .createPostInputBlock {
+      margin: 0 20px;
+      width: 100%;
+
+      & input {
+        width: 100%;
+        background-color: $backgroundInput;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: $textDescriptionColor;
+      }
+
+      & input:focus, textarea:focus, select:focus {
+        outline: none;
+      }
+
+    }
+
+    .createPostSendButton {
+      background: none;
+      border: none;
+
+      & img {
+        width: 45px;
+        cursor: pointer;
+        fill: white;
+      }
+    }
+
+
+  }
+
+
+}

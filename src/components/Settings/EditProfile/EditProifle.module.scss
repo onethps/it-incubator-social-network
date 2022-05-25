@@ -1,0 +1,57 @@
+@import "src/styles/variables";
+
+
+.editProfile {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 20px;
+
+  .editProfileTittle {
+    margin-bottom: 20px;
+  }
+
+  .editProfileInputName, .editProfileInputAboutMe, .editProfileInputJobDescription {
+    border: none;
+    background-color: $backgroundInput;
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 15px;
+    margin: 10px 0;
+  }
+
+
+  .editProfileCheckBox {
+    padding: 15px 20px;
+
+    .editProfileCheckBoxTitle {
+      font-size: 12px;
+      color: $textDescriptionColor;
+
+    }
+
+    .editProfileCheckBoxAgree {
+      cursor: pointer;
+      margin-top: 20px;
+      display: inline-block;
+
+      & span {
+        margin-left: 5px;
+      }
+
+    }
+
+    .editProfileCheckBoxDisagree {
+      cursor: pointer;
+      display: inline-block;
+      margin-left: 20px;
+
+      & span {
+        margin-left: 5px;
+      }
+
+    }
+
+  }
+
+
+}

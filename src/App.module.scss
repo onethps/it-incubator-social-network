@@ -1,0 +1,27 @@
+@import "styles/variables";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+  background-color: $backgroundColor;
+}
+
+.appWrapper {
+  display: grid;
+  height: 100vh;
+  max-width: 1320px;
+  margin: 5% auto;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1.5fr 1.2fr 1fr;
+  grid-gap: 20px;
+  grid-template-areas:
+    "sidebar main aside"
+    "sidebar main aside"
+    "sidebar main aside";
+}

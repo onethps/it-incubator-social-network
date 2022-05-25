@@ -1,0 +1,55 @@
+@import 'src/styles/variables';
+
+.profile {
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  .profilePhoto {
+    width: 300px;
+    border-radius: 100%;
+    margin-bottom: 30px;
+  }
+
+  .profileAboutMeStatus {
+    padding: 40px;
+  }
+
+  .profileContacts {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 80px;
+
+    & img {
+      width: 80px;
+      margin: 0 10px;
+    }
+  }
+
+}
+
+.EditProfileButtonBlock {
+  display: flex;
+
+
+  .EditProfileButton {
+    border: none;
+    margin: 20px auto;
+    border-radius: 20px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    background-color: $blueButtonColor;
+    padding: 20px 150px;
+    color: white;
+  }
+
+}
+
