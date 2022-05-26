@@ -12,6 +12,7 @@ export const App: FC = (): ReturnComponentType => {
   const loadingStatus = useSelector<AppRootStateType, string>(
     state => state.auth.loading,
   );
+
   const authStatus = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth);
 
   const dispatch: AppDispatch = useDispatch();

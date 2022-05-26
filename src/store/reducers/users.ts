@@ -31,7 +31,10 @@ export const users = (
 ): initStateType => {
   switch (action.type) {
     case USERS_CONST_TYPES.SET_USERS:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }
@@ -53,17 +56,33 @@ const setLoadingStatusAC = (loading: RequestStatusType) => ({
 });
 
 // thunk
-export const getUsers = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes>) => {
-  try {
-    const { getSuggestedUsers, getFollowedUsers } = USERS;
-    const res = await Promise.all([getSuggestedUsers(), getFollowedUsers()]);
-    dispatch(setUsersAC(res[0].data.items, res[1].data.items));
-  } catch (e: any) {
-    throw new Error(e);
-  } finally {
-    dispatch(setLoadingStatusAC('succeeded'));
-  }
-};
+export const getUsers =
+  (currentPage: number, pageCount: number): AppThunk =>
+  async (dispatch: Dispatch<AuthActionsTypes>) => {
+    try {
+      const { getSuggestedUsers, getFollowedUsers } = USERS;
+      const res = await Promise.all([
+        getSuggestedUsers(),
+        getFollowedUsers(currentPage, pageCount),
+      ]);
+      dispatch(setUsersAC(res[0].data.items, res[1].data.items));
+    } catch (e: any) {
+      throw new Error(e);
+    } finally {
+      // dispatch(setLoadingStatusAC('succeeded'));
+    }
+  };
+
+export const followTC =
+  (userID: number): AppThunk =>
+  async dispatch => {
+    try {
+      await USERS.follow(userID);
+      dispatch(getUsers(1, 4));
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 // actions
 export type AuthActionsTypes =

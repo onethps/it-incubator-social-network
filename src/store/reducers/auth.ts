@@ -8,23 +8,32 @@ import { AppThunk } from 'store/store';
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 enum AUTH_CONST_TYPES {
-  IS_AUTH = 'auth/IS-AUTH',
+  SET_LOGIN_DATA = 'auth/IS-AUTH',
   SET_LOADING_STATUS = 'auth/SET-LOADING-STATUS',
 }
 
 const initState = {
   isAuth: false,
+  id: null,
+  login: '',
+  email: '',
   loading: 'loading',
 };
 
 type initStateType = {
   isAuth: boolean;
   loading: string;
+  id: null | number;
+  login: string;
+  email: string;
 };
 
-export const auth = (state = initState, action: AuthActionsTypes): initStateType => {
+export const auth = (
+  state: initStateType = initState,
+  action: AuthActionsTypes,
+): initStateType => {
   switch (action.type) {
-    case AUTH_CONST_TYPES.IS_AUTH:
+    case AUTH_CONST_TYPES.SET_LOGIN_DATA:
       return { ...state, ...action.payload };
     case AUTH_CONST_TYPES.SET_LOADING_STATUS:
       return { ...state, ...action.payload };
@@ -33,10 +42,18 @@ export const auth = (state = initState, action: AuthActionsTypes): initStateType
   }
 };
 
-const isAuthAC = (isAuth: boolean) => ({
-  type: AUTH_CONST_TYPES.IS_AUTH,
+export const SetAuthDataAC = (
+  isAuth: boolean,
+  id: number,
+  email: string,
+  login: string,
+) => ({
+  type: AUTH_CONST_TYPES.SET_LOGIN_DATA,
   payload: {
     isAuth,
+    id,
+    login,
+    email,
   },
 });
 
@@ -52,7 +69,8 @@ export const authTC = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes
   try {
     const res = await AUTH.authMe();
     if (res.data.resultCode === 0) {
-      dispatch(isAuthAC(true));
+      const { id, email, login } = res.data.data;
+      dispatch(SetAuthDataAC(true, id, email, login));
     }
     if (res.data.resultCode !== 0) {
       console.log(res.data.data.messages[0]);
@@ -66,6 +84,6 @@ export const authTC = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes
 
 // actions
 export type AuthActionsTypes =
-  | ReturnType<typeof isAuthAC>
   | ReturnType<typeof setLoadingStatusAC>
+  | ReturnType<typeof SetAuthDataAC>
   | any;

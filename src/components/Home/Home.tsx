@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { BiSearch, RiSendPlane2Fill } from 'react-icons/all';
+import { BiSearch } from 'react-icons/bi';
+import { RiSendPlane2Fill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 
 import { ProfilePostType } from 'api';
@@ -10,14 +11,18 @@ import Modal from 'components/common/Modal/Modal';
 import style from 'components/Home/Home.module.scss';
 import Post from 'components/Home/Post/Post';
 import SuggestUsers from 'components/Home/SuggestUsers/SuggestUsers';
-import { getUsers } from 'store/reducers/users';
 import { AppDispatch } from 'store/store';
 
 const Home = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const [state, setState] = useState<ProfilePostType[]>([]);
   const [updatePosts, setUpdatePosts] = useState(false);
 
-  const dispatch: AppDispatch = useDispatch();
+  enum USERS_VALUES {
+    CURRENT_PAGE = 1,
+    PAGE_COUNT = 4,
+  }
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -25,7 +30,7 @@ const Home = () => {
       setState(data.data.reverse());
       setUpdatePosts(false);
     };
-    dispatch(getUsers());
+    // dispatch(getUsers(USERS_VALUES.CURRENT_PAGE, USERS_VALUES.PAGE_COUNT));
     // call the function
     fetchData();
   }, [updatePosts]);

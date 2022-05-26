@@ -1,12 +1,9 @@
 import React from 'react';
 
-import {
-  AiOutlineLike,
-  AiOutlineMessage,
-  BiRepost,
-  BsThreeDotsVertical,
-  RiShareForwardLine,
-} from 'react-icons/all';
+import { AiOutlineLike, AiOutlineMessage } from 'react-icons/ai';
+import { BiRepost } from 'react-icons/bi';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { RiShareForwardLine } from 'react-icons/ri';
 
 import imgPhoto from 'assets/cat_ava.jpeg';
 import style from 'components/Home/Post/styles/Post.module.scss';

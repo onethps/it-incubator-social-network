@@ -2,11 +2,15 @@ import { Action, AnyAction, applyMiddleware, combineReducers, createStore } from
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { auth } from 'store/reducers/auth';
+import { login } from 'store/reducers/login';
+import { profile } from 'store/reducers/profile';
 import { users } from 'store/reducers/users';
 
 const rootReducer = combineReducers({
   auth,
+  login,
   users,
+  profile,
 });
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
