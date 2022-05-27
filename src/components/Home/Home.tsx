@@ -5,44 +5,44 @@ import { RiSendPlane2Fill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 
 import imgPhoto from 'assets/cat_ava.jpeg';
+import LinearLoader from 'components/common/LinearLoader/LinearLoader';
 import Modal from 'components/common/Modal/Modal';
 import style from 'components/Home/Home.module.scss';
 import Post from 'components/Home/Post/Post';
 import SuggestUsers from 'components/Home/SuggestUsers/SuggestUsers';
-import { addNewPost, getPosts } from 'store/reducers/home';
+import { addNewPost, getPosts, getSuggestedUsersTC } from 'store/reducers/home';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { HomePostType } from 'types/homeTypes';
-import LinearLoader from "components/common/LinearLoader/LinearLoader";
 
 const Home = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const posts = useSelector<AppRootStateType, HomePostType[]>(
-    state => state.home.posts,
-  ).reverse();
+  const posts = useSelector<AppRootStateType, HomePostType[]>(state => state.home.posts);
+  const loading = useSelector<AppRootStateType, string>(state => state.home.loading);
 
   useEffect(() => {
+    dispatch(getSuggestedUsersTC());
     dispatch(getPosts());
   }, []);
 
   const [modal, setModal] = useState(false);
-  const [modalTextArea, setmodalTextArea] = useState('');
+  const [modalTextArea, setModalTextArea] = useState('');
 
   const buttonHandler = () => {
     dispatch(addNewPost(modalTextArea));
     setModal(false);
-    setmodalTextArea('');
+    setModalTextArea('');
   };
 
   return (
     <main>
-        <LinearLoader/>
+      {loading === 'loading' && <LinearLoader />}
       <Modal active={modal} setActive={setModal}>
         <div className={style.createPostModalBox}>
           <textarea
             autoFocus={modal}
             value={modalTextArea}
-            onChange={e => setmodalTextArea(e.currentTarget.value)}
+            onChange={e => setModalTextArea(e.currentTarget.value)}
             placeholder="Whatis in your mind"
             className={style.createPostArea}
           />

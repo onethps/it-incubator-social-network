@@ -12,7 +12,9 @@ import { AppDispatch, AppRootStateType } from 'store/store';
 const SuggestUsers = () => {
   const dispatch: AppDispatch = useDispatch();
 
-const users = useSelector<AppRootStateType, IUser[]>(state => state.home.suggestedUsers)
+  const users = useSelector<AppRootStateType, IUser[]>(
+    state => state.home.suggestedUsers,
+  );
 
   const onClickHandler = (userID: number) => {
     dispatch(followTC(userID));
