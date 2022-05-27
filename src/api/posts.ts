@@ -1,13 +1,9 @@
 import { mockInstance } from 'api/config';
-
-export type ProfilePostType = {
-  id: string;
-  post: string;
-};
+import { HomePostType } from 'types/homeTypes';
 
 export const POSTS = {
   getPosts() {
-    return mockInstance.get<ProfilePostType[]>('posts');
+    return mockInstance.get<HomePostType[]>('posts');
   },
   addPost(newPost: string) {
     return mockInstance.post('posts', {

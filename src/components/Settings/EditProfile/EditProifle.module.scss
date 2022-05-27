@@ -29,26 +29,11 @@
 
     }
 
-    .editProfileCheckBoxAgree {
-      cursor: pointer;
-      margin-top: 20px;
-      display: inline-block;
 
-      & span {
-        margin-left: 5px;
-      }
-
-    }
-
-    .editProfileCheckBoxDisagree {
-      cursor: pointer;
-      display: inline-block;
-      margin-left: 20px;
-
-      & span {
-        margin-left: 5px;
-      }
-
+    .editProfileCheckboxItems{
+     display: flex;
+      padding: 20px 0;
+      gap: 12px;
     }
 
   }

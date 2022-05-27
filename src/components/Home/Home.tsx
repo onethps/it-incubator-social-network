@@ -2,57 +2,47 @@ import React, { useEffect, useState } from 'react';
 
 import { BiSearch } from 'react-icons/bi';
 import { RiSendPlane2Fill } from 'react-icons/ri';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { ProfilePostType } from 'api';
-import { POSTS } from 'api/posts';
 import imgPhoto from 'assets/cat_ava.jpeg';
 import Modal from 'components/common/Modal/Modal';
 import style from 'components/Home/Home.module.scss';
 import Post from 'components/Home/Post/Post';
 import SuggestUsers from 'components/Home/SuggestUsers/SuggestUsers';
-import { AppDispatch } from 'store/store';
+import { addNewPost, getPosts } from 'store/reducers/home';
+import { AppDispatch, AppRootStateType } from 'store/store';
+import { HomePostType } from 'types/homeTypes';
+import LinearLoader from "components/common/LinearLoader/LinearLoader";
 
 const Home = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const [state, setState] = useState<ProfilePostType[]>([]);
-  const [updatePosts, setUpdatePosts] = useState(false);
-
-  enum USERS_VALUES {
-    CURRENT_PAGE = 1,
-    PAGE_COUNT = 4,
-  }
+  const posts = useSelector<AppRootStateType, HomePostType[]>(
+    state => state.home.posts,
+  ).reverse();
 
   useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      const data = await POSTS.getPosts();
-      setState(data.data.reverse());
-      setUpdatePosts(false);
-    };
-    // dispatch(getUsers(USERS_VALUES.CURRENT_PAGE, USERS_VALUES.PAGE_COUNT));
-    // call the function
-    fetchData();
-  }, [updatePosts]);
+    dispatch(getPosts());
+  }, []);
 
   const [modal, setModal] = useState(false);
-  const [text, setText] = useState('');
+  const [modalTextArea, setmodalTextArea] = useState('');
 
   const buttonHandler = () => {
-    POSTS.addPost(text);
+    dispatch(addNewPost(modalTextArea));
     setModal(false);
-    setUpdatePosts(true);
-    setText('');
+    setmodalTextArea('');
   };
 
   return (
     <main>
+        <LinearLoader/>
       <Modal active={modal} setActive={setModal}>
         <div className={style.createPostModalBox}>
           <textarea
             autoFocus={modal}
-            value={text}
-            onChange={e => setText(e.currentTarget.value)}
+            value={modalTextArea}
+            onChange={e => setmodalTextArea(e.currentTarget.value)}
             placeholder="Whatis in your mind"
             className={style.createPostArea}
           />
@@ -85,7 +75,7 @@ const Home = () => {
       </div>
 
       <div className={style.PostList}>
-        {state.map(({ id, post }) => (
+        {posts.map(({ id, post }) => (
           <Post key={id} post={post} />
         ))}
       </div>

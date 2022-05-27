@@ -5,7 +5,7 @@ import { RiLoginBoxFill } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import imgAva from 'assets/cat_ava.jpeg';
+import noUserIcon from 'assets/no-user.svg';
 import style from 'components/LeftSideBlock/LeftSideBlock.module.scss';
 import { RouteNames } from 'routes/routes';
 import { AppRootStateType } from 'store/store';
@@ -16,10 +16,14 @@ export const LeftSideBlock = () => {
 
   const login = useSelector<AppRootStateType, string>(state => state.auth.login);
 
+  const profilePhoto = useSelector<AppRootStateType, string>(
+    state => state.profile.photos.small,
+  );
+
   return (
     <div className={style.sidebar}>
       <div className={style.welcomeBlock}>
-        <img alt="imgPhoto" src={imgAva} />
+        <img alt="imgPhoto" src={profilePhoto || noUserIcon} />
         <div className={style.textBlock}>
           <div>Welcome 👋</div>
           <h3>{login}</h3>
@@ -54,7 +58,6 @@ export const LeftSideBlock = () => {
           </NavLink>
         </ul>
       </nav>
-      {/* <div className={style.friendsBlock}>{friendsElems}</div> */}
     </div>
   );
 };

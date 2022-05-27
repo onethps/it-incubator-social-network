@@ -3,26 +3,30 @@
 import { Dispatch } from 'redux';
 
 import { USERS } from 'api/users';
+import { HOME_PAGE_CONSTS } from 'enums';
 import { IUser } from 'store/reducers/types';
-import { AppThunk } from 'store/store';
+import { AppRootStateType, AppThunk } from 'store/store';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 enum USERS_CONST_TYPES {
-  SET_USERS = 'auth/IS-AUTH',
-  SET_LOADING_STATUS = 'auth/SET-LOADING-STATUS',
+  SET_USERS = 'users/IS-AUTH',
+  SET_LOADING_STATUS = 'users/SET-LOADING-STATUS',
+  SET_PAGE_PARAMS = 'users/SET-PAGE-PARAMS',
 }
 
 const initState = {
-  newUsers: [],
   followedUsers: [],
   loading: 'loading',
+  currentPage: 1,
+  pageCount: 6,
 };
 
 type initStateType = {
-  newUsers: IUser[];
   followedUsers: IUser[];
   loading: string;
+  currentPage: number;
+  pageCount: number;
 };
 
 export const users = (
@@ -30,7 +34,18 @@ export const users = (
   action: AuthActionsTypes,
 ): initStateType => {
   switch (action.type) {
+    case USERS_CONST_TYPES.SET_LOADING_STATUS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     case USERS_CONST_TYPES.SET_USERS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case USERS_CONST_TYPES.SET_PAGE_PARAMS:
       return {
         ...state,
         ...action.payload,
@@ -40,10 +55,9 @@ export const users = (
   }
 };
 
-const setUsersAC = (newUsers: IUser[], followedUsers: IUser[]) => ({
+const setUsersAC = (followedUsers: IUser[]) => ({
   type: USERS_CONST_TYPES.SET_USERS,
   payload: {
-    newUsers,
     followedUsers,
   },
 });
@@ -55,21 +69,39 @@ const setLoadingStatusAC = (loading: RequestStatusType) => ({
   },
 });
 
+// action
+export const setPageParamsAC = (currentPage: number, pageCount: number) => ({
+  type: USERS_CONST_TYPES.SET_PAGE_PARAMS,
+  payload: {
+    currentPage,
+    pageCount,
+  },
+});
+
 // thunk
-export const getUsers =
+export const getFollowedUsers =
   (currentPage: number, pageCount: number): AppThunk =>
   async (dispatch: Dispatch<AuthActionsTypes>) => {
     try {
-      const { getSuggestedUsers, getFollowedUsers } = USERS;
-      const res = await Promise.all([
-        getSuggestedUsers(),
-        getFollowedUsers(currentPage, pageCount),
-      ]);
-      dispatch(setUsersAC(res[0].data.items, res[1].data.items));
+      const res = await USERS.getFollowedUsers(currentPage, pageCount);
+      dispatch(setUsersAC(res.data.items));
     } catch (e: any) {
       throw new Error(e);
     } finally {
-      // dispatch(setLoadingStatusAC('succeeded'));
+      dispatch(setLoadingStatusAC('succeeded'));
+    }
+  };
+
+
+export const unFollowUserTC =
+  (userID: number): AppThunk =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    try {
+      await USERS.unFollow(userID);
+      const { currentPage, pageCount } = getState().users;
+      dispatch(getFollowedUsers(currentPage, pageCount));
+    } catch (e: any) {
+      throw new Error(e);
     }
   };
 
@@ -78,14 +110,20 @@ export const followTC =
   async dispatch => {
     try {
       await USERS.follow(userID);
-      dispatch(getUsers(1, 4));
+      dispatch(
+        getFollowedUsers(
+          HOME_PAGE_CONSTS.CURRENT_PAGE,
+          HOME_PAGE_CONSTS.COUNT_OF_USERS_ON_PAGE,
+        ),
+      );
     } catch (e) {
       console.log(e);
     }
   };
 
-// actions
+// actions types
 export type AuthActionsTypes =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setLoadingStatusAC>
+  | ReturnType<typeof setPageParamsAC>
   | any;

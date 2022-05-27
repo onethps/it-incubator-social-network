@@ -1,5 +1,7 @@
 // Types...
 
+import { photosType } from 'types/profile';
+
 export type UserResponseType = {
   items: IUser[];
   totalCount: number;
@@ -14,7 +16,5 @@ export type IUser = {
   followed: boolean;
 };
 
-export type photosType = {
-  small: string;
-  large: string;
-};
+
+

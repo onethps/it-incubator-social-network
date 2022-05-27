@@ -1,44 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import s from './Follows.module.scss';
 
-import noUserIcon from 'assets/no-user.svg';
+import Spinner from 'components/common/Spinner/Spinner';
+import FollowedUser from 'components/MyFollows/FollowedUser/FollowedUser';
+import { MY_FOLLOWS_CONSTS } from 'enums';
 import { IUser } from 'store/reducers/types';
-import { getUsers } from 'store/reducers/users';
+import { getFollowedUsers, setPageParamsAC, unFollowUserTC } from 'store/reducers/users';
 import { AppDispatch, AppRootStateType } from 'store/store';
 
 const Follows = () => {
   const dispatch: AppDispatch = useDispatch();
 
+  const loadingStatus = useSelector<AppRootStateType, string>(
+    state => state.users.loading,
+  );
+
   const followedUsers = useSelector<AppRootStateType, IUser[]>(
     state => state.users.followedUsers,
   );
-  const [pageCount, setPageCount] = useState(6);
+
+  const currentPage = useSelector<AppRootStateType, number>(
+    state => state.users.currentPage,
+  );
+  const pageCount = useSelector<AppRootStateType, number>(state => state.users.pageCount);
+
   useEffect(() => {
-    dispatch(getUsers(1, pageCount));
+    dispatch(getFollowedUsers(currentPage, pageCount));
   }, [pageCount]);
+
+  const onUnfolowUserHandle = (userID: number) => {
+    dispatch(unFollowUserTC(userID));
+  };
+
+  const onLoadMoreFollowers = () => {
+    dispatch(
+      setPageParamsAC(
+        currentPage,
+        pageCount + MY_FOLLOWS_CONSTS.INC_COUNT_OF_USERS_ON_SECOND_LOAD,
+      ),
+    );
+  };
+
+  if (loadingStatus === 'loading') {
+    return <Spinner />;
+  }
 
   return (
     <div>
       <div className={s.root}>
-        {followedUsers.map(({ name, id }) => (
-          <div className={s.followUser}>
-            <img className={s.followUserPhoto} src={noUserIcon} />
-            <h3 className={s.followUserName}>{name}</h3>
-            <div className={s.followUserId}>id {id}</div>
-            <button className={s.followUserButton}>Unfollow</button>
-          </div>
+        {followedUsers.map(({ name, id, photos }) => (
+          <FollowedUser
+            key={id}
+            onUnfolowUserHandle={onUnfolowUserHandle}
+            name={name}
+            id={id}
+            photos={photos}
+          />
         ))}
       </div>
       <div className={s.followUserButtonBlock}>
-        <button
-          className={s.loadMoreButton}
-          onClick={() => setPageCount(() => pageCount +3)}
-        >
-          Load More
-        </button>
+        {followedUsers.length > 6 && (
+          <button className={s.loadMoreButton} onClick={onLoadMoreFollowers}>
+            Load More
+          </button>
+        )}
       </div>
     </div>
   );

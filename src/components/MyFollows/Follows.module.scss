@@ -5,45 +5,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
 
-  .followUser {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    padding: 30px;
-    border-radius: 20px;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    flex: 1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-    .followUserPhoto {
-      width: 100px;
-    }
-
-    .followUserName {
-      padding: 20px 0 3px 0;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      width: 120px;
-      text-align: center;
-    }
-
-    .followUserId {
-      color: $textDescriptionColor;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
-
-    .followUserButton, {
-      border: none;
-      background-color: $blueButtonColor;
-      color: white;
-      padding: 10px 30px;
-      border-radius: 10px;
-    }
-
-  }
 
 
 }
