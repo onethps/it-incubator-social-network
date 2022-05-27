@@ -12,8 +12,8 @@ const EditProifle: FC<EditProfile> = ({ register }) => (
       <h3 className={s.editProfileTittle}>Edit Profile</h3>
       <input
         className={s.editProfileInputName}
-        {...register('name')}
-        placeholder="Name"
+        {...register('fullName')}
+        placeholder="fullName"
       />
       <input
         className={s.editProfileInputAboutMe}
@@ -23,7 +23,7 @@ const EditProifle: FC<EditProfile> = ({ register }) => (
       <input
         className={s.editProfileInputJobDescription}
         placeholder="Job Description"
-        {...register('jobDescription')}
+        {...register('lookingForAJobDescription')}
       />
 
       <div className={s.editProfileCheckBox}>
@@ -33,9 +33,9 @@ const EditProifle: FC<EditProfile> = ({ register }) => (
           <div className="form-check">
             <label htmlFor="yes">
               <input
-                {...register('lookingForJob', { required: true })}
+                {...register('lookingForJobValue', { required: true })}
                 type="radio"
-                name="lookingForJob"
+                name="lookingForJobValue"
                 value="Yes"
                 className="form-check-input"
                 id="yes"
@@ -47,9 +47,9 @@ const EditProifle: FC<EditProfile> = ({ register }) => (
           <div className="form-check">
             <label htmlFor="no">
               <input
-                {...register('lookingForJob', { required: true })}
+                {...register('lookingForJobValue', { required: true })}
                 type="radio"
-                name="lookingForJob"
+                name="lookingForJobValue"
                 value="No"
                 className="form-check-input"
                 id="no"

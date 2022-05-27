@@ -1,45 +1,74 @@
 import React from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import s from './Settings.module.scss';
 
 import EditProifle from 'components/Settings/EditProfile/EditProifle';
 import EditSocialLinks from 'components/Settings/EditSocialLinks/EditSocialLinks';
-import { AppRootStateType } from 'store/store';
+import { updateMyProfile } from 'store/reducers/profile';
+import { AppDispatch, AppRootStateType } from 'store/store';
+import { contactsType, photosType, profileType } from 'types/profile';
 
 type Inputs = {
-  name: string;
+  fullName: string;
   aboutMe: string;
   jobDescription: string;
   jobStatus: string;
-  asd:boolean
+  fbLink: string;
+  instLink: string;
+  webLink: string;
+  twitterLink: string;
+  youtubeLink: string;
+  gitLink: string;
+  vkLink: string;
+  externalLink: string;
 };
 
 const Settings = () => {
-  const name1 = useSelector<AppRootStateType, string>(state => state.profile.fullName);
-
+  const dispatch: AppDispatch = useDispatch();
+  const profile = useSelector<AppRootStateType, profileType>(state => state.profile);
+  const constacts = useSelector<AppRootStateType, contactsType>(
+    state => state.profile.contacts,
+  );
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<profileType | any>({
     defaultValues: {
-      name: name1,
-      aboutMe: '',
-      jobDescription: '',
-      jobStatus: '',
+      ...profile,
+      lookingForJobValue: profile.lookingForAJob ? 'Yes' : 'No',
     },
   });
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
-
+  const onSubmit: SubmitHandler<profileType | any> = ({
+    aboutMe,
+    lookingForAJobDescription,
+    fullName,
+    contacts,
+    lookingForJobValue,
+  }) => {
+    // server accepts boolean type instead of string and we check if value from useForm Yes = return true, other = return false
+    const fromValueToBoolean = lookingForJobValue === 'Yes';
+    dispatch(
+      updateMyProfile({
+        aboutMe,
+        lookingForAJob: fromValueToBoolean,
+        lookingForAJobDescription,
+        fullName,
+        contacts: {
+          ...contacts,
+        },
+      }),
+    );
+  };
   return (
     <div>
       <div className={s.settings}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <EditProifle register={register} />
-          <EditSocialLinks />
+          <EditSocialLinks register={register} />
           <div className={s.settingsButtonBlock}>
             <button type="submit" className={s.settingsSubmit}>
               SAVE

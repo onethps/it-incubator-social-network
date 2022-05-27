@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
 
 import { PROFILE } from 'api/profile';
-import { AppThunk } from 'store/store';
+import { ResponseCode } from 'enums';
+import { AppRootStateType, AppThunk } from 'store/store';
 import { profileType } from 'types';
 
 enum PROFILE_CONST_TYPES {
@@ -12,7 +13,7 @@ enum PROFILE_CONST_TYPES {
 const initState = {
   aboutMe: '',
   userId: null,
-  lookingForAJob: false,
+  lookingForAJob: 'No',
   lookingForAJobDescription: '',
   fullName: '',
   contacts: {
@@ -57,6 +58,22 @@ export const setProfileTC =
     try {
       const res = await PROFILE.getMyProfile(userID);
       dispatch(setProfileDataAC(res.data));
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  };
+
+export const updateMyProfile =
+  (data: profileType): AppThunk =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    try {
+      const { userId } = getState().profile;
+      const response = await PROFILE.updateMyProfile(data);
+      dispatch(setProfileTC(userId));
+      // check if response will be with not right result code
+      if (response.data.resultCode > ResponseCode.Successes) {
+        console.log(response.data.messages[0]);
+      }
     } catch (e: any) {
       throw new Error(e);
     }

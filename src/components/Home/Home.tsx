@@ -29,9 +29,11 @@ const Home = () => {
   const [modalTextArea, setModalTextArea] = useState('');
 
   const buttonHandler = () => {
-    dispatch(addNewPost(modalTextArea));
-    setModal(false);
-    setModalTextArea('');
+    if (modalTextArea.trim()) {
+      dispatch(addNewPost(modalTextArea));
+      setModal(false);
+      setModalTextArea('');
+    }
   };
 
   return (

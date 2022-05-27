@@ -58,11 +58,16 @@ main {
         border-radius: 10px;
         font-size: 15px;
         font-weight: 500;
-        background-color: #0e6dfd;
+        background-color: $blueButtonColor;
         color: white;
+
+        & :active {
+          font-size: 10px;
+        }
 
         & svg {
           margin-right: 10px;
+
         }
 
       }

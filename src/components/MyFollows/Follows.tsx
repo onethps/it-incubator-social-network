@@ -45,7 +45,18 @@ const Follows = () => {
   };
 
   if (loadingStatus === 'loading') {
-    return <Spinner />;
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          justifyItems: 'center',
+          marginTop: '20%',
+        }}
+      >
+        <Spinner />
+      </div>
+    );
   }
 
   return (

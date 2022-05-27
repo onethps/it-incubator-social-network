@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { AUTH } from 'api/auth';
 import { setProfileTC } from 'store/reducers/profile';
 import { AppThunk } from 'store/store';
+import { ResponseCode } from "enums";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 
@@ -69,12 +70,12 @@ const setLoadingStatusAC = (loading: RequestStatusType) => ({
 export const authTC = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes>) => {
   try {
     const res = await AUTH.authMe();
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResponseCode.Successes) {
       const { id, email, login } = res.data.data;
       dispatch(SetAuthDataAC(true, id, email, login));
       dispatch(setProfileTC(id));
     }
-    if (res.data.resultCode !== 0) {
+    if (res.data.resultCode !== ResponseCode.Successes) {
       console.log(res.data.data.messages[0]);
     }
   } catch (e) {
