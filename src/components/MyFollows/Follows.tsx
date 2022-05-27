@@ -62,7 +62,7 @@ const Follows = () => {
         ))}
       </div>
       <div className={s.followUserButtonBlock}>
-        {followedUsers.length > 6 && (
+        {followedUsers.length >= 9 && (
           <button className={s.loadMoreButton} onClick={onLoadMoreFollowers}>
             Load More
           </button>

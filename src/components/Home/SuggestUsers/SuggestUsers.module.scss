@@ -39,13 +39,19 @@
       color: $textDescriptionColor;
     }
 
-    .suggestedUserItemButton {
+    .suggestedUserItemButton, .disabledButton {
       margin-top: 10px;
       border: 1px solid $blueButtonColor;
       background: none;
       border-radius: 10px;
       padding: 5px 20px;
       color: $blueButtonColor;
+    }
+
+    .disabledButton{
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
     }
 
 

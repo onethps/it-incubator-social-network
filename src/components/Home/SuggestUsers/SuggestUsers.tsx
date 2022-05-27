@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,8 +16,12 @@ const SuggestUsers = () => {
     state => state.home.suggestedUsers,
   );
 
+  // disableButtonsOnRequest
+  const [usersId, setUsersId] = useState<number[]>([]);
+
   const onClickHandler = (userID: number) => {
     dispatch(followTC(userID));
+    setUsersId([...usersId, userID]);
   };
 
   return (
@@ -33,8 +37,13 @@ const SuggestUsers = () => {
             <span className={style.suggestedUserItemName}>{name}</span>
             <span className={style.suggestedUserItemId}>{id}</span>
             <button
+              disabled={usersId.some(u => u === id)}
               onClick={() => onClickHandler(id)}
-              className={style.suggestedUserItemButton}
+              className={
+                usersId.some(u => u === id)
+                  ? style.disabledButton
+                  : style.suggestedUserItemButton
+              }
             >
               +Follow
             </button>

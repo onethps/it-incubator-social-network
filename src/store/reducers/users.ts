@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 import { USERS } from 'api/users';
 import { HOME_PAGE_CONSTS } from 'enums';
+import { getSuggestedUsersTC } from 'store/reducers/home';
 import { IUser } from 'store/reducers/types';
 import { AppRootStateType, AppThunk } from 'store/store';
 
@@ -19,7 +20,7 @@ const initState = {
   followedUsers: [],
   loading: 'loading',
   currentPage: 1,
-  pageCount: 6,
+  pageCount: 9,
 };
 
 type initStateType = {
@@ -92,7 +93,6 @@ export const getFollowedUsers =
     }
   };
 
-
 export const unFollowUserTC =
   (userID: number): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
@@ -110,12 +110,7 @@ export const followTC =
   async dispatch => {
     try {
       await USERS.follow(userID);
-      dispatch(
-        getFollowedUsers(
-          HOME_PAGE_CONSTS.CURRENT_PAGE,
-          HOME_PAGE_CONSTS.COUNT_OF_USERS_ON_PAGE,
-        ),
-      );
+      dispatch(getSuggestedUsersTC());
     } catch (e) {
       console.log(e);
     }

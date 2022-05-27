@@ -3,6 +3,7 @@
 import { Dispatch } from 'redux';
 
 import { AUTH } from 'api/auth';
+import { setProfileTC } from 'store/reducers/profile';
 import { AppThunk } from 'store/store';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -71,6 +72,7 @@ export const authTC = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes
     if (res.data.resultCode === 0) {
       const { id, email, login } = res.data.data;
       dispatch(SetAuthDataAC(true, id, email, login));
+      dispatch(setProfileTC(id));
     }
     if (res.data.resultCode !== 0) {
       console.log(res.data.data.messages[0]);
