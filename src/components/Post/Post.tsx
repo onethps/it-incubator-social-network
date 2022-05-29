@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { AiOutlineLike, AiOutlineMessage } from 'react-icons/ai';
 import { BiRepost } from 'react-icons/bi';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { RiShareForwardLine } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import Modal from 'components/common/Modal/Modal';
 import style from 'components/Post/styles/Post.module.scss';
-import { AppRootStateType } from 'store/store';
+import { deletePost } from 'store/reducers/home';
+import { AppDispatch, AppRootStateType } from 'store/store';
 
-const Post = ({ post, photo }: { post: string; photo: string }) => {
+const Post = ({ id, post, photo }: { id: string; post: string; photo: string }) => {
+  const dispatch: AppDispatch = useDispatch();
   const profileName = useSelector<AppRootStateType, string>(state => state.auth.login);
+  const [OnDialogMenu, setOnDialogMenu] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
-  const [editPostMode, setEditPostMode] = useState(false);
+  const deletePostHandler = () => {
+    dispatch(deletePost(id));
+  };
+
+  const editHandler = () => {
+    setOnDialogMenu(false);
+    setEditMode(true);
+    // dispatch(deletePost(id));
+  };
 
   return (
     <>
@@ -26,17 +39,31 @@ const Post = ({ post, photo }: { post: string; photo: string }) => {
               <div className={style.postHeaderUserId}>id 14121</div>
             </div>
 
-            <div onBlur={() => setEditPostMode(false)} className={style.postActionMenu}>
+            <Modal setActive={setEditMode} active={editMode} >
+              <div className={style.ModalBlockStyle}>
+                <h3>Edit Post</h3>
+              <textarea >{post}</textarea>
+                <button>Save Edit</button>
+              </div>
+            </Modal>
+
+            <div className={style.postActionMenu}>
               <div
-                onClick={() => setEditPostMode(true)}
+                onClick={() => setOnDialogMenu(true)}
                 className={style.postHeaderBgMenuIcon}
               >
                 <BsThreeDotsVertical size="25px" color="6C757D" />
               </div>
-              {editPostMode && (
-                <div className={style.postActionBox}>
-                  <div>Edit</div>
-                  <div>Delete</div>
+              {OnDialogMenu && (
+                <div className={style.postAction}>
+                  <div className={style.postActionBox}>
+                    <div onClick={editHandler}>Edit</div>
+                    <div onClick={deletePostHandler}>Delete</div>
+                  </div>
+                  <div
+                    onClick={() => setOnDialogMenu(false)}
+                    className={style.bgPostActionBlock}
+                  />
                 </div>
               )}
             </div>

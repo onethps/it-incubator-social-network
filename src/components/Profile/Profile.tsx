@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import { BsArrowRightCircleFill } from 'react-icons/bs';
-import { RiFacebookCircleFill, RiSuitcaseFill } from 'react-icons/ri';
+import { RiSuitcaseFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import s from './Profile.module.scss';
 
 import noUserIcon from 'assets/no-user.svg';
+import SocialButtonLink from 'components/common/SocialButtonLink/SocialButtonLink';
 import { changeStatusTC, fetchStatusTC, setProfileTC } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { profileType } from 'types';
@@ -93,20 +93,14 @@ const Profile = () => {
           {/* check if values available in object */}
           {Object.values(contacts).filter(f => f).length ? (
             // if available return jsx with  contact buttons
-            Object.keys(contacts).map(contact => <div>{contacts[contact]}</div>)
+            Object.keys(contacts)
+              .filter(f => contacts[f])
+              .map((contact, i) => (
+                <SocialButtonLink key={i} contact={contacts[contact]} />
+              ))
           ) : (
-            <div>No Links Provided</div>
+            <h4>No Links Provided</h4>
           )}
-
-          <div className={s.contactButton}>
-            <RiFacebookCircleFill size="50px" color="#0E6DFD" />
-            <div className={s.contactButtonText}>
-              <h3>Facebook</h3>
-              <span>https://facebook.com/122...</span>
-            </div>
-            <div />
-            <BsArrowRightCircleFill size="30px" />
-          </div>
 
           {/* ///hers DROP ANOTRED BUTTONS */}
         </div>

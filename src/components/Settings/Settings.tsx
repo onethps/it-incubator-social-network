@@ -13,7 +13,6 @@ import { updateMyProfile } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { contactsType, profileType } from 'types/profile';
 
-
 const Settings = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();

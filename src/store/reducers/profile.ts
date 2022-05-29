@@ -76,7 +76,7 @@ export const setProfileTC =
 
 export const fetchStatusTC =
   (userID: number): AppThunk =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       const res = await PROFILE.getStatus(userID);
       dispatch(setStatusAC(res.data));

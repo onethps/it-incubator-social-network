@@ -48,9 +48,13 @@
         //background-color: $profileContactBackgroundButton;
         padding: 15px 30px;
         border-radius: 10px;
+        text-align: center;
+
+
 
         & span {
           font-weight: 600;
+
         }
 
 
@@ -64,7 +68,7 @@
 
 
     .jobStatusBlock {
-       .activeJobStatus, .inActiveJobStatus {
+      .activeJobStatus, .inActiveJobStatus {
         margin-top: 20px;
         color: $greyButtonBackground;
         background-color: #F1F8E9;
@@ -72,7 +76,7 @@
         border-radius: 10px;
       }
 
-      .inActiveJobStatus{
+      .inActiveJobStatus {
         background-color: #faecd9;
       }
 
@@ -110,6 +114,7 @@
     border-radius: 15px;
     background-color: white;
     margin: 10px;
+    min-width: 350px;
     padding: 65px 33px;
 
     //aboutTittle
@@ -134,54 +139,14 @@
         text-align: center;
       }
 
-      .contactButton {
-        cursor: pointer;
-        display: flex;
-        background-color: $profileContactBackgroundButton;
-        align-items: center;
-        padding: 10px 10px;
-        border-radius: 10px;
-        margin: 15px 0;
-
-        //socialIcon
-        & svg {
-          margin-right: 12px;
-        }
-
-        //labelAndLink
-        .contactButtonText {
-          display: flex;
-          flex-direction: column;
-
-
-          //label
-          & h3 {
-            margin: 0;
-            display: inline;
-            text-align: left;
-          }
-
-          //link
-          & span {
-            color: $greyButtonBackground;
-          }
-        }
-
-
-        //arrowRight
-        & svg {
-          margin-left: 15px;
-          color: $greyButtonBackground;
-        }
-
-
+      & h4{
+        text-align: center;
+        font-weight: 500;
+        color: $colorDisabledButton;
       }
 
     }
-
-
   }
-
 }
 
 

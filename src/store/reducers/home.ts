@@ -3,25 +3,30 @@ import { USERS } from 'api/users';
 import { POST_QUERYS } from 'enums';
 import { RequestStatusType } from 'store/reducers/auth';
 import { IUser } from 'store/reducers/types';
-import { AppThunk } from 'store/store';
+import { AppRootStateType, AppThunk } from 'store/store';
 import { HomePostType } from 'types/homeTypes';
 
 enum HOME_CONST_TYPES {
   SET_LOADING_STATUS = 'home/SET-LOADING-STATUS',
   SET_POSTS = 'home/SET-POSTS',
   SET_SUGGEST_USERS = 'home/SET-SUGGEST-USERS',
+  SET_LIMIT_POSTS = 'home/SET-LIMIT-POSTS',
 }
 
 const initState = {
   posts: [],
   suggestedUsers: [],
   loading: 'loading',
+  currentPage: 1,
+  postsPerPage: 2,
 };
 
 type initStateType = {
   posts: HomePostType[];
   suggestedUsers: IUser[];
   loading: RequestStatusType | string;
+  currentPage: number;
+  postsPerPage: number;
 };
 
 export const home = (
@@ -30,6 +35,8 @@ export const home = (
 ): initStateType => {
   switch (action.type) {
     case HOME_CONST_TYPES.SET_SUGGEST_USERS:
+      return { ...state, ...action.payload };
+    case HOME_CONST_TYPES.SET_LIMIT_POSTS:
       return { ...state, ...action.payload };
     case HOME_CONST_TYPES.SET_POSTS:
       return { ...state, posts: action.posts };
@@ -45,6 +52,13 @@ export const setSuggestedUsersAC = (suggestedUsers: IUser[]) => ({
   type: HOME_CONST_TYPES.SET_SUGGEST_USERS,
   payload: {
     suggestedUsers,
+  },
+});
+
+export const setLimitPostsAC = (postsPerPage: number) => ({
+  type: HOME_CONST_TYPES.SET_LIMIT_POSTS,
+  payload: {
+    postsPerPage,
   },
 });
 
@@ -75,11 +89,27 @@ export const getPosts =
 
 export const addNewPost =
   (newPost: string, postID: number): AppThunk =>
-  async dispatch => {
+  async (dispatch, getState: () => AppRootStateType) => {
+    const { postsPerPage } = getState().home;
     dispatch(setLoadingAC('loading'));
     try {
       await POSTS.addPost(newPost, postID);
-      dispatch(getPosts(POST_QUERYS.LIMIT_POSTS_PER_PAGE));
+      dispatch(getPosts(postsPerPage));
+    } catch (e: any) {
+      throw new Error(e);
+    } finally {
+      dispatch(setLoadingAC('succeeded'));
+    }
+  };
+
+export const deletePost =
+  (postId: string): AppThunk =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    const { postsPerPage } = getState().home;
+    dispatch(setLoadingAC('loading'));
+    try {
+      await POSTS.deletePost(postId);
+      dispatch(getPosts(postsPerPage));
     } catch (e: any) {
       throw new Error(e);
     } finally {

@@ -9,9 +9,13 @@ import Modal from 'components/common/Modal/Modal';
 import Post from 'components/Post/Post';
 import SearchUsers from 'components/Search/SearchUsers';
 import SuggestUsers from 'components/SuggestUsers/SuggestUsers';
-import { POST_QUERYS } from 'enums';
 import style from 'pages/Home/Home.module.scss';
-import { addNewPost, getPosts, getSuggestedUsersTC } from 'store/reducers/home';
+import {
+  addNewPost,
+  getPosts,
+  getSuggestedUsersTC,
+  setLimitPostsAC,
+} from 'store/reducers/home';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { HomePostType } from 'types/homeTypes';
 
@@ -26,13 +30,16 @@ const Home = () => {
 
   // linearLoaderForAddsPosts
   const loading = useSelector<AppRootStateType, string>(state => state.home.loading);
+  const limitPosts = useSelector<AppRootStateType, number>(
+    state => state.home.postsPerPage,
+  );
 
-  const [postsPerPage, setPostsPerPage] = useState(POST_QUERYS.LIMIT_POSTS_PER_PAGE);
+  const [hideloadMoreButton, setHideloadMoreButton] = useState(false);
 
   useEffect(() => {
     dispatch(getSuggestedUsersTC());
-    dispatch(getPosts(postsPerPage));
-  }, [postsPerPage]);
+    dispatch(getPosts(limitPosts));
+  }, [limitPosts]);
 
   const [modal, setModal] = useState(false);
   const [modalTextArea, setModalTextArea] = useState('');
@@ -46,13 +53,12 @@ const Home = () => {
   };
 
   const onLoadMorePostsHandle = () => {
-    setPostsPerPage(postsPerPage + 2);
+    dispatch(setLimitPostsAC(limitPosts + 2));
   };
 
   const openModalOnInputHandle = () => {
     setModal(true);
   };
-
   return (
     <main>
       {loading === 'loading' && <LinearLoader />}
@@ -76,6 +82,7 @@ const Home = () => {
 
       <Modal active={modal} setActive={setModal}>
         <div className={style.createPostModalBox}>
+          <h3>Add new Post</h3>
           <textarea
             autoFocus={modal}
             value={modalTextArea}
@@ -94,22 +101,27 @@ const Home = () => {
 
       <div className={style.PostList}>
         {posts.map(({ id, post }) => (
-          <Post key={id} post={post} photo={isValidPhoto} />
+          <Post key={id} id={id} post={post} photo={isValidPhoto} />
         ))}
       </div>
 
       <div className={style.buttonLoadPostsBlock}>
-        <button
-          disabled={loading === 'loading'}
-          onClick={onLoadMorePostsHandle}
-          className={
-            loading === 'loading'
-              ? style.disabledButtonLoadPosts
-              : style.defaultButtonLoadPosts
-          }
-        >
-          Load More
-        </button>
+        {/* check difference count of posts from request - 
+        if we get differnce count of posts from limit number = hide Button
+        */}
+        {posts.length === limitPosts && (
+          <button
+            disabled={loading === 'loading'}
+            onClick={onLoadMorePostsHandle}
+            className={
+              loading === 'loading'
+                ? style.disabledButtonLoadPosts
+                : style.defaultButtonLoadPosts
+            }
+          >
+            Load More
+          </button>
+        )}
       </div>
     </main>
   );
