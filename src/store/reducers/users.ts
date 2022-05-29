@@ -3,7 +3,7 @@
 import { Dispatch } from 'redux';
 
 import { USERS } from 'api/users';
-import { HOME_PAGE_CONSTS } from 'enums';
+import { SUGGEST_USERS_CONSTS } from 'enums';
 import { getSuggestedUsersTC } from 'store/reducers/home';
 import { IUser } from 'store/reducers/types';
 import { AppRootStateType, AppThunk } from 'store/store';

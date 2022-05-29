@@ -3,7 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Spinner from 'components/common/Spinner/Spinner';
-import Login from 'components/Login/Login';
+import Login from 'pages/Login/Login';
 import AppRouters from 'routes/AppRoutes';
 import { authTC } from 'store/reducers/auth';
 import { AppDispatch, AppRootStateType } from 'store/store';

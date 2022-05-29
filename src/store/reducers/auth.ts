@@ -3,9 +3,9 @@
 import { Dispatch } from 'redux';
 
 import { AUTH } from 'api/auth';
+import { ResponseCode } from 'enums';
 import { setProfileTC } from 'store/reducers/profile';
 import { AppThunk } from 'store/store';
-import { ResponseCode } from "enums";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 

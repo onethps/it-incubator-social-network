@@ -1,34 +1,29 @@
-import Home from 'components/Home/Home';
+import Home from 'pages/Home/Home';
+import Follows from 'components/MyFollows/Follows';
 import Profile from 'components/Profile/Profile';
 import Settings from 'components/Settings/Settings';
-import Follows from "components/MyFollows/Follows";
-
-export enum RouteNames {
-  DIALOGS = '/dialogs/',
-  HOME = '/home/',
-  HOME1 = '/home/',
-  USERS = '/users/',
-  LOGIN = '/login/',
-  SETTINGS = '/settings/',
-  PROFILE = 'profile',
-  MY_FOLLOWS = 'follows',
-}
+import {
+  HOME_ROUTE,
+  MY_FOLLOWS_ROUTE,
+  PROFILE_ROUTE,
+  SETTINGS_ROUTE,
+} from 'constants/base';
 
 export const routes = [
   {
-    path: RouteNames.HOME,
+    path: HOME_ROUTE,
     Component: Home,
   },
   {
-    path: RouteNames.PROFILE,
+    path: `${PROFILE_ROUTE}/:id`,
     Component: Profile,
   },
   {
-    path: RouteNames.SETTINGS,
+    path: SETTINGS_ROUTE,
     Component: Settings,
   },
   {
-    path: RouteNames.MY_FOLLOWS,
+    path: MY_FOLLOWS_ROUTE,
     Component: Follows,
   },
 ];

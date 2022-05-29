@@ -7,7 +7,13 @@ import { NavLink } from 'react-router-dom';
 
 import noUserIcon from 'assets/no-user.svg';
 import style from 'components/LeftSideBlock/LeftSideBlock.module.scss';
-import { RouteNames } from 'routes/routes';
+import {
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  MY_FOLLOWS_ROUTE,
+  PROFILE_ROUTE,
+  SETTINGS_ROUTE,
+} from 'constants/base';
 import { AppRootStateType } from 'store/store';
 
 export const LeftSideBlock = () => {
@@ -15,6 +21,7 @@ export const LeftSideBlock = () => {
     isActive ? `${style.navLinkStyleItem} ${style.active}` : style.navLinkStyleItem;
 
   const login = useSelector<AppRootStateType, string>(state => state.auth.login);
+  const myId = useSelector<AppRootStateType, number | null>(state => state.auth.id);
 
   const profilePhoto = useSelector<AppRootStateType, string>(
     state => state.profile.photos.small,
@@ -32,27 +39,30 @@ export const LeftSideBlock = () => {
 
       <nav>
         <ul className={style.NavBlock}>
-          <NavLink to={RouteNames.HOME1} className={isActive => NavStyle(isActive)}>
+          <NavLink to={HOME_ROUTE} className={isActive => NavStyle(isActive)}>
             <AiFillHome size="30px" />
             <span>HOME</span>
           </NavLink>
 
-          <NavLink to="/profile" className={isActive => NavStyle(isActive)}>
+          <NavLink
+            to={`${PROFILE_ROUTE}/${myId}`}
+            className={isActive => NavStyle(isActive)}
+          >
             <FaUserAlt size="30px" />
             <span>MY PROFILE</span>
           </NavLink>
 
-          <NavLink to="/login" className={isActive => NavStyle(isActive)}>
+          <NavLink to={LOGIN_ROUTE} className={isActive => NavStyle(isActive)}>
             <RiLoginBoxFill size="30px" />
             <span>LOGOUT</span>
           </NavLink>
 
-          <NavLink to={RouteNames.MY_FOLLOWS} className={isActive => NavStyle(isActive)}>
+          <NavLink to={MY_FOLLOWS_ROUTE} className={isActive => NavStyle(isActive)}>
             <FaUserFriends size="30px" />
             <span>MY FOLLOWS</span>
           </NavLink>
 
-          <NavLink to="/settings" className={isActive => NavStyle(isActive)}>
+          <NavLink to={SETTINGS_ROUTE} className={isActive => NavStyle(isActive)}>
             <AiFillSetting size="30px" />
             <span>SETTINGS</span>
           </NavLink>

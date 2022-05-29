@@ -2,14 +2,16 @@ import React from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import s from './Settings.module.scss';
 
 import EditProifle from 'components/Settings/EditProfile/EditProifle';
 import EditSocialLinks from 'components/Settings/EditSocialLinks/EditSocialLinks';
+import { PROFILE_ROUTE } from 'constants/base';
 import { updateMyProfile } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
-import { contactsType, photosType, profileType } from 'types/profile';
+import { contactsType, profileType } from 'types/profile';
 
 type Inputs = {
   fullName: string;
@@ -28,7 +30,10 @@ type Inputs = {
 
 const Settings = () => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+
   const profile = useSelector<AppRootStateType, profileType>(state => state.profile);
+  const myPId = useSelector<AppRootStateType, number | null>(state => state.auth.id);
   const constacts = useSelector<AppRootStateType, contactsType>(
     state => state.profile.contacts,
   );
@@ -62,7 +67,9 @@ const Settings = () => {
         },
       }),
     );
+    navigate(`${PROFILE_ROUTE}/${myPId}`);
   };
+
   return (
     <div>
       <div className={s.settings}>

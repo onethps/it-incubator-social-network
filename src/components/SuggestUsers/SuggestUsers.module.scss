@@ -1,4 +1,4 @@
-@import "/src/styles/variables";
+@import "../../styles/variables";
 
 .suggestedUsers {
   margin-bottom: 20px;
@@ -49,9 +49,9 @@
     }
 
     .disabledButton{
-      border: 1px solid #999999;
-      background-color: #cccccc;
-      color: #666666;
+      border: none;
+      background-color: $backgroundDisabledButton;
+      color: $colorDisabledButton;
     }
 
 

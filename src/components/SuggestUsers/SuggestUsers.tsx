@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import style from './SuggestUsers.module.scss';
+import style from 'components/SuggestUsers/SuggestUsers.module.scss';
 
 import imgPhoto from 'assets/no-user.svg';
 import { IUser } from 'store/reducers/types';

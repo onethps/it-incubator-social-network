@@ -2,12 +2,15 @@ import { mockInstance } from 'api/config';
 import { HomePostType } from 'types/homeTypes';
 
 export const POSTS = {
-  getPosts() {
-    return mockInstance.get<HomePostType[]>('posts');
+  getPosts(postsPerPage: number) {
+    return mockInstance.get<HomePostType[]>(
+      `posts?sortBy=postID&order=desc&page=1&limit=${postsPerPage}`,
+    );
   },
-  addPost(newPost: string) {
+  addPost(newPost: string, postID: number) {
     return mockInstance.post('posts', {
       post: newPost,
+      postID,
     });
   },
   deletePost(id: string) {

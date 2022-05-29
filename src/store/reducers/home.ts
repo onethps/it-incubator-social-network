@@ -1,5 +1,6 @@
 import { POSTS } from 'api/posts';
 import { USERS } from 'api/users';
+import { POST_QUERYS } from 'enums';
 import { RequestStatusType } from 'store/reducers/auth';
 import { IUser } from 'store/reducers/types';
 import { AppThunk } from 'store/store';
@@ -31,7 +32,7 @@ export const home = (
     case HOME_CONST_TYPES.SET_SUGGEST_USERS:
       return { ...state, ...action.payload };
     case HOME_CONST_TYPES.SET_POSTS:
-      return { ...state, posts: action.posts.reverse() };
+      return { ...state, posts: action.posts };
     case HOME_CONST_TYPES.SET_LOADING_STATUS:
       return { ...state, loading: action.loading };
     default:
@@ -58,24 +59,27 @@ export const setLoadingAC = (loading: string) => ({
 });
 
 // thunk
-export const getPosts = (): AppThunk => async dispatch => {
-  try {
-    const response = await POSTS.getPosts();
-    dispatch(setPostsAC(response.data));
-  } catch (e: any) {
-    throw new Error(e);
-  } finally {
-    dispatch(setLoadingAC('succeeded'));
-  }
-};
-
-export const addNewPost =
-  (newPost: string): AppThunk =>
+export const getPosts =
+  (postsPerPage: number): AppThunk =>
   async dispatch => {
     dispatch(setLoadingAC('loading'));
     try {
-      await POSTS.addPost(newPost);
-      dispatch(getPosts());
+      const response = await POSTS.getPosts(postsPerPage);
+      dispatch(setPostsAC(response.data));
+    } catch (e: any) {
+      throw new Error(e);
+    } finally {
+      dispatch(setLoadingAC('succeeded'));
+    }
+  };
+
+export const addNewPost =
+  (newPost: string, postID: number): AppThunk =>
+  async dispatch => {
+    dispatch(setLoadingAC('loading'));
+    try {
+      await POSTS.addPost(newPost, postID);
+      dispatch(getPosts(POST_QUERYS.LIMIT_POSTS_PER_PAGE));
     } catch (e: any) {
       throw new Error(e);
     } finally {

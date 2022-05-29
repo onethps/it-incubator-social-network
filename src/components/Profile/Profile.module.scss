@@ -45,25 +45,35 @@
 
 
       .statusBlock {
-        background-color: $profileContactBackgroundButton;
+        //background-color: $profileContactBackgroundButton;
         padding: 15px 30px;
         border-radius: 10px;
 
         & span {
           font-weight: 600;
         }
+
+
+      }
+
+      & :hover {
+        background-color: $backgroundInput;
       }
 
     }
 
 
     .jobStatusBlock {
-      & span {
+       .activeJobStatus, .inActiveJobStatus {
         margin-top: 20px;
         color: $greyButtonBackground;
         background-color: #F1F8E9;
         padding: 15px 40px;
         border-radius: 10px;
+      }
+
+      .inActiveJobStatus{
+        background-color: #faecd9;
       }
 
     }
@@ -125,6 +135,7 @@
       }
 
       .contactButton {
+        cursor: pointer;
         display: flex;
         background-color: $profileContactBackgroundButton;
         align-items: center;
@@ -141,6 +152,7 @@
         .contactButtonText {
           display: flex;
           flex-direction: column;
+
 
           //label
           & h3 {

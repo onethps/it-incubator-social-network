@@ -1,4 +1,4 @@
-export enum HOME_PAGE_CONSTS {
+export enum SUGGEST_USERS_CONSTS {
   CURRENT_PAGE = 1,
   COUNT_OF_USERS_ON_PAGE = 4,
 }

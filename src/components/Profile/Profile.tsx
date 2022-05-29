@@ -3,46 +3,39 @@ import React, { useEffect } from 'react';
 import { BsArrowRightCircleFill } from 'react-icons/bs';
 import { RiFacebookCircleFill, RiSuitcaseFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import s from './Profile.module.scss';
 
+import noUserIcon from 'assets/no-user.svg';
 import Spinner from 'components/common/Spinner/Spinner';
 import { setProfileTC } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
+import { profileType } from 'types';
 
 const Profile = () => {
   const dispatch: AppDispatch = useDispatch();
+
+  const { id } = useParams();
+
   const profileId = useSelector<AppRootStateType, number | null>(state => state.auth.id);
+  const contacts = useSelector<AppRootStateType, any>(state => state.profile.contacts);
 
-  const { photos, contacts } = useSelector<AppRootStateType, any>(state => state.profile);
-
-  const { large } = photos;
-
-  // budem tut perepberat OBJECT
-  for (const key in contacts) {
-    if (contacts[key]) {
-      console.log(key + contacts[key]);
-    }
-  }
+  const { photos, aboutMe, fullName, lookingForAJob } = useSelector<
+    AppRootStateType,
+    profileType
+  >(state => state.profile);
 
   useEffect(() => {
     dispatch(setProfileTC(profileId!));
   }, []);
 
-  if (!profileId) {
-    return (
-      <div className={s.spinnerBox}>
-        <Spinner />
-      </div>
-    );
-  }
-
   return (
     <div className={s.root}>
       <div className={s.leftBlock}>
         <div className={s.profilePhotoAndStatusBlock}>
-          <img className={s.profilePhoto} src={large} />
-          <h3>Jessica Parker</h3>
+          <img className={s.profilePhoto} src={photos ? photos.small : noUserIcon} />
+          <h3>{fullName}</h3>
           <span>id 2651</span>
           <div className={s.statusBlock}>
             <span>Its my new status</span>
@@ -51,7 +44,11 @@ const Profile = () => {
 
         <div className={s.jobStatusBlock}>
           <h3>Job Status</h3>
-          <span>Availible for Work</span>
+          {lookingForAJob ? (
+            <span className={s.activeJobStatus}>Available</span>
+          ) : (
+            <span className={s.inActiveJobStatus}>Not Available</span>
+          )}
         </div>
 
         <div className={s.downloadCVButtonBlock}>
@@ -64,22 +61,26 @@ const Profile = () => {
 
       <div className={s.profileDescriptionAndContacts}>
         <h3 className={s.profileAboutMeTitle}>About Me</h3>
-        <p>
-          Hi! My name is Jessica Parker. I am UI/UX designer, and I'm very passionate and
-          dedicated to my work. With 20 years experience as a professional graphic
-          designer, I have acquired the skills and knowledge necessary to make your
-          project a success.
-        </p>
+        <p>{aboutMe || 'No User Info...'}</p>
 
         <div className={s.contactButtonBlock}>
           <h3>Contacts</h3>
+
+          {/* check if values available in object */}
+          {Object.values(contacts).filter(f => f).length ? (
+            // if available return jsx with  contact buttons
+            Object.keys(contacts).map(contact => <div>{contacts[contact]}</div>)
+          ) : (
+            <div>No Links Provided</div>
+          )}
+
           <div className={s.contactButton}>
             <RiFacebookCircleFill size="50px" color="#0E6DFD" />
             <div className={s.contactButtonText}>
               <h3>Facebook</h3>
               <span>https://facebook.com/122...</span>
             </div>
-            <div></div>
+            <div />
             <BsArrowRightCircleFill size="30px" />
           </div>
 
