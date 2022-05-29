@@ -6,6 +6,12 @@ export const PROFILE = {
     return instance.get<profileType>(`profile/${usedId}`);
   },
   updateMyProfile(data: profileType) {
-    return instance.put('profile', { ...data });
+    return instance.put(`profile`, { ...data });
+  },
+  getStatus(userID: number) {
+    return instance.get(`profile/status/${userID}`);
+  },
+  changeStatus(status: string) {
+    return instance.put(`profile/status/`, { status });
   },
 };

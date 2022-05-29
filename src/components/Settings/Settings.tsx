@@ -13,20 +13,6 @@ import { updateMyProfile } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { contactsType, profileType } from 'types/profile';
 
-type Inputs = {
-  fullName: string;
-  aboutMe: string;
-  jobDescription: string;
-  jobStatus: string;
-  fbLink: string;
-  instLink: string;
-  webLink: string;
-  twitterLink: string;
-  youtubeLink: string;
-  gitLink: string;
-  vkLink: string;
-  externalLink: string;
-};
 
 const Settings = () => {
   const dispatch: AppDispatch = useDispatch();

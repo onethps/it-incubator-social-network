@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { AiOutlineLike, AiOutlineMessage } from 'react-icons/ai';
 import { BiRepost } from 'react-icons/bi';
@@ -12,6 +12,8 @@ import { AppRootStateType } from 'store/store';
 const Post = ({ post, photo }: { post: string; photo: string }) => {
   const profileName = useSelector<AppRootStateType, string>(state => state.auth.login);
 
+  const [editPostMode, setEditPostMode] = useState(false);
+
   return (
     <>
       <div className={style.post}>
@@ -23,8 +25,20 @@ const Post = ({ post, photo }: { post: string; photo: string }) => {
               <div className={style.postHeaderUserName}>{profileName}</div>
               <div className={style.postHeaderUserId}>id 14121</div>
             </div>
-            <div className={style.postHeaderBgMenuIcon}>
-              <BsThreeDotsVertical size="25px" color="6C757D" />
+
+            <div onBlur={() => setEditPostMode(false)} className={style.postActionMenu}>
+              <div
+                onClick={() => setEditPostMode(true)}
+                className={style.postHeaderBgMenuIcon}
+              >
+                <BsThreeDotsVertical size="25px" color="6C757D" />
+              </div>
+              {editPostMode && (
+                <div className={style.postActionBox}>
+                  <div>Edit</div>
+                  <div>Delete</div>
+                </div>
+              )}
             </div>
           </div>
         </div>

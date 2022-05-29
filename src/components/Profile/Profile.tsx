@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { BsArrowRightCircleFill } from 'react-icons/bs';
 import { RiFacebookCircleFill, RiSuitcaseFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import s from './Profile.module.scss';
 
 import noUserIcon from 'assets/no-user.svg';
-import Spinner from 'components/common/Spinner/Spinner';
-import { setProfileTC } from 'store/reducers/profile';
+import { changeStatusTC, fetchStatusTC, setProfileTC } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { profileType } from 'types';
 
@@ -20,6 +19,9 @@ const Profile = () => {
 
   const profileId = useSelector<AppRootStateType, number | null>(state => state.auth.id);
   const contacts = useSelector<AppRootStateType, any>(state => state.profile.contacts);
+  const status = useSelector<AppRootStateType, string | undefined>(
+    state => state.profile.status,
+  );
 
   const { photos, aboutMe, fullName, lookingForAJob } = useSelector<
     AppRootStateType,
@@ -28,7 +30,20 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(setProfileTC(profileId!));
+    dispatch(fetchStatusTC(+id!));
   }, []);
+
+  const [editMode, setEditMode] = useState(false);
+  const [inputStatus, setInputStatus] = useState<string>(status!);
+
+  const onChangeStatusInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputStatus(e.currentTarget.value);
+  };
+
+  const changeStatus = () => {
+    dispatch(changeStatusTC(inputStatus));
+    setEditMode(false);
+  };
 
   return (
     <div className={s.root}>
@@ -38,7 +53,16 @@ const Profile = () => {
           <h3>{fullName}</h3>
           <span>id 2651</span>
           <div className={s.statusBlock}>
-            <span>Its my new status</span>
+            {editMode ? (
+              <input
+                value={inputStatus}
+                onChange={onChangeStatusInput}
+                autoFocus
+                onBlur={changeStatus}
+              />
+            ) : (
+              <span onDoubleClick={() => setEditMode(true)}>{inputStatus}</span>
+            )}
           </div>
         </div>
 
