@@ -85,7 +85,7 @@ const Home = () => {
           <h3>Add new Post</h3>
           <textarea
             autoFocus={modal}
-            value={modalTextArea}
+            defaultValue={modalTextArea}
             onChange={e => setModalTextArea(e.currentTarget.value)}
             placeholder="Whatis in your mind"
             className={style.createPostArea}

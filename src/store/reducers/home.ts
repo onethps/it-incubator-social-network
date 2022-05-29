@@ -117,6 +117,22 @@ export const deletePost =
     }
   };
 
+export const editPostTC =
+  (editedPost: string, postId: string): AppThunk =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    // gets count of posts loaded from reducer
+    const { postsPerPage } = getState().home;
+    dispatch(setLoadingAC('loading'));
+    try {
+      await POSTS.editPost(editedPost, postId);
+      dispatch(getPosts(postsPerPage));
+    } catch (e: any) {
+      throw new Error(e);
+    } finally {
+      dispatch(setLoadingAC('succeeded'));
+    }
+  };
+
 export const getSuggestedUsersTC = (): AppThunk => async dispatch => {
   try {
     const response = await USERS.getSuggestedUsers();

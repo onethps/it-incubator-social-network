@@ -16,4 +16,9 @@ export const POSTS = {
   deletePost(id: string) {
     return mockInstance.delete(`posts/${id}`);
   },
+  editPost(editText: string, id: string) {
+    return mockInstance.put(`posts/${id}`, {
+      post: editText,
+    });
+  },
 };
