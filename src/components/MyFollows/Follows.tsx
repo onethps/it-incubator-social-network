@@ -60,8 +60,8 @@ const Follows = () => {
   }
 
   return (
-    <div>
-      <div className={s.root}>
+    <div className={s.root}>
+      <div className={s.follows}>
         {followedUsers.map(({ name, id, photos }) => (
           <FollowedUser
             key={id}
@@ -72,6 +72,7 @@ const Follows = () => {
           />
         ))}
       </div>
+
       <div className={s.followUserButtonBlock}>
         {followedUsers.length >= 9 && (
           <button className={s.loadMoreButton} onClick={onLoadMoreFollowers}>

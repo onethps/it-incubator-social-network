@@ -11,7 +11,7 @@ import EditSocialLinks from 'components/Settings/EditSocialLinks/EditSocialLinks
 import { PROFILE_ROUTE } from 'constants/base';
 import { updateMyProfile } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
-import { contactsType, profileType } from 'types/profile';
+import { profileType } from 'types/profile';
 
 const Settings = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -19,9 +19,7 @@ const Settings = () => {
 
   const profile = useSelector<AppRootStateType, profileType>(state => state.profile);
   const myPId = useSelector<AppRootStateType, number | null>(state => state.auth.id);
-  const constacts = useSelector<AppRootStateType, contactsType>(
-    state => state.profile.contacts,
-  );
+
   const {
     handleSubmit,
     register,
@@ -56,8 +54,8 @@ const Settings = () => {
   };
 
   return (
-    <div>
-      <div className={s.settings}>
+    <>
+      <div className={s.root}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <EditProifle register={register} />
           <EditSocialLinks register={register} />
@@ -68,7 +66,7 @@ const Settings = () => {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

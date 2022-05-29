@@ -28,16 +28,16 @@ export const LeftSideBlock = () => {
   );
 
   return (
-    <div className={style.sidebar}>
-      <div className={style.welcomeBlock}>
-        <img alt="imgPhoto" src={profilePhoto || noUserIcon} />
-        <div className={style.textBlock}>
-          <div>Welcome 👋</div>
-          <h3>{login}</h3>
+    <div className={style.root}>
+      <div className={style.sidebar}>
+        <div className={style.welcomeBlock}>
+          <img alt="imgPhoto" src={profilePhoto || noUserIcon} />
+          <div className={style.textBlock}>
+            <div>Welcome 👋</div>
+            <h3>{login}</h3>
+          </div>
         </div>
-      </div>
 
-      <nav>
         <ul className={style.NavBlock}>
           <NavLink to={HOME_ROUTE} className={isActive => NavStyle(isActive)}>
             <AiFillHome size="30px" />
@@ -67,7 +67,7 @@ export const LeftSideBlock = () => {
             <span>SETTINGS</span>
           </NavLink>
         </ul>
-      </nav>
+      </div>
     </div>
   );
 };

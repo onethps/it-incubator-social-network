@@ -13,8 +13,10 @@
 }
 
 .root {
-  margin-top: 20px;
   display: flex;
+  grid-area: main;
+  align-items: flex-start;
+  gap: 20px;
 
   ///leftTopBlock
   .leftBlock {
@@ -22,9 +24,8 @@
 
     .profilePhotoAndStatusBlock, .jobStatusBlock {
       background-color: white;
-      min-width: 300px;
+      min-width: 250px;
       padding: 30px;
-      margin: 10px;
       border-radius: 15px;
       display: flex;
       flex-direction: column;
@@ -51,7 +52,6 @@
         text-align: center;
 
 
-
         & span {
           font-weight: 600;
 
@@ -68,6 +68,8 @@
 
 
     .jobStatusBlock {
+      margin-top: 20px;
+
       .activeJobStatus, .inActiveJobStatus {
         margin-top: 20px;
         color: $greyButtonBackground;
@@ -110,12 +112,11 @@
   }
 
   //rightFullBlock
-  .profileDescriptionAndContacts {
+  .aboutMeBlock {
     border-radius: 15px;
     background-color: white;
-    margin: 10px;
-    min-width: 350px;
     padding: 65px 33px;
+    min-width: 350px;
 
     //aboutTittle
     & h3 {
@@ -139,7 +140,7 @@
         text-align: center;
       }
 
-      & h4{
+      & h4 {
         text-align: center;
         font-weight: 500;
         color: $colorDisabledButton;

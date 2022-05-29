@@ -55,7 +55,7 @@ export const setProfileDataAC = ({ ...profileData }: profileType) => ({
   },
 });
 
-export const setStatusAC = (status: string) => ({
+export const setNewStatusAC = (status: string) => ({
   type: PROFILE_CONST_TYPES.SET_STATUS,
   payload: {
     status,
@@ -63,7 +63,7 @@ export const setStatusAC = (status: string) => ({
 });
 
 // thunk
-export const setProfileTC =
+export const setProfileDataTC =
   (userID: number): AppThunk =>
   async (dispatch: Dispatch) => {
     try {
@@ -79,13 +79,13 @@ export const fetchStatusTC =
   async dispatch => {
     try {
       const res = await PROFILE.getStatus(userID);
-      dispatch(setStatusAC(res.data));
+      dispatch(setNewStatusAC(res.data));
     } catch (e: any) {
       throw new Error(e);
     }
   };
 
-export const changeStatusTC =
+export const setNewStatusTC =
   (status: string): AppThunk =>
   async (dispatch, getState: () => AppRootStateType) => {
     const { id } = getState().auth;
@@ -103,10 +103,9 @@ export const updateMyProfile =
     try {
       const { userId } = getState().profile;
       const response = await PROFILE.updateMyProfile(data);
-      dispatch(setProfileTC(userId));
+      dispatch(setProfileDataTC(userId));
       // check if response will be with not right result code
       if (response.data.resultCode > ResponseCode.Successes) {
-        console.log(response.data.messages[0]);
       }
     } catch (e: any) {
       throw new Error(e);
@@ -116,5 +115,5 @@ export const updateMyProfile =
 // actions
 export type AuthActionsTypes =
   | ReturnType<typeof setProfileDataAC>
-  | ReturnType<typeof setStatusAC>
+  | ReturnType<typeof setNewStatusAC>
   | any;

@@ -1,60 +1,66 @@
 @import "../../styles/variables";
 
-.suggestedUsers {
-  margin-bottom: 20px;
-  display: flex;
+.root {
 
-  .suggestedUsersTitle {
 
+  & h3 {
+    margin: 20px 10px;
   }
 
-  .suggestedUserItem {
+  .suggestedUsers {
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
-    padding: 18px;
-    flex: 1 1 0;
-    background-color: white;
-    border-radius: 20px;
-    align-items: center;
-    margin: 5px;
-    justify-content: space-around;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
 
-    .suggestedUserItemPhoto {
-      width: 50px;
-      border-radius: 100%;
-      padding: 5px 0;
+    .suggestedUserItem {
+      display: flex;
+      flex-direction: column;
+      padding: 18px;
+      flex: 1 1 0;
+      background-color: white;
+      border-radius: 20px;
+      align-items: center;
+      margin: 5px;
+      justify-content: space-around;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+
+      .suggestedUserItemPhoto {
+        width: 50px;
+        border-radius: 100%;
+        padding: 5px 0;
+      }
+
+      .suggestedUserItemName {
+        font-weight: 600;
+        font-size: 12px;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .suggestedUserItemId {
+        font-size: 11px;
+        color: $textDescriptionColor;
+      }
+
+      .suggestedUserItemButton, .disabledButton {
+        margin-top: 10px;
+        border: 1px solid $blueButtonColor;
+        background: none;
+        border-radius: 10px;
+        padding: 5px 20px;
+        color: $blueButtonColor;
+      }
+
+      .disabledButton {
+        border: none;
+        background-color: $backgroundDisabledButton;
+        color: $colorDisabledButton;
+      }
+
+
     }
-
-    .suggestedUserItemName {
-      font-weight: 600;
-      font-size: 12px;
-      text-align: center;
-      padding: 10px;
-    }
-
-    .suggestedUserItemId {
-      font-size: 11px;
-      color: $textDescriptionColor;
-    }
-
-    .suggestedUserItemButton, .disabledButton {
-      margin-top: 10px;
-      border: 1px solid $blueButtonColor;
-      background: none;
-      border-radius: 10px;
-      padding: 5px 20px;
-      color: $blueButtonColor;
-    }
-
-    .disabledButton{
-      border: none;
-      background-color: $backgroundDisabledButton;
-      color: $colorDisabledButton;
-    }
-
 
   }
-
 }
+

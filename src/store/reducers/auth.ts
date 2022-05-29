@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import { AUTH } from 'api/auth';
 import { ResponseCode } from 'enums';
-import { setProfileTC } from 'store/reducers/profile';
+import { fetchStatusTC, setProfileDataTC, setNewStatusAC } from 'store/reducers/profile';
 import { AppThunk } from 'store/store';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -73,13 +73,13 @@ export const authTC = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes
     if (res.data.resultCode === ResponseCode.Successes) {
       const { id, email, login } = res.data.data;
       dispatch(SetAuthDataAC(true, id, email, login));
-      dispatch(setProfileTC(id));
+      dispatch(setProfileDataTC(id));
+      dispatch(fetchStatusTC(id));
     }
     if (res.data.resultCode !== ResponseCode.Successes) {
-      console.log(res.data.data.messages[0]);
     }
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    throw new Error(e);
   } finally {
     dispatch(setLoadingStatusAC('succeeded'));
   }

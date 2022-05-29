@@ -25,7 +25,7 @@ const SuggestUsers = () => {
   };
 
   return (
-    <div>
+    <div className={style.root}>
       <h3 className={style.suggestedUsersTitle}>Suggested Users</h3>
       <div className={style.suggestedUsers}>
         {users.map(({ id, name, photos }) => (

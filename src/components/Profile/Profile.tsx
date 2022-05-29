@@ -8,7 +8,7 @@ import s from './Profile.module.scss';
 
 import noUserIcon from 'assets/no-user.svg';
 import SocialButtonLink from 'components/common/SocialButtonLink/SocialButtonLink';
-import { changeStatusTC, fetchStatusTC, setProfileTC } from 'store/reducers/profile';
+import { setNewStatusTC, fetchStatusTC, setProfileDataTC } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { profileType } from 'types';
 
@@ -29,7 +29,7 @@ const Profile = () => {
   >(state => state.profile);
 
   useEffect(() => {
-    dispatch(setProfileTC(profileId!));
+    dispatch(setProfileDataTC(profileId!));
     dispatch(fetchStatusTC(+id!));
   }, []);
 
@@ -41,7 +41,7 @@ const Profile = () => {
   };
 
   const changeStatus = () => {
-    dispatch(changeStatusTC(inputStatus));
+    dispatch(setNewStatusTC(inputStatus));
     setEditMode(false);
   };
 
@@ -83,7 +83,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className={s.profileDescriptionAndContacts}>
+      <div className={s.aboutMeBlock}>
         <h3 className={s.profileAboutMeTitle}>About Me</h3>
         <p>{aboutMe || 'No User Info...'}</p>
 
@@ -102,17 +102,9 @@ const Profile = () => {
             <h4>No Links Provided</h4>
           )}
 
-          {/* ///hers DROP ANOTRED BUTTONS */}
         </div>
       </div>
 
-      {/* <img alt="fb" src={fb} /> */}
-      {/* <img alt="link" src={link} /> */}
-      {/* <img alt="web" src={web} /> */}
-      {/* <img alt="inst" src={inst} /> */}
-      {/* <img alt="yt" src={yt} /> */}
-      {/* <img alt="git" src={git} /> */}
-      {/* <img alt="vk" src={vkk} /> */}
     </div>
   );
 };
