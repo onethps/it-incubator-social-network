@@ -6,7 +6,7 @@ import noUserIcon from 'assets/no-user.svg';
 import LinearLoader from 'components/common/LinearLoader/LinearLoader';
 import CreateNewPost from 'components/CreateNewPost/CreateNewPost';
 import Post from 'components/Post/Post';
-import SearchUsers from 'components/Search/SearchUsers';
+import SearchUsers from 'components/SearchBar/SearchUsers';
 import SuggestUsers from 'components/SuggestUsers/SuggestUsers';
 import style from 'pages/Home/Home.module.scss';
 import { getPosts, getSuggestedUsersTC, setLimitPostsAC } from 'store/reducers/home';

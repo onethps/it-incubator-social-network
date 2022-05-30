@@ -1,0 +1,60 @@
+@import "../../styles/variables";
+
+////searchBlock
+.search {
+  padding: 20px 0;
+  position: relative;
+
+
+  .searchInputs {
+   position: sticky;
+    z-index: 2;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 10px 25px;
+
+    & input {
+      border: 1px;
+      width: 99%;
+      outline: none;
+      padding: 0 10px;
+    }
+
+    & svg {
+      color: $blueButtonColor;
+    }
+
+  }
+
+  .searchUserData {
+    border: 1px solid rgba($colorDisabledButton, 0.2);
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border-radius: 0 0 8px 8px;
+
+    & ul {
+      list-style: none;
+      padding: 20px;
+
+      & li {
+        padding: 20px;
+        border-radius: 10px;
+
+      }
+
+      & li:hover {
+        cursor: pointer;
+        background-color: $profileContactBackgroundButton;
+      }
+    }
+
+  }
+
+
+}
+
+////searchBlock

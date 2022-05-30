@@ -7,27 +7,27 @@ type EditProfile = {
 };
 
 const EditProifle: FC<EditProfile> = ({ register }) => (
-  <div>
-    <div className={s.editProfile}>
+  <>
+    <div className={s.root}>
       <h3 className={s.editProfileTittle}>Edit Profile</h3>
       <input
         className={s.editProfileInputName}
         {...register('fullName')}
         placeholder="fullName"
       />
-      <input
+      <textarea
         className={s.editProfileInputAboutMe}
         {...register('aboutMe')}
         placeholder="About Me"
       />
-      <input
+      <textarea
         className={s.editProfileInputJobDescription}
         placeholder="Job Description"
         {...register('lookingForAJobDescription')}
       />
 
       <div className={s.editProfileCheckBox}>
-        <div className={s.editProfileCheckBoxTitle}>Looking for a job</div>
+        <div className={s.editProfileCheckBoxTitle}>Job Status</div>
 
         <div className={s.editProfileCheckboxItems}>
           <div className="form-check">
@@ -40,7 +40,7 @@ const EditProifle: FC<EditProfile> = ({ register }) => (
                 className="form-check-input"
                 id="yes"
               />{' '}
-              Yes
+              Available
             </label>
           </div>
 
@@ -55,13 +55,13 @@ const EditProifle: FC<EditProfile> = ({ register }) => (
                 id="no"
                 defaultChecked
               />{' '}
-              No
+              Not Available
             </label>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </>
 );
 
 export default EditProifle;

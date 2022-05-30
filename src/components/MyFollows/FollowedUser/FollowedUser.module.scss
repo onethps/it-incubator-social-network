@@ -31,13 +31,18 @@
     margin-bottom: 20px;
   }
 
-  .followUserButton, {
+  .followUserButton, .disabledFollowUserButton {
     border: none;
     background-color: $blueButtonColor;
     color: white;
     font-size: 16px;
     padding: 10px 30px;
     border-radius: 10px;
+  }
+
+  .disabledFollowUserButton, {
+    background-color: $backgroundDisabledButton;
+    color: $colorDisabledButton;
   }
 
 }

@@ -2,55 +2,61 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { BiSearch } from 'react-icons/bi';
 
+import style from './SearchUsers.module.scss';
+
 import { USERS } from 'api/users';
-import style from 'pages/Home/Home.module.scss';
 
 const SearchUsers = () => {
   const [searchText, setSearchText] = useState('');
-  const [searchUsers, setSearchUSers] = useState([]);
+  const [searchDataUsers, setSearchDataUSers] = useState([]);
 
   const onInputSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value);
 
     if (!e.currentTarget.value) {
-      setSearchUSers([]);
+      setSearchDataUSers([]);
     }
   };
 
   useEffect(() => {
-    const delayDebaunce = setTimeout(() => {
+    const delayDebounce = setTimeout(() => {
       if (searchText.length > 1) {
         const fetchSearchUSers = async (): Promise<void> => {
           const response = await USERS.getSearchUsers(searchText);
-          setSearchUSers(response.data.items);
+          setSearchDataUSers(response.data.items);
         };
         fetchSearchUSers();
       }
     }, 500);
 
-    return () => clearTimeout(delayDebaunce);
+    return () => clearTimeout(delayDebounce);
   }, [searchText]);
 
   return (
-    <div>
-      <div className={style.searchUsers}>
-        <input
-          placeholder="Search Users..."
-          value={searchText}
-          onChange={onInputSearchHandler}
-        />
-        <BiSearch />
-        {searchUsers.length > 0 && (
-          <div className={style.searchUsersResults}>
+    <>
+      <div className={style.search}>
+        <div className={style.searchInputs}>
+          <input
+            type="text"
+            placeholder="Search Users..."
+            value={searchText}
+            onChange={onInputSearchHandler}
+          />
+          <BiSearch size="20px" />
+        </div>
+        {/* if we got some results show it */}
+
+        {searchDataUsers.length > 0 && (
+          <div className={style.searchUserData}>
             <ul>
-              {searchUsers.slice(0, 5).map(({ name, id }) => (
+              {searchDataUsers.slice(0, 5).map(({ name, id }) => (
                 <li key={id}>{name}</li>
               ))}
             </ul>
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -8,64 +8,6 @@ main {
   }
 
 
-  ////searchBlock
-  .searchUsers {
-    padding: 20px 0;
-    position: relative;
-
-
-    .searchUsersResults {
-      position: absolute;
-      top: 0;
-      z-index: 1;
-      width: 100%;
-      background-color: white;
-      border-radius: 20px;
-
-      & ul {
-        list-style: none;
-        margin-top: 40px;
-        padding: 20px;
-
-        & li {
-          padding: 20px;
-          border-radius: 10px;
-
-        }
-
-        & li:hover {
-          cursor: pointer;
-          background-color: $profileContactBackgroundButton;
-        }
-      }
-
-    }
-
-    & svg {
-      bottom: 40%;
-      left: 15px;
-      position: absolute;
-      color: $blueButtonColor;
-      z-index: 3;
-    }
-
-    & input {
-      z-index: 3;
-      position: absolute;
-      top: 0;
-      border: 1px;
-      background-color: white;
-      width: 100%;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 10px 35px;
-      outline: none;
-    }
-
-
-  }
-////searchBlock
-
 }
 
 
@@ -95,4 +37,5 @@ main {
 
   }
 }
+
 /// loadMore BUTTON
