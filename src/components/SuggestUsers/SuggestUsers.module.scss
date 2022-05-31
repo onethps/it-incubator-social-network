@@ -25,23 +25,34 @@
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
 
-      .suggestedUserItemPhoto {
-        width: 50px;
-        border-radius: 100%;
-        padding: 5px 0;
+      .suggestUserInfo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        .suggestedUserItemPhoto {
+          width: 50px;
+          border-radius: 100%;
+          padding: 5px 0;
+        }
+
+        .suggestedUserItemName {
+          font-weight: 600;
+          font-size: 12px;
+          text-align: center;
+          padding: 10px;
+        }
+
+        .suggestedUserItemId {
+          font-size: 11px;
+          color: $textDescriptionColor;
+        }
       }
 
-      .suggestedUserItemName {
-        font-weight: 600;
-        font-size: 12px;
-        text-align: center;
-        padding: 10px;
-      }
 
-      .suggestedUserItemId {
-        font-size: 11px;
-        color: $textDescriptionColor;
-      }
+
 
       .suggestedUserItemButton, .disabledButton {
         margin-top: 10px;

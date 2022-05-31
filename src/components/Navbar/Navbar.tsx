@@ -9,8 +9,8 @@ import { AppRootStateType } from 'store/store';
 export const Navbar = () => {
   const login = useSelector<AppRootStateType, string>(state => state.auth.login);
 
-  const profilePhoto = useSelector<AppRootStateType, string>(
-    state => state.profile.photos.small,
+  const profileOwnerPhoto = useSelector<AppRootStateType, any>(
+    state => state.profile.profileOwner.photos,
   );
 
   return (
@@ -18,7 +18,7 @@ export const Navbar = () => {
       <div className={style.root}>
         <div className={style.sidebar}>
           <div className={style.welcomeBlock}>
-            <img alt="imgPhoto" src={profilePhoto || noUserIcon} />
+            <img alt="imgPhoto" src={profileOwnerPhoto ? profileOwnerPhoto.small : noUserIcon} />
             <div className={style.textBlock}>
               <div>Welcome 👋</div>
               <h3>{login}</h3>

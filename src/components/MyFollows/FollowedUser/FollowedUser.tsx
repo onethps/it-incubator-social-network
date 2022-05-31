@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import s from './FollowedUser.module.scss';
 
 import noUserIcon from 'assets/no-user.svg';
@@ -13,6 +15,8 @@ type FollowedUserType = {
 };
 
 const FollowedUser = ({ id, photos, name, onUnfolowUserHandle }: FollowedUserType) => {
+  const navigate = useNavigate();
+
   const [tempUserId, setTempUserId] = useState<number[]>([]);
 
   const onFollowUserHandler = () => {
@@ -20,17 +24,23 @@ const FollowedUser = ({ id, photos, name, onUnfolowUserHandle }: FollowedUserTyp
     setTempUserId([...tempUserId, id]);
   };
 
+  const onShowUserProfileHandle = () => navigate(`/profile/${id}`);
+
   const isUserIdInArray = tempUserId.includes(id);
+
+
 
   return (
     <>
       <div key={id} className={s.followUser}>
-        <img
-          className={s.followUserPhoto}
-          src={photos.small ? photos.small : noUserIcon}
-        />
-        <h3 className={s.followUserName}>{name}</h3>
-        <div className={s.followUserId}>id {id}</div>
+        <div className={s.followUserInfo} onClick={onShowUserProfileHandle}>
+          <img
+            className={s.followUserPhoto}
+            src={photos.small ? photos.small : noUserIcon}
+          />
+          <h3 className={s.followUserName}>{name}</h3>
+          <div className={s.followUserId}>id {id}</div>
+        </div>
         <button
           disabled={isUserIdInArray}
           className={isUserIdInArray ? s.disabledFollowUserButton : s.followUserButton}

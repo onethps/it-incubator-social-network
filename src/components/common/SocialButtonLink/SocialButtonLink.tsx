@@ -28,7 +28,7 @@ const SocialButtonLink = ({ link }: { link: string }) => {
     },
     {
       name: 'youtube',
-      youtube: <RiYoutubeFill size="50px" color="red" />,
+      icon: <RiYoutubeFill size="50px" color="red" />,
     },
     // {
     //   name: 'website',
@@ -48,18 +48,16 @@ const SocialButtonLink = ({ link }: { link: string }) => {
 
   return (
     <>
-      <div className={s.contactButton}>
-        {checkLinkInIconData.map((iconItem, i) => (
-          <>
-            {iconItem.icon}
-            <div key={i} className={s.contactButtonText}>
-              <h3>{iconItem.name}</h3>
-              <span>{link}</span>
-            </div>
-            <BsArrowRightCircleFill size="30px" />
-          </>
-        ))}
-      </div>
+      {checkLinkInIconData.map((iconItem, i) => (
+        <div key={i} className={s.currentButton}>
+          {iconItem.icon}
+          <div className={s.contactButtonText}>
+            <h3>{iconItem.name}</h3>
+            <span className={s.linkStyle}>{link}</span>
+          </div>
+          <BsArrowRightCircleFill size="30px" />
+        </div>
+      ))}
     </>
   );
 };

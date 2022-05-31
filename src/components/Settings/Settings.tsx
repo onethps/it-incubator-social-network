@@ -53,6 +53,7 @@ const Settings = () => {
     navigate(`${PROFILE_ROUTE}/${myPId}`);
   };
 
+
   return (
     <>
       <div className={s.root}>

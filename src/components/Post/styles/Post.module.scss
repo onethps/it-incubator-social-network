@@ -31,15 +31,17 @@
         position: relative;
 
         .postHeaderBgMenuIcon {
-          background-color: #F3F4F6;
+          background-color: $backgroundInput;
           width: 50px;
           height: 45px;
           border-radius: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
 
         }
+
 
         .postAction {
 

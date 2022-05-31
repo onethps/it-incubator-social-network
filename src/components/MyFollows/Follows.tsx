@@ -49,6 +49,7 @@ const Follows = () => {
       <div
         style={{
           display: 'flex',
+          gridArea: 'main',
           justifyContent: 'center',
           justifyItems: 'center',
           marginTop: '20%',

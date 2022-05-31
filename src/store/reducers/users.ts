@@ -3,7 +3,6 @@
 import { Dispatch } from 'redux';
 
 import { USERS } from 'api/users';
-import { SUGGEST_USERS_CONSTS } from 'enums';
 import { getSuggestedUsersTC } from 'store/reducers/home';
 import { IUser } from 'store/reducers/types';
 import { AppRootStateType, AppThunk } from 'store/store';
@@ -36,16 +35,7 @@ export const users = (
 ): initStateType => {
   switch (action.type) {
     case USERS_CONST_TYPES.SET_LOADING_STATUS:
-      return {
-        ...state,
-        ...action.payload,
-      };
-
     case USERS_CONST_TYPES.SET_USERS:
-      return {
-        ...state,
-        ...action.payload,
-      };
     case USERS_CONST_TYPES.SET_PAGE_PARAMS:
       return {
         ...state,

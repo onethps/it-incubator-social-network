@@ -8,6 +8,7 @@ import s from './Profile.module.scss';
 
 import noUserIcon from 'assets/no-user.svg';
 import SocialButtonLink from 'components/common/SocialButtonLink/SocialButtonLink';
+import Spinner from 'components/common/Spinner/Spinner';
 import { fetchStatusTC, setNewStatusTC, setProfileDataTC } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { profileType } from 'types';
@@ -23,38 +24,64 @@ const Profile = () => {
     state => state.profile.status,
   );
 
-  const { photos, aboutMe, fullName, lookingForAJob, lookingForAJobDescription } =
-    useSelector<AppRootStateType, profileType>(state => state.profile);
+  const loadingStatus = useSelector<AppRootStateType, string>(
+    state => state.profile.loading,
+  );
+  const { aboutMe, fullName, lookingForAJob, lookingForAJobDescription } = useSelector<
+    AppRootStateType,
+    profileType
+  >(state => state.profile);
+  const photo = useSelector<AppRootStateType, any>(state => state.profile.photos);
+
+  const checkId = profileId !== Number(id!) ? id : profileId;
 
   useEffect(() => {
-    dispatch(setProfileDataTC(profileId!));
-    dispatch(fetchStatusTC(+id!));
-  }, []);
+    dispatch(setProfileDataTC(Number(checkId!)));
+    dispatch(fetchStatusTC(Number(checkId!)));
+  }, [id]);
 
   const [isEditStatusMode, setEditStatusMode] = useState(false);
-  const [inputStatus, setInputStatus] = useState<string>(status!);
+  const [inputStatus, setInputStatus] = useState<string | undefined>(status);
 
   const onChangeStatusInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInputStatus(e.currentTarget.value);
   };
 
   const changeStatus = () => {
-    dispatch(setNewStatusTC(inputStatus));
+    if (inputStatus) dispatch(setNewStatusTC(inputStatus));
     setEditStatusMode(false);
   };
 
+  const onEditStatusModeHandle = () => setEditStatusMode(true);
+
   const filterCVLink = Object.keys(contacts).filter(link => link !== 'mainLink');
   const getValidLinks = filterCVLink.filter(link => contacts[link]);
+
+  if (loadingStatus === 'loading') {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          gridArea: 'main',
+          justifyContent: 'center',
+          justifyItems: 'center',
+          marginTop: '20%',
+        }}
+      >
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className={s.root}>
       <div className={s.leftBlock}>
         <div className={s.profilePhotoAndStatusBlock}>
-          <img className={s.profilePhoto} src={photos ? photos.small : noUserIcon} />
+          <img className={s.profilePhoto} src={photo.small || noUserIcon} />
           <h3>{fullName}</h3>
-          <span>id 2651</span>
+          <span>id {id}</span>
           <div className={s.statusBlock}>
-            {isEditStatusMode ? (
+            {isEditStatusMode && profileId === Number(id) ? (
               <input
                 value={inputStatus}
                 onChange={onChangeStatusInput}
@@ -62,7 +89,7 @@ const Profile = () => {
                 onBlur={changeStatus}
               />
             ) : (
-              <span onDoubleClick={() => setEditStatusMode(true)}>{inputStatus}</span>
+              <span onDoubleClick={onEditStatusModeHandle}>{status || 'No Status'}</span>
             )}
           </div>
         </div>
@@ -100,7 +127,7 @@ const Profile = () => {
         <p>{aboutMe || 'No User Info...'}</p>
 
         <h3>More Info</h3>
-        <p>{lookingForAJobDescription}</p>
+        <p>{lookingForAJobDescription || 'No More Info...'}</p>
         <div className={s.contactButtonBlock}>
           <h3>Contacts</h3>
           {getValidLinks.length ? (
@@ -108,7 +135,8 @@ const Profile = () => {
               <SocialButtonLink key={i} link={contacts[link]} />
             ))
           ) : (
-            <div>No Data</div>
+            <span className={s.NoDataTextStyle}>No Data</span>
+
           )}
         </div>
       </div>

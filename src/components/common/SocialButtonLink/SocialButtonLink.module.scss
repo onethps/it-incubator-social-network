@@ -1,6 +1,7 @@
 @import 'src/styles/variables';
 
-.contactButton {
+
+.currentButton {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -13,28 +14,30 @@
   //socialIcon
   & svg {
     margin-right: 12px;
-
   }
 
   //labelAndLink
   .contactButtonText {
     display: flex;
     flex-direction: column;
+    max-width: 200px;
+    overflow: hidden;
+    align-items: flex-start;
+    text-overflow: ellipsis;
 
 
     //label
     & h3 {
-      margin: 0;
-      display: inline;
-      text-align: left;
-
+      width: 100%;
     }
 
     //link
-    & span {
+     .linkStyle {
       color: $greyButtonBackground;
-
+      padding: 0;
     }
+
+
   }
 
 
@@ -44,6 +47,7 @@
     color: $greyButtonBackground;
 
   }
+
 
 
 }

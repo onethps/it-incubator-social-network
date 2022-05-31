@@ -1,14 +1,18 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { BiSearch } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 import style from './SearchUsers.module.scss';
 
 import { USERS } from 'api/users';
+import noUserIcon from 'assets/no-user.svg';
+import { IUser } from 'store/reducers/types';
 
 const SearchUsers = () => {
   const [searchText, setSearchText] = useState('');
-  const [searchDataUsers, setSearchDataUSers] = useState([]);
+  const [searchDataUsers, setSearchDataUSers] = useState<IUser[]>([]);
+  const navigate = useNavigate();
 
   const onInputSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value);
@@ -49,8 +53,11 @@ const SearchUsers = () => {
         {searchDataUsers.length > 0 && (
           <div className={style.searchUserData}>
             <ul>
-              {searchDataUsers.slice(0, 5).map(({ name, id }) => (
-                <li key={id}>{name}</li>
+              {searchDataUsers.slice(0, 5).map(({ name, id, photos }) => (
+                <li key={id} onClick={() => navigate(`/profile/${id}`)}>
+                  <img src={photos.small || noUserIcon} />
+                  <span>{name}</span>
+                </li>
               ))}
             </ul>
           </div>

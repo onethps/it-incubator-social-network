@@ -12,24 +12,35 @@
   flex: 1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  .followUserPhoto {
-    width: 100px;
-    border-radius: 100%;
+  .followUserInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .followUserPhoto {
+      width: 100px;
+      border-radius: 100%;
+    }
+
+    .followUserName {
+      padding: 20px 0 3px 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 120px;
+      text-align: center;
+    }
+
+    .followUserId {
+      color: $textDescriptionColor;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+
   }
 
-  .followUserName {
-    padding: 20px 0 3px 0;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 120px;
-    text-align: center;
-  }
 
-  .followUserId {
-    color: $textDescriptionColor;
-    font-weight: 400;
-    margin-bottom: 20px;
-  }
 
   .followUserButton, .disabledFollowUserButton {
     border: none;

@@ -17,10 +17,9 @@ const Home = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const posts = useSelector<AppRootStateType, HomePostType[]>(state => state.home.posts);
-  const profilePhoto = useSelector<AppRootStateType, string>(
-    state => state.profile.photos.small,
+  const profilePhoto = useSelector<AppRootStateType, any>(
+    state => state.profile.profileOwner.photos,
   );
-  const isValidPhotoChecker = profilePhoto || noUserIcon;
 
   // linearLoaderForAddsPosts
   const loading = useSelector<AppRootStateType, string>(state => state.home.loading);
@@ -43,11 +42,14 @@ const Home = () => {
 
       <SearchUsers />
       <SuggestUsers />
-      <CreateNewPost isValidPhotoChecker={isValidPhotoChecker} posts={posts} />
+      <CreateNewPost
+        isValidPhotoChecker={profilePhoto ? profilePhoto.small : noUserIcon}
+        posts={posts}
+      />
 
       <div className={style.PostList}>
         {posts.map(({ id, post }) => (
-          <Post key={id} id={id} post={post} photo={isValidPhotoChecker} />
+          <Post key={id} id={id} post={post} photo={profilePhoto ? profilePhoto.small : noUserIcon} />
         ))}
       </div>
 

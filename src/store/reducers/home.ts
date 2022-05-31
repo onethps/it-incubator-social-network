@@ -1,7 +1,7 @@
 import { POSTS } from 'api/posts';
 import { USERS } from 'api/users';
-import { POST_QUERYS } from 'enums';
 import { RequestStatusType } from 'store/reducers/auth';
+import { fetchOwnerProfileDataTC } from 'store/reducers/profile';
 import { IUser } from 'store/reducers/types';
 import { AppRootStateType, AppThunk } from 'store/store';
 import { HomePostType } from 'types/homeTypes';
@@ -133,14 +133,17 @@ export const editPostTC =
     }
   };
 
-export const getSuggestedUsersTC = (): AppThunk => async dispatch => {
-  try {
-    const response = await USERS.getSuggestedUsers();
-    dispatch(setSuggestedUsersAC(response.data.items));
-  } catch (e: any) {
-    throw new Error(e);
-  }
-};
+export const getSuggestedUsersTC =
+  (): AppThunk => async (dispatch, getState: () => AppRootStateType) => {
+    const { id } = getState().auth;
+    try {
+      const response = await USERS.getSuggestedUsers();
+      dispatch(setSuggestedUsersAC(response.data.items));
+      if (id) dispatch(fetchOwnerProfileDataTC(id));
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  };
 
 // actionTypes
 export type HomeActionsTypes =
