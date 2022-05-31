@@ -47,7 +47,7 @@ const EditSocialLinks: FC<EditSocialLinksType> = ({ register }) => (
     <input
       {...register('contacts.mainLink')}
       className={s.editSocialLinksFB}
-      placeholder="ExternalLink"
+      placeholder="CV Link"
     />
   </div>
 );

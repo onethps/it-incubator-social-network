@@ -8,7 +8,7 @@ import s from './Profile.module.scss';
 
 import noUserIcon from 'assets/no-user.svg';
 import SocialButtonLink from 'components/common/SocialButtonLink/SocialButtonLink';
-import { setNewStatusTC, fetchStatusTC, setProfileDataTC } from 'store/reducers/profile';
+import { fetchStatusTC, setNewStatusTC, setProfileDataTC } from 'store/reducers/profile';
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { profileType } from 'types';
 
@@ -23,17 +23,15 @@ const Profile = () => {
     state => state.profile.status,
   );
 
-  const { photos, aboutMe, fullName, lookingForAJob } = useSelector<
-    AppRootStateType,
-    profileType
-  >(state => state.profile);
+  const { photos, aboutMe, fullName, lookingForAJob, lookingForAJobDescription } =
+    useSelector<AppRootStateType, profileType>(state => state.profile);
 
   useEffect(() => {
     dispatch(setProfileDataTC(profileId!));
     dispatch(fetchStatusTC(+id!));
   }, []);
 
-  const [editMode, setEditMode] = useState(false);
+  const [isEditStatusMode, setEditStatusMode] = useState(false);
   const [inputStatus, setInputStatus] = useState<string>(status!);
 
   const onChangeStatusInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,8 +40,11 @@ const Profile = () => {
 
   const changeStatus = () => {
     dispatch(setNewStatusTC(inputStatus));
-    setEditMode(false);
+    setEditStatusMode(false);
   };
+
+  const filterCVLink = Object.keys(contacts).filter(link => link !== 'mainLink');
+  const getValidLinks = filterCVLink.filter(link => contacts[link]);
 
   return (
     <div className={s.root}>
@@ -53,7 +54,7 @@ const Profile = () => {
           <h3>{fullName}</h3>
           <span>id 2651</span>
           <div className={s.statusBlock}>
-            {editMode ? (
+            {isEditStatusMode ? (
               <input
                 value={inputStatus}
                 onChange={onChangeStatusInput}
@@ -61,7 +62,7 @@ const Profile = () => {
                 onBlur={changeStatus}
               />
             ) : (
-              <span onDoubleClick={() => setEditMode(true)}>{inputStatus}</span>
+              <span onDoubleClick={() => setEditStatusMode(true)}>{inputStatus}</span>
             )}
           </div>
         </div>
@@ -74,37 +75,43 @@ const Profile = () => {
             <span className={s.inActiveJobStatus}>Not Available</span>
           )}
         </div>
-
         <div className={s.downloadCVButtonBlock}>
-          <button>
-            <RiSuitcaseFill size="30px" />
-            <span>Download CV</span>
-          </button>
+          {contacts.mainLink ? (
+            <button className={s.activeCVButton}>
+              <RiSuitcaseFill size="30px" />
+              <a href={`https://${contacts.mainLink}`} target="_blank" rel="noreferrer">
+                Download CV
+              </a>
+            </button>
+          ) : (
+            <div>
+              <button className={s.inActiveCVButton}>
+                <RiSuitcaseFill size="30px" />
+                <span>Download CV</span>
+              </button>
+              <h4>No link provided</h4>
+            </div>
+          )}
         </div>
       </div>
 
       <div className={s.aboutMeBlock}>
-        <h3 className={s.profileAboutMeTitle}>About Me</h3>
+        <h3>About Me</h3>
         <p>{aboutMe || 'No User Info...'}</p>
 
+        <h3>More Info</h3>
+        <p>{lookingForAJobDescription}</p>
         <div className={s.contactButtonBlock}>
           <h3>Contacts</h3>
-
-          {/* check if values available in object */}
-          {Object.values(contacts).filter(f => f).length ? (
-            // if available return jsx with  contact buttons
-            Object.keys(contacts)
-              .filter(f => contacts[f])
-              .map((contact, i) => (
-                <SocialButtonLink key={i} contact={contacts[contact]} />
-              ))
+          {getValidLinks.length ? (
+            getValidLinks.map((link, i) => (
+              <SocialButtonLink key={i} link={contacts[link]} />
+            ))
           ) : (
-            <h4>No Links Provided</h4>
+            <div>No Data</div>
           )}
-
         </div>
       </div>
-
     </div>
   );
 };

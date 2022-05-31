@@ -2,13 +2,12 @@ import React from 'react';
 
 import { AiFillHome, AiFillSetting } from 'react-icons/ai';
 import { FaUserAlt, FaUserFriends } from 'react-icons/fa';
-import { RiLoginBoxFill } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import style from './NavLinks.module.scss';
 
-import { HOME_ROUTE, LOGIN_ROUTE, MY_FOLLOWS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, } from 'constants/base';
+import { HOME_ROUTE, MY_FOLLOWS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, } from 'constants/base';
 import { AppRootStateType } from 'store/store';
 
 const NavLinks = () => {
@@ -30,11 +29,6 @@ const NavLinks = () => {
         >
           <FaUserAlt size="30px" />
           <span>MY PROFILE</span>
-        </NavLink>
-
-        <NavLink to={LOGIN_ROUTE} className={isActive => NavStyle(isActive)}>
-          <RiLoginBoxFill size="30px" />
-          <span>LOGOUT</span>
         </NavLink>
 
         <NavLink to={MY_FOLLOWS_ROUTE} className={isActive => NavStyle(isActive)}>
