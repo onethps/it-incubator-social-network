@@ -22,6 +22,7 @@ const Login = () => {
 
           <div className={s.inputBox}>
             <input
+              type="text"
               placeholder="Email"
               className={errors.Email ? s.active : ''}
               {...register('Email', { required: 'Email' })}
@@ -31,6 +32,7 @@ const Login = () => {
 
           <div className={s.inputBox}>
             <input
+              type="password"
               placeholder="Password"
               className={errors.Password ? s.active : ''}
               {...register('Password', { required: 'Password' })}
