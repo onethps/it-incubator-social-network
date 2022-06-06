@@ -6,9 +6,15 @@ export const AUTH = {
     return instance.get('auth/me');
   },
   login(loginData: userLoginType) {
-    return instance.post('/auth/login', loginData);
+    return instance.post<ResponseData<{ userId: number }>>('/auth/login', loginData);
   },
   logout() {
     return instance.delete('/auth/login');
   },
+};
+
+type ResponseData<D = {}> = {
+  resultCode: number;
+  messages: Array<string>;
+  data: D;
 };

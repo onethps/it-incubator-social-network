@@ -1,18 +1,15 @@
 import { RiLogoutCircleRFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import noUserIcon from 'assets/no-user.svg';
 import MobileNavigation from 'components/Navbar/MobileNavigation';
 import style from 'components/Navbar/Navbar.module.scss';
 import Navigation from 'components/Navbar/Navigation';
-import { LOGIN_ROUTE } from 'constants/base';
 import { logOutTC } from 'store/reducers/login';
 import { AppDispatch, AppRootStateType } from 'store/store';
 
 export const Navbar = () => {
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
   const login = useSelector<AppRootStateType, string>(state => state.auth.login);
 
   const profileOwnerPhoto = useSelector<AppRootStateType, any>(
@@ -21,7 +18,6 @@ export const Navbar = () => {
 
   const onLogOutHandler = () => {
     dispatch(logOutTC());
-    navigate(LOGIN_ROUTE);
   };
 
   return (

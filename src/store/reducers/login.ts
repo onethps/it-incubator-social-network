@@ -4,6 +4,8 @@ import { Dispatch } from 'redux';
 
 import { AUTH } from 'api/auth';
 import { userLoginType } from 'api/auth/types';
+import { setProfileDataTC } from 'store/reducers/profile';
+import { AppThunk } from 'store/store';
 
 export enum LOGIN_REDUCER_CONST {
   IS_LOGGED_IN = 'login/IS-LOGGED-IN',
@@ -45,16 +47,20 @@ const setIsLoadingAC = (loading: string) => ({
 export type loginTypes = ReturnType<typeof setLogginAC> | any;
 
 // thunk
-export const loginTC = (loginData: userLoginType) => async (dispatch: Dispatch) => {
-  try {
-
-    const res = AUTH.login(loginData);
-    dispatch(setLogginAC(true));
-    dispatch(setIsLoadingAC('success'));
-  } catch (e: any) {
-    throw new Error(e);
-  }
-};
+export const loginTC =
+  (loginData: userLoginType): AppThunk =>
+  async (dispatch: Dispatch) => {
+    dispatch(setIsLoadingAC('loading'));
+    try {
+      const res = await AUTH.login(loginData);
+      const { userId } = res.data.data;
+      dispatch(setLogginAC(true));
+      dispatch(setProfileDataTC(userId) as any);
+      dispatch(setIsLoadingAC('success'));
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  };
 
 export const logOutTC = () => async (dispatch: Dispatch) => {
   try {

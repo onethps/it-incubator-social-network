@@ -32,11 +32,12 @@
 
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
+
 React Project on Typescript
 
 ### Used Libraries
-
 
 * [React Hook Form](https://react-hook-form.com/)
 * [Redux.js](https://redux.js.org/)
@@ -46,8 +47,6 @@ React Project on Typescript
 * [AXIOS](https://yarnpkg.com/package/axios)
 * [JEST](https://yarnpkg.com/package/jest)
 * [React-Icons](https://react-icons.github.io/react-icons/)
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
