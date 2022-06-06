@@ -1,0 +1,4 @@
+export enum POST_QUERYS {
+  CURRENT_POSTS_PAGE = 1,
+  LIMIT_POSTS_PER_PAGE = 2,
+}
