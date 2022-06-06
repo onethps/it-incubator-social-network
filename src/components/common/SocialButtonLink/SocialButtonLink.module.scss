@@ -1,0 +1,53 @@
+@import 'src/styles/variables';
+
+
+.currentButton {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  background-color: $profileContactBackgroundButton;
+  align-items: center;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin: 15px 0;
+
+  //socialIcon
+  & svg {
+    margin-right: 12px;
+  }
+
+  //labelAndLink
+  .contactButtonText {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    overflow: hidden;
+    align-items: flex-start;
+    text-overflow: ellipsis;
+
+
+    //label
+    & h3 {
+      width: 100%;
+    }
+
+    //link
+     .linkStyle {
+      color: $greyButtonBackground;
+      padding: 0;
+    }
+
+
+  }
+
+
+  //arrowRight
+  & svg {
+    margin-left: 15px;
+    color: $greyButtonBackground;
+
+  }
+
+
+
+}
