@@ -4,7 +4,8 @@ import { Dispatch } from 'redux';
 
 import { AUTH } from 'api/auth';
 import { userLoginType } from 'api/auth/types';
-import { setProfileDataTC } from 'store/reducers/profile';
+import { ResponseCode } from 'enums';
+import { authTC } from 'store/reducers/auth';
 import { AppThunk } from 'store/store';
 
 export enum LOGIN_REDUCER_CONST {
@@ -14,6 +15,7 @@ export enum LOGIN_REDUCER_CONST {
 
 const initialState = {
   isLoggedIn: false,
+  loading: 'idle',
 };
 
 type intiStateType = typeof initialState;
@@ -53,12 +55,15 @@ export const loginTC =
     dispatch(setIsLoadingAC('loading'));
     try {
       const res = await AUTH.login(loginData);
-      const { userId } = res.data.data;
-      dispatch(setLogginAC(true));
-      dispatch(setProfileDataTC(userId) as any);
-      dispatch(setIsLoadingAC('success'));
+      if (res.data.resultCode === ResponseCode.Successes) {
+        const { userId } = res.data.data;
+        dispatch(setLogginAC(true));
+        dispatch(authTC() as any);
+      }
     } catch (e: any) {
       throw new Error(e);
+    } finally {
+      dispatch(setIsLoadingAC('success'));
     }
   };
 

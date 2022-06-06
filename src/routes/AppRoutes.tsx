@@ -29,7 +29,6 @@ export const AppRouters = () => {
       </div>
     );
   }
-
   return (
     <>
       {isLoggedStatus ? (

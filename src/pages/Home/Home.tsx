@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import noUserIcon from 'assets/no-user.svg';
 import LinearLoader from 'components/common/LinearLoader/LinearLoader';
+import Spinner from 'components/common/Spinner/Spinner';
 import CreateNewPost from 'components/CreateNewPost/CreateNewPost';
 import Post from 'components/Post/Post';
 import SearchUsers from 'components/SearchBar/SearchUsers';
@@ -27,6 +28,9 @@ const Home = () => {
 
   // linearLoaderForAddsPosts
   const loading = useSelector<AppRootStateType, string>(state => state.home.loading);
+  const loadingLogin = useSelector<AppRootStateType, string>(
+    state => state.login.loading,
+  );
   const limitPosts = useSelector<AppRootStateType, number>(
     state => state.home.postsPerPage,
   );
@@ -39,6 +43,10 @@ const Home = () => {
   const onLoadMorePostsHandle = () => {
     dispatch(setLimitPostsAC(limitPosts + POST_CONSTS.LIMIT_ON_LOAD_MORE_POSTS));
   };
+
+  if (loadingLogin === 'loading') {
+    return <Spinner />;
+  }
 
   return (
     <main>
