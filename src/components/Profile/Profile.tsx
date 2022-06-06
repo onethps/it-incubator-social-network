@@ -94,7 +94,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className={s.jobStatusBlock}>
+        <div className={s.leftBottomBlock}>
           <h3>Job Status</h3>
           {lookingForAJob ? (
             <span className={s.activeJobStatus}>Available</span>
@@ -122,7 +122,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className={s.aboutMeBlock}>
+      <div className={s.rightBlock}>
         <h3>About Me</h3>
         <p>{aboutMe || 'No User Info...'}</p>
 

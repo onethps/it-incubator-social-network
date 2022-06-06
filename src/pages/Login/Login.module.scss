@@ -24,22 +24,46 @@
         text-align: center;
       }
 
-      & input {
-        padding: 30px;
-        border-radius: 10px;
-        border: none;
-        height: 50px;
-        margin: 10px 0;
-        background-color: $backgroundInput;
+
+      .inputBox {
+        display: flex;
+        flex-direction: column;
+        height: 100px;
+
+        & input, .active {
+          padding: 30px;
+          border-radius: 10px;
+          border: none;
+          height: 50px;
+          background-color: $backgroundInput;
+          outline: none;
+
+        }
+
+        .active {
+          background-color: rgba(255, 99, 71, 0.2);
+        }
+
+        & span {
+          padding: 5px 0;
+          color: red;
+          text-align: center;
+
+        }
+
       }
 
-      & button {
+
+      .submitButton {
         margin-top: 30px;
         border: none;
         background-color: $blueButtonColor;
         color: white;
-        height: 50px;
+        padding: 10px;
         border-radius: 10px;
+        font-size: 20px;
+        cursor: pointer;
+
       }
 
     }

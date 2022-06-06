@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
 import Spinner from 'components/common/Spinner/Spinner';
 import Login from 'pages/Login/Login';
@@ -14,7 +15,9 @@ export const App: FC = (): ReturnComponentType => {
     state => state.auth.loading,
   );
 
-  const authStatus = useSelector<AppRootStateType, boolean>(state => state.auth.isAuth);
+  const isLoggedStatus = useSelector<AppRootStateType, boolean>(
+    state => state.login.isLoggedIn,
+  );
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -39,12 +42,12 @@ export const App: FC = (): ReturnComponentType => {
 
   return (
     <div>
-      {authStatus ? (
-        <>
-          <AppRouters />
-        </>
+      {isLoggedStatus ? (
+        <AppRouters />
       ) : (
-        <Login />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
       )}
     </div>
   );

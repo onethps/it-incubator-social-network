@@ -20,11 +20,6 @@ const EditSocialLinks: FC<EditSocialLinksType> = ({ register }) => (
       placeholder="Instagram"
     />
     <input
-      {...register('contacts.website')}
-      className={s.editSocialLinksFB}
-      placeholder="WebSite"
-    />
-    <input
       {...register('contacts.twitter')}
       className={s.editSocialLinksFB}
       placeholder="Twitter"

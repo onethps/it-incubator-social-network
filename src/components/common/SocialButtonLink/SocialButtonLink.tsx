@@ -49,7 +49,7 @@ const SocialButtonLink = ({ link }: { link: string }) => {
   return (
     <>
       {checkLinkInIconData.map((iconItem, i) => (
-        <div key={i} className={s.currentButton}>
+        <div key={iconItem.name[i]} className={s.currentButton}>
           {iconItem.icon}
           <div className={s.contactButtonText}>
             <h3>{iconItem.name}</h3>

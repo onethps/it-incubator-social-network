@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 import { AUTH } from 'api/auth';
 import { ResponseCode } from 'enums';
+import { setLogginAC } from 'store/reducers/login';
 import { fetchOwnerProfileDataTC, fetchStatusTC, setProfileDataTC, } from 'store/reducers/profile';
 import { AppThunk } from 'store/store';
 
@@ -76,8 +77,7 @@ export const authTC = (): AppThunk => async (dispatch: Dispatch<AuthActionsTypes
       dispatch(fetchOwnerProfileDataTC(id));
       dispatch(setProfileDataTC(id));
       dispatch(fetchStatusTC(id));
-    }
-    if (res.data.resultCode !== ResponseCode.Successes) {
+      dispatch(setLogginAC(true));
     }
   } catch (e: any) {
     throw new Error(e);

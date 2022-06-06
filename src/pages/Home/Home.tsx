@@ -13,6 +13,10 @@ import { getPosts, getSuggestedUsersTC, setLimitPostsAC } from 'store/reducers/h
 import { AppDispatch, AppRootStateType } from 'store/store';
 import { HomePostType } from 'types/homeTypes';
 
+enum POST_CONSTS {
+  LIMIT_ON_LOAD_MORE_POSTS = 2,
+}
+
 const Home = () => {
   const dispatch: AppDispatch = useDispatch();
 
@@ -33,7 +37,7 @@ const Home = () => {
   }, [limitPosts]);
 
   const onLoadMorePostsHandle = () => {
-    dispatch(setLimitPostsAC(limitPosts + 2));
+    dispatch(setLimitPostsAC(limitPosts + POST_CONSTS.LIMIT_ON_LOAD_MORE_POSTS));
   };
 
   return (
@@ -49,7 +53,12 @@ const Home = () => {
 
       <div className={style.PostList}>
         {posts.map(({ id, post }) => (
-          <Post key={id} id={id} post={post} photo={profilePhoto ? profilePhoto.small : noUserIcon} />
+          <Post
+            key={id}
+            id={id}
+            post={post}
+            photo={profilePhoto ? profilePhoto.small : noUserIcon}
+          />
         ))}
       </div>
 

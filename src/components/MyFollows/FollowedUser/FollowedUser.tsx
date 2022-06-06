@@ -19,16 +19,14 @@ const FollowedUser = ({ id, photos, name, onUnfolowUserHandle }: FollowedUserTyp
 
   const [tempUserId, setTempUserId] = useState<number[]>([]);
 
-  const onFollowUserHandler = () => {
+  const onFollowUserHandler = (): void => {
     onUnfolowUserHandle(id);
     setTempUserId([...tempUserId, id]);
   };
 
-  const onShowUserProfileHandle = () => navigate(`/profile/${id}`);
+  const onShowUserProfileHandle = (): void => navigate(`/profile/${id}`);
 
   const isUserIdInArray = tempUserId.includes(id);
-
-
 
   return (
     <>
