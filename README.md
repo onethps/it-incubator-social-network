@@ -46,14 +46,12 @@ React Project on Typescript
 * [AXIOS](https://yarnpkg.com/package/axios)
 * [JEST](https://yarnpkg.com/package/jest)
 * [React-Icons](https://react-icons.github.io/react-icons/)
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-* yarn
   ```sh
   yarn install
   ```
