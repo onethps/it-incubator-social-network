@@ -1,7 +1,7 @@
 {
   "name": "lesson-template",
   "homepage": "https://onethps.github.io/it-incubator-social-network/",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
