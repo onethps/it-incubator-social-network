@@ -1,5 +1,5 @@
 export type profileType = {
-  aboutMe?:string,
+  aboutMe?: string;
   userId?: number | null;
   lookingForAJob?: boolean;
   lookingForAJobDescription?: string;

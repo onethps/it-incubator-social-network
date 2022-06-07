@@ -136,7 +136,6 @@ const Profile = () => {
             ))
           ) : (
             <span className={s.NoDataTextStyle}>No Data</span>
-
           )}
         </div>
       </div>

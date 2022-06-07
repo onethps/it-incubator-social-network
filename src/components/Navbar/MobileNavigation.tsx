@@ -24,7 +24,7 @@ const MobileNavigation = () => {
       )}
 
       <div className={s.MobileHeader}>
-        <RiMenuFill size={'50px'} onClick={onOpenSideHandler} />
+        <RiMenuFill size="50px" onClick={onOpenSideHandler} />
       </div>
     </div>
   );

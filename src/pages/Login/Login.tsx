@@ -30,7 +30,7 @@ const Login = () => {
           <div className={style.inputBox}>
             <input
               type="text"
-              defaultValue={'onethps@gmail.com'}
+              defaultValue="onethps@gmail.com"
               placeholder="Email"
               className={errors.email ? style.active : ''}
               {...register('email', { required: 'email' })}
@@ -40,7 +40,7 @@ const Login = () => {
 
           <div className={style.inputBox}>
             <input
-              defaultValue={'n59GsqYXu9!_U65'}
+              defaultValue="n59GsqYXu9!_U65"
               type="password"
               placeholder="Password"
               className={errors.password ? style.active : ''}
