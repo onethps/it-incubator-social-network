@@ -1,0 +1,24 @@
+.news {
+  position: fixed;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 300px;
+
+
+  .newsTitle {
+    margin-bottom: 20px;
+  }
+
+  .newsBlock {
+  }
+
+
+
+}
+
+@media screen and (max-width: 1200px) {
+  .news {
+    display: none;
+  }
+}

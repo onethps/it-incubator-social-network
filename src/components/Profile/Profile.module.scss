@@ -1,0 +1,176 @@
+@import 'src/styles/variables';
+
+
+.spinnerBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & img {
+    width: 100px;
+  }
+
+}
+
+.root {
+  display: flex;
+  grid-area: main;
+  align-items: flex-start;
+  gap: 20px;
+
+  ///leftTopBlock
+  .leftBlock {
+
+
+
+    .profilePhotoAndStatusBlock, .leftBottomBlock {
+      background-color: white;
+      min-width: 250px;
+      padding: 30px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & h3 {
+        text-align: center;
+      }
+
+
+      .profilePhoto {
+        width: 100px;
+        border-radius: 100%;
+        margin-bottom: 10px;
+      }
+
+      & span {
+        color: $textDescriptionColor;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+
+
+      .statusBlock {
+        //background-color: $profileContactBackgroundButton;
+        padding: 15px 30px;
+        border-radius: 10px;
+        text-align: center;
+
+
+        & span {
+          font-weight: 600;
+
+        }
+
+
+      }
+
+
+    }
+
+
+    .leftBottomBlock {
+      margin-top: 20px;
+
+      .activeJobStatus, .inActiveJobStatus {
+        margin-top: 20px;
+        color: $greyButtonBackground;
+        background-color: #F1F8E9;
+        padding: 15px 40px;
+        border-radius: 10px;
+      }
+
+      .inActiveJobStatus {
+        background-color: #faecd9;
+      }
+
+    }
+
+    .downloadCVButtonBlock {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+
+      .activeCVButton, .inActiveCVButton {
+        border: none;
+        border-radius: 10px;
+        padding: 15px 20px;
+        background-color: $blueButtonColor;
+        color: white;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+
+        //buttonIcon
+        & svg {
+          margin-right: 12px;
+        }
+
+        & a {
+          text-decoration: none;
+          color: white;
+        }
+      }
+
+      .inActiveCVButton {
+        background-color: $backgroundDisabledButton;
+        color: $colorDisabledButton;
+      }
+
+      & h4 {
+        padding: 10px;
+        text-align: center;
+        color: $colorDisabledButton;
+        font-weight: 400;
+      }
+
+    }
+
+  }
+
+  //rightFullBlock
+  .rightBlock {
+    border-radius: 15px;
+    background-color: white;
+    padding: 65px 33px;
+    min-width: 350px;
+
+
+    //aboutText
+    & p {
+      font-size: 16px;
+      color: $greyButtonBackground;
+      padding: 30px 0;
+    }
+
+
+    //rightButtonContactsBlock
+
+    .contactButtonBlock {
+      margin-top: 100px;
+
+      & h3 {
+        text-align: center;
+      }
+
+      & h4 {
+        text-align: center;
+        font-weight: 500;
+        color: $colorDisabledButton;
+      }
+
+
+      .NoDataTextStyle {
+        padding: 15px 0;
+        display: block;
+        text-align: center;
+        color: $colorDisabledButton;
+      }
+
+
+    }
+  }
+}
+
+
