@@ -1,5 +1,6 @@
 import React from 'react';
-import s from './Navbar.module.scss'
+
+import s from './Navbar.module.scss';
 
 import NavLinks from 'components/Navbar/NavLinks';
 

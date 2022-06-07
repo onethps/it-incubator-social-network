@@ -15,6 +15,3 @@ export type IUser = {
   photos: photosType;
   followed: boolean;
 };
-
-
-
