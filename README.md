@@ -28,17 +28,31 @@
     <img src="src/assets/no-user.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Social Nework</h3>
+<h3 align="center">Social Network</h3>
 
+ <p align="center">
+    project_description
+    <br />
+    <br />
+    <br />
+    <a href="https://onethps.github.io/it-incubator-social-network/">View Demo</a>
+    ·
+    <a href="https://onethps.github.io/it-incubator-social-network/issues">Report Bug</a>
+    ·
+    <a href="https://onethps.github.io/it-incubator-social-network/issues">Request Feature</a>
+  </p>
+</div>
 
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
 React Project on Typescript
 
-### Used Libraries
+### Built With
 
 * [React Hook Form](https://react-hook-form.com/)
 * [Redux.js](https://redux.js.org/)
@@ -50,8 +64,11 @@ React Project on Typescript
 * [React-Icons](https://react-icons.github.io/react-icons/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
   ```sh
   yarn install
   ```
+
+[product-screenshot]: src/assets/screenshot.png
